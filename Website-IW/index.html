@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Página</title>
+        <meta charset="utf-8">
+        <!-- Bootstrap. -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+        <script src="js/scripts.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/styles.css">
+        <!-- Icono de carga. -->
+        <div id="loader">
+          <div class="d-flex justify-content-center">
+            <div class="spinner-grow text-primary" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        </div>
+
+    </head>
+    <body class="container-sm body-w bg-light">
+        <div class="container-sm bg-light border-start border-end border-1 p-3 pb-5 min-h">
+            <!-- TÍTULO. -->
+            <h1 class="text-center mb-2"><span class="badge bg-primary">NOMBRE</span></h1>
+            <h2 class="text-center mb-4"><span class="badge bg-hl border border-1">DESCRIPCIÓN DEL PROYECTO DE IW</span></h2>
+            <!-- GRUPO Y MIEMBROS. -->
+            <div class="container fw-bold mb-1">
+                <div class="row border border-1 rounded overflow-hidden">
+                    <div class="col-2 bg-hl border-end border-1 d-flex align-items-center p-2">
+                        <p class="fw-bold m-0">Grupo:</p>
+                    </div>
+                    <div class="col-2 border-end border-1 d-flex align-items-center p-2">
+                        <p class="m-0"><span class="badge rounded-pill bg-primary">Nº4</span></p>
+                    </div>
+                    <div class="col-3 bg-hl border-end border-1 d-flex align-items-center p-2">
+                        <p class="m-0">Miembros: </p>
+                    </div>
+                    <div class="col-5 d-flex align-items-center p-2">
+                        <p class="m-0"><span class="badge rounded-pill bg-primary">María Barcenilla Hinchado</span>
+                        <span class="badge rounded-pill bg-primary">Juan Israel Baroffi González</span>
+                        <span class="badge rounded-pill bg-primary">Jorge calvo Fernández</span>
+                        <span class="badge rounded-pill bg-primary">Silvia Caresana</span>
+                        <span class="badge rounded-pill bg-primary">Mehdi Jelassia</span>
+                        <span class="badge rounded-pill bg-primary">Diego Quiroga Jaldín</span></p>
+                    </div>
+                </div>
+            </div>
+            <!-- CONTENIDO PRINCIPAL. -->
+            <div class="accordion" id="accordionPanelsStayOpenExample">
+                <!-- SECCIÓN DE DESCRIPCIÓN. -->
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                    <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                      DESCRIPCIÓN GENERAL DEL PROYECTO.
+                    </button>
+                  </h2>
+                  <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+                    <div class="accordion-body">
+                      <!-- IDEA GENERAL. -->
+                      <h4>Resumen corto.</h4>
+                      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga nostrum est sint optio cupiditate esse, repudiandae fugit recusandae ipsam illum, 
+                        repellat nobis eius quod voluptate amet adipisci saepe alias repellendus?</p>
+                      <h4>Funcionamiento general.</h4>
+                      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga nostrum est sint optio cupiditate esse, repudiandae fugit recusandae ipsam illum, 
+                        repellat nobis eius quod voluptate amet adipisci saepe alias repellendus?</p>
+                      <!-- LISTA DE USUARIOS Y TAREAS. -->
+                      <h4>Usuarios y tareas.</h4>
+                      <ul>
+                        <li>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fuga minima suscipit soluta ex, deserunt consequuntur assumenda, veritatis dolor quis nobis pariatur,
+                          a omnis sunt ipsam facere aliquid corrupti tempore! Pariatur.</li>
+                        <li>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fuga minima suscipit soluta ex, deserunt consequuntur assumenda, veritatis dolor quis nobis pariatur,
+                          a omnis sunt ipsam facere aliquid corrupti tempore! Pariatur.</li>
+                        <li>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fuga minima suscipit soluta ex, deserunt consequuntur assumenda, veritatis dolor quis nobis pariatur,
+                          a omnis sunt ipsam facere aliquid corrupti tempore! Pariatur.</li>
+                        <li>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fuga minima suscipit soluta ex, deserunt consequuntur assumenda, veritatis dolor quis nobis pariatur,
+                          a omnis sunt ipsam facere aliquid corrupti tempore! Pariatur.</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <!-- SECCIÓN DE VENTANAS. -->
+                <div class="accordion-item">
+                  <!-- Cabecera. -->
+                  <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                    <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                      VENTANAS.
+                    </button>
+                  </h2>
+                  <!-- Contenido. -->
+                  <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingTwo">
+                    <div class="accordion-body">
+                      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga nostrum est sint optio cupiditate esse, repudiandae fugit recusandae ipsam illum, 
+                        repellat nobis eius quod voluptate amet adipisci saepe alias repellendus?</p>
+                      <!-- Imagen de ventana 1. -->
+                      <div class="d-flex flex-column align-items-center">
+                        <img src="https://picsum.photos/500/300" class="img-thumbnail" alt="Imagen">
+                        <p class="m-2 fw-bold text-muted">Ventana 1.</p>
+                      </div>
+                      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga nostrum est sint optio cupiditate esse, repudiandae fugit recusandae ipsam illum, 
+                        repellat nobis eius quod voluptate amet adipisci saepe alias repellendus?</p>
+                      <!-- Imagen de ventana 2. -->
+                      <div class="d-flex flex-column align-items-center">
+                        <img src="https://picsum.photos/500/300" class="img-thumbnail" alt="Imagen">
+                        <p class="m-2 fw-bold text-muted">Ventana 2.</p>
+                      </div>
+                      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga nostrum est sint optio cupiditate esse, repudiandae fugit recusandae ipsam illum, 
+                        repellat nobis eius quod voluptate amet adipisci saepe alias repellendus?</p>
+                      <!-- Imagen de ventana 3. -->
+                      <div class="d-flex flex-column align-items-center">
+                        <img src="https://picsum.photos/500/300" class="img-thumbnail" alt="Imagen">
+                        <p class="m-2 fw-bold text-muted">Ventana 3.</p>
+                      </div>
+                      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga nostrum est sint optio cupiditate esse, repudiandae fugit recusandae ipsam illum, 
+                        repellat nobis eius quod voluptate amet adipisci saepe alias repellendus?</p>
+                      <!-- Imagen de ventana 4. -->
+                      <div class="d-flex flex-column align-items-center">
+                        <img src="https://picsum.photos/500/300" class="img-thumbnail" alt="Imagen">
+                        <p class="m-2 fw-bold text-muted">Ventana 4.</p>
+                      </div>
+                      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga nostrum est sint optio cupiditate esse, repudiandae fugit recusandae ipsam illum, 
+                        repellat nobis eius quod voluptate amet adipisci saepe alias repellendus?</p>
+                      <!-- Imagen de ventana 5. -->
+                      <div class="d-flex flex-column align-items-center">
+                        <img src="https://picsum.photos/500/300" class="img-thumbnail" alt="Imagen">
+                        <p class="m-2 fw-bold text-muted">Ventana 5.</p>
+                      </div>
+                      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga nostrum est sint optio cupiditate esse, repudiandae fugit recusandae ipsam illum, 
+                        repellat nobis eius quod voluptate amet adipisci saepe alias repellendus?</p>
+                      <!-- Imagen de ventana 6. -->
+                      <div class="d-flex flex-column align-items-center">
+                        <img src="https://picsum.photos/500/300" class="img-thumbnail" alt="Imagen">
+                        <p class="m-2 fw-bold text-muted">Ventana 6.</p>
+                      </div>
+                      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga nostrum est sint optio cupiditate esse, repudiandae fugit recusandae ipsam illum, 
+                        repellat nobis eius quod voluptate amet adipisci saepe alias repellendus?</p>
+                    </div>
+                  </div>
+                </div>
+                <!-- SECCIÓN DE RESUMEN. -->
+                <div class="accordion-item">
+                  <!-- Cabecera. -->
+                  <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                    <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                      RESUMEN.
+                    </button>
+                  </h2>
+                  <!-- Contenido. -->
+                  <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingThree">
+                    <div class="accordion-body">
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga nostrum est sint optio cupiditate esse, repudiandae fugit recusandae ipsam illum, 
+                          repellat nobis eius quod voluptate amet adipisci saepe alias repellendus?</p>
+                        <!-- CARRUSEL DE IMÁGENES. -->
+                        <div id="carouselExampleDark" class="carousel carousel-dark slide border border-1 rounded overflow-hidden p-1" data-bs-ride="carousel">
+                          <div class="carousel-indicators">
+                            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="4" aria-label="Slide 5"></button>
+                            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="5" aria-label="Slide 6"></button>
+                          </div>
+                          <div class="carousel-inner">
+                            <!-- Ventana 1. -->
+                            <div class="carousel-item active" data-bs-interval="5000">
+                              <img src="https://picsum.photos/500/300" class="d-block w-100" alt="...">
+                              <div class="carousel-caption d-none d-md-block bg-txt-car border border-1 rounded">
+                                <h5>Ventana 1.</h5>
+                                <p>Some representative placeholder content for the first slide.</p>
+                              </div>
+                            </div>
+                            <!-- Ventana 2. -->
+                            <div class="carousel-item" data-bs-interval="5000">
+                              <img src="https://picsum.photos/500/300" class="d-block w-100" alt="...">
+                              <div class="carousel-caption d-none d-md-block bg-txt-car border border-1 rounded">
+                                <h5>Ventana 2.</h5>
+                                <p>Some representative placeholder content for the second slide.</p>
+                              </div>
+                            </div>
+                            <!-- Ventana 3. -->
+                            <div class="carousel-item" data-bs-interval="5000">
+                              <img src="https://picsum.photos/500/300" class="d-block w-100" alt="...">
+                              <div class="carousel-caption d-none d-md-block bg-txt-car border border-1 rounded">
+                                <h5>Ventana 3.</h5>
+                                <p>Some representative placeholder content for the third slide.</p>
+                              </div>
+                            </div>
+                            <!-- Ventana 4. -->
+                            <div class="carousel-item" data-bs-interval="5000">
+                              <img src="https://picsum.photos/500/300" class="d-block w-100" alt="...">
+                              <div class="carousel-caption d-none d-md-block bg-txt-car border border-1 rounded">
+                                <h5>Ventana 4.</h5>
+                                <p>Some representative placeholder content for the third slide.</p>
+                              </div>
+                            </div>
+                            <!-- Ventana 5. -->
+                            <div class="carousel-item" data-bs-interval="5000">
+                              <img src="https://picsum.photos/500/300" class="d-block w-100" alt="...">
+                              <div class="carousel-caption d-none d-md-block bg-txt-car border border-1 rounded">
+                                <h5>Ventana 5.</h5>
+                                <p>Some representative placeholder content for the third slide.</p>
+                              </div>
+                            </div>
+                            <!-- Ventana 6. -->
+                            <div class="carousel-item" data-bs-interval="5000">
+                              <img src="https://picsum.photos/500/300" class="d-block w-100" alt="...">
+                              <div class="carousel-caption d-none d-md-block bg-txt-car border border-1 rounded">
+                                <h5>Ventana 6.</h5>
+                                <p>Some representative placeholder content for the third slide.</p>
+                              </div>
+                            </div>
+                          </div>
+                          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                          </button>
+                          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                          </button>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </div>
+    </body>
+</html>
