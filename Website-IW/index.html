@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Página</title>
+        <title>DreamTrip</title>
         <meta charset="utf-8">
         <!-- Bootstrap. -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -22,7 +22,7 @@
     <body class="container-sm body-w bg-light">
         <div class="container-sm bg-light border-start border-end border-1 p-3 pb-5 min-h">
             <!-- TÍTULO. -->
-            <h1 class="text-center mb-2"><span class="badge bg-primary">NOMBRE</span></h1>
+            <h1 class="text-center mb-2"><span class="badge bg-primary">DREAMTRIP</span></h1>
             <h2 class="text-center mb-4"><span class="badge bg-hl border border-1">DESCRIPCIÓN DEL PROYECTO DE IW</span></h2>
             <!-- GRUPO Y MIEMBROS. -->
             <div class="container fw-bold mb-1">
@@ -59,22 +59,46 @@
                     <div class="accordion-body">
                       <!-- IDEA GENERAL. -->
                       <h4>Resumen corto.</h4>
-                      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga nostrum est sint optio cupiditate esse, repudiandae fugit recusandae ipsam illum, 
-                        repellat nobis eius quod voluptate amet adipisci saepe alias repellendus?</p>
+                      <p>
+                        Este proyecto está pensado para todo aquel que quiere viajar 
+                        a algún lugar, pero no quiere viajar solo y tampoco tiene a nadie que le acompañe.
+                      </p>
                       <h4>Funcionamiento general.</h4>
-                      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga nostrum est sint optio cupiditate esse, repudiandae fugit recusandae ipsam illum, 
-                        repellat nobis eius quod voluptate amet adipisci saepe alias repellendus?</p>
+                      <p>
+                        Los usuarios pueden proponer un viaje con los detalles del mismo: destino, lugar
+                        de partida, fecha, número de personas... Así, se podrán unir los usuarios interesados
+                        en la propuesta. Y para facilitar la comunicación se proporcionará un chat para
+                        acordar el encuentro o tal vez mover la fecha o el lugar de partida. Cuando se haya
+                        llenado el cupo del viaje, la publicación está desactivada, sin embargo, una vez termine
+                        el viaje, los usuarios podrán rellenar un formulario valorando su experiencia con sus
+                        compañeros de viaje e incluir una publicación con fotos del viaje. Esta información se 
+                        registrará en el historial de viajes de los usuarios, así, otros usuarios podrán ver la
+                        experiencia que tiene y la valoración que le han dado la gente que ha viajado con él.
+                      </p>
                       <!-- LISTA DE USUARIOS Y TAREAS. -->
                       <h4>Usuarios y tareas.</h4>
                       <ul>
-                        <li>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fuga minima suscipit soluta ex, deserunt consequuntur assumenda, veritatis dolor quis nobis pariatur,
-                          a omnis sunt ipsam facere aliquid corrupti tempore! Pariatur.</li>
-                        <li>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fuga minima suscipit soluta ex, deserunt consequuntur assumenda, veritatis dolor quis nobis pariatur,
-                          a omnis sunt ipsam facere aliquid corrupti tempore! Pariatur.</li>
-                        <li>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fuga minima suscipit soluta ex, deserunt consequuntur assumenda, veritatis dolor quis nobis pariatur,
-                          a omnis sunt ipsam facere aliquid corrupti tempore! Pariatur.</li>
-                        <li>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fuga minima suscipit soluta ex, deserunt consequuntur assumenda, veritatis dolor quis nobis pariatur,
-                          a omnis sunt ipsam facere aliquid corrupti tempore! Pariatur.</li>
+                        <li><strong>Invitado:</strong> usuario que no ha iniciado sesión. Puede:
+                          <ul>
+                            <li>Hacer búsquedas de viajes y mirar detalles.</li>
+                          </ul>
+                        </li>
+                        <li><strong>Cliente:</strong> usuario iniciado. Puede:
+                          <ul>
+                            <li>Hace lo mismo que el invitado.</li>
+                            <li>Proponer un viaje.</li>
+                            <li>Unirse a un viaje</li>
+                            <li>Chatear con sus compañeros de viaje.</li>
+                            <li>Valorar a compañeros de viaje.</li>
+                            <li>Publicar fotos de sus viajes.</li>
+                          </ul>
+                        </li>
+                        <li><strong>Administrador</strong>. Puede:
+                          <ul>
+                            <li>Hace lo mismo que el cliente y el invitado.</li>
+                            <li>Puede gestionar cuentas y viajes (eliminarlos o esconderlos).</li>
+                          </ul>
+                        </li>
                       </ul>
                     </div>
                   </div>
