@@ -12,7 +12,7 @@ import org.springframework.core.env.Environment;
  * General configuration for a Spring app.
  * 
  * Declares multiple beans (which can later be accessed anywhere) via
- * Spring magic. 
+ * Spring magic. .
  */
 @Configuration	
 public class AppConfig {
