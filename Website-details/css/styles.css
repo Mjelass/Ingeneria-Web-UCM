@@ -1,0 +1,31 @@
+.bg-hl {
+  background-color: #e7f1ff;
+  color: #0c63e4;
+}
+
+.bg-txt-car {
+  background-color: #e7f1ffbc;
+  color: #0c63e4;
+}
+
+.body-w {
+  max-width: 1000px;
+}
+
+.min-h {
+  min-height: 1000px;
+}
+
+#loader {
+  position: fixed;
+  position: absolute;
+  top: 100px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.abajo {
+  margin-bottom: 4em;
+}
