@@ -12,13 +12,13 @@
     <main class="flex-shrink-0">
         <div class="container">
             <h1 class="mt-5">Evento</h1>
-            <li class="nav-item debug align-self-center" th:if="${application.debug}">
+            <div th:if="${application.debug}">
                 <form class="d-flex" th:action="@{/login}" method="post">
                     <input type="hidden" name="username" value="b">
                     <input type="hidden" name="password" value="aa">
                     <button type="submit" class="btn btn-outline-danger btn-sm">User Profile</button>
                 </form>
-            </li>
+            </div>
             <button><a th:href="@{/chat}" href="/chat">Chat</a></button>
             <button><a th:href="@{/form}" href="/form">Form</a></button>
         </div>
