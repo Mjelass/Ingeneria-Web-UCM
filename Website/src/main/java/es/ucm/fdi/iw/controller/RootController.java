@@ -14,6 +14,33 @@ public class RootController {
 
 	private static final Logger log = LogManager.getLogger(RootController.class);
 
+    // Added
+
+    @GetMapping("/signUp")
+        public String signIn(Model model) {
+            return "signUp";
+    }
+
+    @GetMapping("/search")
+        public String search(Model model) {
+            return "search";
+    }
+
+    @GetMapping("/form")
+    public String form(Model model) {
+            return "form";
+    }
+
+    @GetMapping("/event")
+    public String event(Model model) {
+            return "event";
+    }
+
+    @GetMapping("/chat")
+    public String chat(Model model) {
+            return "chat";
+    }
+
 	@GetMapping("/login")
     public String login(Model model) {
         return "login";

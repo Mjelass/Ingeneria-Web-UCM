@@ -306,5 +306,11 @@ public class UserController {
 
 		messagingTemplate.convertAndSend("/user/"+u.getUsername()+"/queue/updates", json);
 		return "{\"result\": \"message sent.\"}";
-	}	
+	}
+
+
+	@GetMapping("chat")
+    public String login(Model model) {
+        return "chat";
+    }
 }
