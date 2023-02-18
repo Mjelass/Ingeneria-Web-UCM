@@ -1,22 +1,421 @@
 <!DOCTYPE html>
 <html class="h-100" xmlns:th="http://www.thymeleaf.org">
-
-<head>
+  <head>
     <th:block th:replace="fragments/head :: header" />
     <title>DreamTrip</title>
-</head>
+    <link
+      rel="stylesheet"
+      th:href="@{/css/search.css}"
+      href="css/search.css"
+      type="text/css"
+    />
+  </head>
 
-<body class="d-flex flex-column h-100">
+  <body class="d-flex flex-column h-100" style="margin-top: 0;">
     <header th:replace="fragments/nav.html :: nav"></header>
 
-    <main class="flex-shrink-0">
-        <div class="container">
-            <h1 class="mt-5">Search</h1>
-            <button><a th:href="@{/event}" href="/event">Event</a></button>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 card-margin">
+          <div class="card search-form">
+            <div class="card-body p-0">
+              <form id="search-form">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="row no-gutters">
+                      <!--Parte texto Search-->
+                      <div class="col-lg-5 col-md-3 col-sm-9 p-0">
+                        <input
+                          type="text"
+                          placeholder="Search for your destination..."
+                          class="form-control"
+                          id="search"
+                          name="search"
+                        />
+                      </div>
+                      <!--Parte Calendario from Search-->
+                      <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                        <input placeholder="start date:" type="text" onfocus="(this.type = 'date')"  id="date">
+                      </div>
+                      <!--Parte Calendario To Search-->
+                      <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                        <input placeholder="end date :" type="text" onfocus="(this.type = 'date')"  id="date">
+                      </div>
+                      <!--Boton para buscar-->
+                      <div class="col-lg-1 col-md-3 col-sm-12 p-0">
+                        <button type="submit" class="btn btn-base">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="feather feather-search"
+                          >
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
-    </main>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="card card-margin">
+            <div class="card-body">
+              <div class="row search-body">
+                <div class="col-lg-12">
+                  <div class="search-result">
+                    <div class="result-header">
+                      <div class="row">
+                        <div class="col-lg-6">
+                          <div class="records">
+                            Showing: <b>1-20</b> of <b>200</b> result
+                          </div>
+                        </div>
+                        <div class="col-lg-6">
+                          <div class="result-actions">
+                            <div class="result-sorting">
+                              <span>Sort By:</span>
+                              <select
+                                class="form-control border-0"
+                                id="exampleOption"
+                              >
+                                <option value="1">Relevance</option>
+                                <option value="2">Names (A-Z)</option>
+                                <option value="3">Names (Z-A)</option>
+                              </select>
+                            </div>
+                            <div class="result-views">
+                              <button
+                                type="button"
+                                class="btn btn-soft-base btn-icon"
+                              >
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  class="feather feather-list"
+                                >
+                                  <line x1="8" y1="6" x2="21" y2="6"></line>
+                                  <line x1="8" y1="12" x2="21" y2="12"></line>
+                                  <line x1="8" y1="18" x2="21" y2="18"></line>
+                                  <line x1="3" y1="6" x2="3" y2="6"></line>
+                                  <line x1="3" y1="12" x2="3" y2="12"></line>
+                                  <line x1="3" y1="18" x2="3" y2="18"></line>
+                                </svg>
+                              </button>
+                              <button
+                                type="button"
+                                class="btn btn-soft-base btn-icon"
+                              >
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  class="feather feather-grid"
+                                >
+                                  <rect x="3" y="3" width="7" height="7"></rect>
+                                  <rect
+                                    x="14"
+                                    y="3"
+                                    width="7"
+                                    height="7"
+                                  ></rect>
+                                  <rect
+                                    x="14"
+                                    y="14"
+                                    width="7"
+                                    height="7"
+                                  ></rect>
+                                  <rect
+                                    x="3"
+                                    y="14"
+                                    width="7"
+                                    height="7"
+                                  ></rect>
+                                </svg>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="result-body">
+                      <div class="table-responsive">
+                        <table class="table widget-26">
+                          <tbody>
+                             <!--Empieza nueva persona-->                               
+                                <tr class="fil">
+                                  <td>
+                                    <div class="widget-26-job-emp-img">
+                                        <!--imagen persona-->
+                                      <img
+                                        src="https://bootdey.com/img/Content/avatar/avatar5.png"
+                                        alt="Company"
+                                      />
+                                    </div>
+                                  </td>
+                                  <!--Informacion Persona-->
+                                  <td>
+                                    <div class="widget-26-job-title">
+                                      <p><strong>Name : </strong> Mehdi</p>
+                                      <p><strong>Age :</strong> 24</p>
+                                      <p>
+                                        <strong>Nationality:</strong> Tunisian
+                                      </p>
+                                      <p>
+                                        <strong>Languages:</strong>
+                                        <div class="col-5 d-flex align-items-center p-2">
+                                            
+                                            <span class="badge rounded-pill bg-warning"
+                                                style="margin-right: 0.5em;">arabic</span
+                                            >
+                                            <span class="badge rounded-pill bg-warning"
+                                                style="margin-right: 0.5em;">french</span
+                                            >
+                                            <span class="badge rounded-pill bg-warning"
+                                                style="margin-right: 0.5em;">english</span
+                                            >
+                                            <span class="badge rounded-pill bg-warning" style="margin-right: 0.5em;">spanish</span>
+                                            
+                                            
+                                        </div>
+                                      </p>
+                                      <p>
+                                        <strong>Type of the trip : </strong>
+                                        <div class="col-5 d-flex align-items-center p-2">
+                                            <p class="m-0">
+                                                <span class="badge rounded-pill bg-primary">Cultural</span>
+                                                <span class="badge rounded-pill bg-primary">Hiking</span>
+                                            </p>
+                                        </div>
+                                        
+                                      </p>
+                                      <p>
+                                        <strong>Number of people : </strong> 3/5
+                                      </p>
+                                    </div>
+                                  </td>
+                                  <!--Informacion destino-->
+                                  <td>
+                                     <div class="widget-26-job-info">
+                                      <p
+                                        class="type m-0"
+                                        style="font-size: 2em"
+                                      >
+                                        Tunisia, sidi bou said
+                                      </p>
+                                      <p>
+                                        Lorem ipsum dolor sit amet consectetur
+                                        adipisicing elit. Fugit ex ipsa nulla
+                                        corporis. Illo optio aut facilis
+                                        perspiciatis vitae, veniam id officia
+                                        sint cupiditate non voluptatem suscipit,
+                                        explicabo tenetur deleniti!
+                                      </p>
+                                    </div>
+                                  </td>
+                                  <!--columna vacia para que cuadre-->
+                                  <td>
+                                    
+                                  </td>
+                                  <!--Imagen destino-->
+                                  <td>
+                                    <img
+                                        th:attr="src=@{img/sidibousaid.jpg}"
+                                        src=""
+                                        alt=""
+                                        style="height: 18em; width: 18em"
+                                      />
+                                  </td>
+                                  <!--estrella para añadir a fasvoritos-->
+                                  <td>
+                                    <div class="widget-26-job-starred">
+                                      <a href="#">
+                                        <svg
+                                          xmlns="http://www.w3.org/2000/svg"
+                                          width="24"
+                                          height="24"
+                                          viewBox="0 0 24 24"
+                                          fill="none"
+                                          stroke="currentColor"
+                                          stroke-width="2"
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                          class="feather feather-star starred"
+                                        ><!--anadir la clase starred para llenar estrella-->
+                                          <polygon
+                                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                                          ></polygon>
+                                        </svg>
+                                      </a>
+                                    </div>
+                                  </td>
+                                </tr>
+                             <!--Empieza nueva persona-->                               
+                                <tr class="fil">
+                                  <td>
+                                    <div class="widget-26-job-emp-img">
+                                      <img
+                                        src="https://bootdey.com/img/Content/avatar/avatar3.png"
+                                        alt="Company"
+                                      />
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="widget-26-job-title">
+                                      <p><strong>Name : </strong> Silvia</p>
+                                      <p><strong>Age :</strong> 23</p>
+                                      <p>
+                                        <strong>Nationality:</strong> Italian
+                                      </p>
+                                      <p>
+                                        <strong>Languages:</strong>
+                                        <div class="col-5 d-flex align-items-center p-2">
+                                            <span class="badge rounded-pill bg-warning"
+                                                style="margin-right: 0.5em;">italian</span
+                                            >
+                                            <span class="badge rounded-pill bg-warning"
+                                                style="margin-right: 0.5em;">english</span
+                                            >
+                                            <span class="badge rounded-pill bg-warning" style="margin-right: 0.5em;">spanish</span>
+                                            
+                                            
+                                        </div>
+                                      </p>
+                                      <p>
+                                        <strong>Type of the trip : </strong>
+                                        <div class="col-5 d-flex align-items-center p-2">
+                                            <p class="m-0">
+                                                <span class="badge rounded-pill bg-primary">Party</span>
+                                                <span class="badge rounded-pill bg-primary">Music</span>
+                                            </p>
+                                        </div>
+                                        
+                                      </p>
+                                      <p>
+                                        <strong>Number of people : </strong> 3/5
+                                      </p>
+                                    </div>
+                                  </td>
+                                  <td>
+                                     <div class="widget-26-job-info">
+                                      <p
+                                        class="type m-0"
+                                        style="font-size: 2em"
+                                      >
+                                        Italia, Milano
+                                      </p>
+                                      <p>
+                                        Lorem ipsum dolor sit amet consectetur
+                                        adipisicing elit. Fugit ex ipsa nulla
+                                        corporis. Illo optio aut facilis
+                                        perspiciatis vitae, veniam id officia
+                                        sint cupiditate non voluptatem suscipit,
+                                        explicabo tenetur deleniti!
+                                      </p>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    
+                                  </td>
+                                  <td>
+                                     <img
+                                        th:attr="src=@{img/milano.jpg}"
+                                        src=""
+                                        alt=""
+                                        style="height: 18em; width: 18em"
+                                      />
+                                  </td>
+                                  <td>
+                                    <div class="widget-26-job-starred">
+                                      <a href="#">
+                                        <svg
+                                          xmlns="http://www.w3.org/2000/svg"
+                                          width="24"
+                                          height="24"
+                                          viewBox="0 0 24 24"
+                                          fill="none"
+                                          stroke="currentColor"
+                                          stroke-width="2"
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                          class="feather feather-star"
+                                        >
+                                          <polygon
+                                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                                          ></polygon>
+                                        </svg>
+                                      </a>
+                                    </div>
+                                  </td>
+                                </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <nav class="d-flex justify-content-center">
+                <ul
+                  class="pagination pagination-base pagination-boxed pagination-square mb-0"
+                >
+                  <li class="page-item">
+                    <a class="page-link no-border" href="#">
+                      <span aria-hidden="true">«</span>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                  </li>
+                  <li class="page-item active">
+                    <a class="page-link no-border" href="#">1</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link no-border" href="#">2</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link no-border" href="#">3</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link no-border" href="#">4</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link no-border" href="#">
+                      <span aria-hidden="true">»</span>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <th:block th:replace="fragments/footer.html :: footer" />
-</body>
-
+  </body>
 </html>
