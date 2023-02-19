@@ -1,38 +1,111 @@
 <!DOCTYPE html>
 <html class="h-100" xmlns:th="http://www.thymeleaf.org">
-
-<head>
+  <head>
     <th:block th:replace="fragments/head :: header" />
     <title>DreamTrip</title>
-</head>
+    <link
+      rel="stylesheet"
+      th:href="@{/css/main.css}"
+      href="css/main.css"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      th:href="@{https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0}"
+    />
+  </head>
 
-<body class="d-flex flex-column h-100">
-    <header th:replace="fragments/nav.html :: nav"></header>
+  <body class="d-flex flex-column h-100">
+    <div class="fullscreen">
+      <header th:replace="fragments/nav.html :: nav"></header>
 
-    <main class="flex-shrink-0">
-        <div class="container">
-            <h1 class="mt-5">Bienvenid@</h1>
-            <!-- 
-                Mehdi y Silvia
-                - Main Page: index.html
-                - Search: Buscador y que te muestre los resultados
-                - SignUp: Registrarse 
+      <button>
+        <a th:href="@{/search}" href="/search" style="z-index: -1">Search</a>
+      </button>
+      <button>
+        <a th:href="@{/login}" href="/login">LogIn</a>
+      </button>
+      <button><a th:href="@{/signUp}" href="/signUp">SignUp</a></button>
+    </div>
 
-                
-                - User: Hacer perfil
-                - Details: Detalles del viaje/evento
-                - Chat: Chat                                                                                        - 1 Persona
-                - Formulario: Después del viaje                                                                     - 1 Persona
-                - Admin: Hacer tres botones donde cada uno redireccione a User List, Trip/Event List & BlackList    - 1 Persona
-            
-            -->
-            <button><a th:href="@{/search}" href="/search">Search</a></button>
-            <button><a th:href="@{/login}" href="/login">LogIn</a></button>
-            <button><a th:href="@{/signUp}" href="/signUp">SignUp</a></button>
+    <!-- Background Video-->
+    <video
+      class="bg-video"
+      playsinline="playsinline"
+      autoplay="autoplay"
+      muted="muted"
+      loop="loop"
+      th:attr="src=@{img/bb.mp4}"
+    ></video>
+
+    <!-- Masthead-->
+    <div class="masthead">
+      <div class="masthead-content text-white">
+        <div class="container-fluid px-4 px-lg-0">
+          <h1 class="fst-italic lh-1 mb-4">
+            Look for your destination and find your best partners
+          </h1>
+
+          <!-- * * * * * * * * * * * * * * *-->
+          <!-- * * SB Forms Contact Form * *-->
+          <!-- * * * * * * * * * * * * * * *-->
+          <!-- This form is pre-integrated with SB Forms.-->
+          <!-- To make this form functional, sign up at-->
+          <!-- https://startbootstrap.com/solution/contact-forms-->
+          <!-- to get an API token!-->
+          <form id="contactForm" data-sb-form-api-token="API_TOKEN">
+            <!-- Email address input-->
+            <div class="row input-group-newsletter">
+              <div class="row">
+                <!--Parte texto Search-->
+                <div
+                  class="col-lg-3 col-md-2 col-sm-8 p-0"
+                  style="border: 1px solid black"
+                >
+                  <input
+                    type="text"
+                    placeholder="Search for your destination..."
+                    class="form-control"
+                    id="search"
+                    name="search"
+                  />
+                </div>
+                <!--Parte Calendario from Search-->
+                <div class="col-lg-4 col-md-4 col-sm-12 p-0">
+                  <input
+                    placeholder="start date:"
+                    type="text"
+                    onfocus="(this.type = 'date')"
+                    id="date"
+                  />
+                </div>
+                <!--Parte Calendario To Search-->
+                <div class="col-lg-4 col-md-4 col-sm-12 p-0">
+                  <input
+                    placeholder="end date :"
+                    type="text"
+                    onfocus="(this.type = 'date')"
+                    id="date"
+                  />
+                </div>
+                <!--Boton para buscar-->
+                <div class="col-lg-1 col-md-2 col-sm-12 p-0">
+                  <button
+                    type="submit"
+                    class="btn btn-primary"
+                    style="height: 4.5em"
+                  >
+                    <span class="material-symbols-outlined"> search </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
         </div>
-    </main>
-
-    <th:block th:replace="fragments/footer.html :: footer" />
-</body>
-
+      </div>
+    </div>
+    <div class="flbt">
+      <th:block th:replace="fragments/footer.html :: footer" />
+    </div>
+  </body>
 </html>

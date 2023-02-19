@@ -11,8 +11,74 @@
 
     <main class="flex-shrink-0">
         <div class="container">
-            <h1 class="mt-5">Chat</h1>
+            <div class="container">
+                <div class="row">
+                    
+                    <div id="users-container" class="col-md-3">
+                        <div class="box">
+
+                            <div class="col-md-8">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar5.png" alt=""style="width: 20%;">
+                                Juan Calvo Isasi
+                            </div>
+                            <div class="col-md-4">
+                                <button type="submit">Chat</button>
+                                <button type="submit">Block</button>
+                            </div>
+                        </div><br>
+                        <div class="box">
+
+                            <div class="col-md-8">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar4.png" alt=""style="width: 20%;">
+                                Alberto Perez
+                            </div>
+                            <div class="col-md-4">
+                                <button type="submit">Chat</button>
+                                <button type="submit">Block</button>
+                            </div>
+                        </div><br>
+                        <div class="box">
+
+                            <div class="col-md-8">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt=""style="width: 20%;">
+                                Marina Sanchez 
+                            </div>
+                            <div class="col-md-4">
+                                <button type="submit">Chat</button>
+                                <button type="submit">Block</button>
+                            </div>
+                        </div><br>
+                    </div>
+
+                    <div id="chat-container" class="col-md-9">
+                        <div id="chat-messages">
+                            <div th:each="message : ${messages}">
+                                <p th:text="${message}"></p>
+                            </div>
+                    </div>
+                
+                    <form th:action="@{/send}" method="post">
+                        <input type="text" name="message" placeholder="Type a message">
+                        <button type="submit">Send</button>
+                    </form>
+                </div>
+            </div>   
         </div>
+
+        <!-- <div class="container">
+            <h1 class="mt-5">Perfil de <span th:text="${user.username}">Paco</span></h1>
+            recepción de mensajes
+            <div class="py-5 row" id="mensajes">
+            </div>
+            envío de mensajes
+            <div class="py-5 row ">
+                <form th:action="@{/user/__${user.id}__/msg}" method="POST">
+                    <input type="text" id="message" placeholder="escribe a este usuario" />
+                    <button id="sendmsg" class="btn btn-secondary" type="submit">Enviar</button>
+                </form>
+            </div>
+        </div> -->     
+
     </main>
 
     <th:block th:replace="fragments/footer.html :: footer" />
