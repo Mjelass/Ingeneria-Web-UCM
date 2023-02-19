@@ -4,6 +4,7 @@
 <head>
     <th:block th:replace="fragments/head :: header" />
     <title>IW: Admin</title>
+    <link rel="stylesheet" th:href="@{/css/admin.css}" href="../static/css/admin.css" type="text/css" />
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -12,7 +13,170 @@
     <main class="flex-shrink-0">
         <div class="container">
             <h1 class="mt-5">Administración</h1>
-        </div>
+            <div>
+            <ul class="sidenav">
+                <li><button onclick="showUsers()">All users</button></li>
+                <li><button onclick="showTrips()" >Trips</button></li>
+                <li><button onclick="showBlacklist()">Blacklist</button></li>
+                <script src="../static/js/admin.js"></script>
+            </ul>
+            </div>
+            <div class="searchbar">
+                <input type="text" placeholder="Search..">
+                <button type="submit">Submit</button>
+                <button>Add user</button>
+
+            </div>
+
+            <div id="userlist">
+                <!-- All users list -->
+                <table>
+                    <tr>
+                        <td><img src="https://bootdey.com/img/Content/avatar/avatar5.png" alt=""></td>
+                        <td><h3>Nombre...</h3></td>
+                        <td><button type="submit">Edit</button>
+                            <button type="submit">Erase</button>
+                        </td>
+                        
+                    </tr>
+                    <tr>
+                        <td><img src="https://bootdey.com/img/Content/avatar/avatar5.png" alt=""></td>
+                        <td><h3>Nombre...</h3></td>
+                        <td><button type="submit">Edit</button>
+                            <button type="submit">Erase</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><img src="https://bootdey.com/img/Content/avatar/avatar5.png" alt=""></td>
+                        <td><h3>Nombre...</h3></td>
+                        <td><button type="submit">Edit</button>
+                            <button type="submit">Erase</button>
+                        </td>
+                        
+                    </tr>
+                </table>
+                
+
+            </div>
+            <div id="triplist">
+                <!-- Trips list -->
+
+                <table class="tripstable">
+                    <tr>
+                        <th colspan="100%">Roma</th>
+                    </tr>
+                    <tr>
+                        <td class = profile>
+                            <img src="https://bootdey.com/img/Content/avatar/avatar5.png" alt="profile">
+                        </td>
+                        <td>
+                            <ul>
+                                <li>Name: María Barenilla</li>
+                                <li>Range: ghhghghghghg</li>
+                                <li>Age: 20</li>
+                                <li>Languages: Spanish, English</li>
+                                <li>Nº of travelers: 6</li>
+                                <li>hh</li>
+                                <li>Trip type: Turism</li>
+                            </ul>
+                        </td>
+                        <td class = "cityimg"> <img src="https://bootdey.com/img/Content/avatar/avatar5.png" alt="city"></td>
+                        <td class = "buttons">
+                            <button type="submit">Hide</button>
+                            <button type="submit">Show</button>
+                            <button type="submit">Erase</button>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <th colspan="100%">Praga</th>
+                    </tr>
+                    <tr>
+                        <td class = profile>
+                            <img src="https://bootdey.com/img/Content/avatar/avatar5.png" alt="profile">
+                        </td>
+                        <td>
+                            <ul>
+                                <li>Name: María Barenilla</li>
+                                <li>Range: ghhghghghghg</li>
+                                <li>Age: 20</li>
+                                <li>Languages: Spanish, English</li>
+                                <li>Nº of travelers: 6</li>
+                                <li>hh</li>
+                                <li>Trip type: Turism</li>
+                            </ul>
+                        </td>
+                        <td class = "cityimg"> <img src="https://bootdey.com/img/Content/avatar/avatar5.png" alt="city"></td>
+                        <td class = "buttons">
+                            <button type="submit">Hide</button>
+                            <button type="submit">Show</button>
+                            <button type="submit">Erase</button>
+                            
+                        </td>
+                        
+                    </tr>
+                    <tr>
+                        <th colspan="100%">Paris</th>
+                    </tr>
+                    <tr>
+                        <td class = profile>
+                            <img src="https://bootdey.com/img/Content/avatar/avatar5.png" alt="profile">
+                        </td>
+                        <td>
+                            <ul>
+                                <li>Name: María Barenilla</li>
+                                <li>Range: ghhghghghghg</li>
+                                <li>Age: 20</li>
+                                <li>Languages: Spanish, English</li>
+                                <li>Nº of travelers: 6</li>
+                                <li>hh</li>
+                                <li>Trip type: Turism</li>
+                            </ul>
+                        </td>
+                        <td class = "cityimg"> <img src="https://bootdey.com/img/Content/avatar/avatar5.png" alt="city"></td>
+                        <td class = "buttons">
+                            <button type="submit">Hide</button>
+                            <button type="submit">Show</button>
+                            <button type="submit">Erase</button>
+                            
+                        </td>
+                        
+                    </tr>
+                </table>
+                
+            
+
+            </div>
+            <div id="blacklist">
+                <!-- Blacklist -->
+                <table>
+                    <tr>
+                        <td><img src="https://bootdey.com/img/Content/avatar/avatar5.png" alt=""></td>
+                        <td><h3>bl...</h3></td>
+                        <td><button type="submit">Edit</button>
+                            <button type="submit">Erase</button>
+                        </td>
+                        
+                    </tr>
+                    <tr>
+                        <td><img src="https://bootdey.com/img/Content/avatar/avatar5.png" alt=""></td>
+                        <td><h3>bl...</h3></td>
+                        <td><button type="submit">Edit</button>
+                            <button type="submit">Erase</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><img src="https://bootdey.com/img/Content/avatar/avatar5.png" alt=""></td>
+                        <td><h3>bl...</h3></td>
+                        <td><button type="submit">Edit</button>
+                            <button type="submit">Erase</button>
+                        </td>
+                        
+                    </tr>
+                </table>
+
+            </div>
+    </div>
     </main>
 
     <th:block th:replace="fragments/footer.html :: footer" />

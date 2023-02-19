@@ -1,0 +1,89 @@
+.sidenav{
+    display: flex;
+    justify-content: center;
+}
+
+.sidenav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+
+.sidenav li{
+    display: inline;
+    padding: 5%;
+}
+
+.searchbar{
+    display: flex;
+    justify-content: center;
+}
+
+
+#userlist{
+    display:block;
+}
+
+#triplist{
+    display:none;
+}
+
+#blacklist{
+    display:none;
+}
+
+table{
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    border: 1px solid black;
+    border-collapse: collapse;
+
+}
+table td {
+    border: 1px solid black;
+    /* width: 25%; */
+
+}
+
+.tripstable ul{
+    list-style: none;
+    margin: 0;
+    padding: 10%;
+    display: inline-block;
+}
+.tripstable li{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.tripstable li+li{
+    margin-top: 8px;
+}
+
+img{
+    width: 25%
+}
+
+.profile{
+    width: 20%;
+}
+
+.profile img{
+    width:60%
+}
+
+.cityimg img{
+    display:block;
+    margin:0 auto;
+    width: 50%;
+}
+
+.buttons{
+    margin-left: auto;
+    margin-right: auto;
+}
