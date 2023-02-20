@@ -11,6 +11,12 @@
     />
     <link
       rel="stylesheet"
+      th:href="@{/css/search.css}"
+      href="css/search.css"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
       th:href="@{https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0}"
     />
   </head>
@@ -19,15 +25,12 @@
     <div class="fullscreen">
       <header th:replace="fragments/nav.html :: nav"></header>
 
-      <button>
-        <a th:href="@{/search}" href="/search" style="z-index: -1">Search</a>
-      </button>
-      <button>
-        <a th:href="@{/login}" href="/login">LogIn</a>
-      </button>
-      <button><a th:href="@{/signUp}" href="/signUp">SignUp</a></button>
-    </div>
+      <a th:href="@{/search}" href="/search" class="btn nodec">Search</a>
 
+      <a th:href="@{/login}" href="/login" class="btn nodec">LogIn</a>
+
+      <a th:href="@{/signUp}" href="/signUp" class="btn nodec">SignUp</a>
+    </div>
     <!-- Background Video-->
     <video
       class="bg-video"
@@ -37,73 +40,79 @@
       loop="loop"
       th:attr="src=@{img/bb.mp4}"
     ></video>
-
-    <!-- Masthead-->
-    <div class="masthead">
-      <div class="masthead-content text-white">
-        <div class="container-fluid px-4 px-lg-0">
+    <div class="container">
+      <!-- Masthead(La caja Negra)-->
+      <div class="masthead">
+        <!--lo que esta dentro de la caja negra-->
+        <div class="masthead-content text-white">
           <h1 class="fst-italic lh-1 mb-4">
             Look for your destination and find your best partners
           </h1>
-
-          <!-- * * * * * * * * * * * * * * *-->
-          <!-- * * SB Forms Contact Form * *-->
-          <!-- * * * * * * * * * * * * * * *-->
-          <!-- This form is pre-integrated with SB Forms.-->
-          <!-- To make this form functional, sign up at-->
-          <!-- https://startbootstrap.com/solution/contact-forms-->
-          <!-- to get an API token!-->
-          <form id="contactForm" data-sb-form-api-token="API_TOKEN">
-            <!-- Email address input-->
-            <div class="row input-group-newsletter">
-              <div class="row">
-                <!--Parte texto Search-->
-                <div
-                  class="col-lg-3 col-md-2 col-sm-8 p-0"
-                  style="border: 1px solid black"
-                >
-                  <input
-                    type="text"
-                    placeholder="Search for your destination..."
-                    class="form-control"
-                    id="search"
-                    name="search"
-                  />
-                </div>
-                <!--Parte Calendario from Search-->
-                <div class="col-lg-4 col-md-4 col-sm-12 p-0">
-                  <input
-                    placeholder="start date:"
-                    type="text"
-                    onfocus="(this.type = 'date')"
-                    id="date"
-                  />
-                </div>
-                <!--Parte Calendario To Search-->
-                <div class="col-lg-4 col-md-4 col-sm-12 p-0">
-                  <input
-                    placeholder="end date :"
-                    type="text"
-                    onfocus="(this.type = 'date')"
-                    id="date"
-                  />
-                </div>
-                <!--Boton para buscar-->
-                <div class="col-lg-1 col-md-2 col-sm-12 p-0">
-                  <button
-                    type="submit"
-                    class="btn btn-primary"
-                    style="height: 4.5em"
-                  >
-                    <span class="material-symbols-outlined"> search </span>
-                  </button>
+          <!--Barra de busqueda-->
+          <div class="row">
+            <div class="col-lg-12 card-margin">
+              <div class="card search-form">
+                <div class="card-body p-0">
+                  <form id="search-form">
+                    <div class="row no-gutters">
+                      <!--Parte texto Search-->
+                      <div class="col-lg-5 col-md-5 col-sm-9 p-0">
+                        <input
+                          type="text"
+                          placeholder="Search for your destination..."
+                          class="form-control"
+                          id="search"
+                          name="search"
+                        />
+                      </div>
+                      <!--Parte Calendario start Search-->
+                      <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                        <input
+                          placeholder="start date:"
+                          type="text"
+                          onfocus="(this.type = 'date')"
+                          id="date"
+                        />
+                      </div>
+                      <!--Parte Calendario end Search-->
+                      <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                        <input
+                          placeholder="end date :"
+                          type="text"
+                          onfocus="(this.type = 'date')"
+                          id="date"
+                        />
+                      </div>
+                      <!--Boton para buscar-->
+                      <div class="col-lg-1 col-md-1 col-sm-12 p-0">
+                        <button type="submit" class="btn btn-base">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="feather feather-search"
+                          >
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>
+
     <div class="flbt">
       <th:block th:replace="fragments/footer.html :: footer" />
     </div>

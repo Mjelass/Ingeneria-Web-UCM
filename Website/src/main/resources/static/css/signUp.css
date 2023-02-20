@@ -16,7 +16,7 @@ body {
 
 #register{
 
-  color: #6A1B9A;
+  color: darkcyan;
 }
 
 h1 {
@@ -37,7 +37,7 @@ input {
 
 .tab input:focus{
 
-  border:1px solid #6a1b9a !important;
+  border:1px solid darkcyan !important;
   outline: none;
 }
 
@@ -51,7 +51,7 @@ input.invalid {
 }
 
 button {
-    background-color: #6A1B9A;
+    background-color: darkcyan;
     color: #ffffff;
     border: none;
     border-radius: 50%;
@@ -95,7 +95,7 @@ button:focus{
     justify-content: center;
     align-items: center;
     font-size: 15px;
-    color: #6a1b9a;
+    color: darkcyan;
     opacity: 0.5;
 }
 
@@ -106,7 +106,7 @@ button:focus{
 
 .step.finish {
    color: #fff;
-   background: #6a1b9a;
+   background: darkcyan;
    opacity: 1;
 
 }

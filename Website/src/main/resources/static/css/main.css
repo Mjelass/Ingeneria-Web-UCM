@@ -11710,6 +11710,7 @@ video.bg-video {
   }
 }
 .masthead {
+  margin-top: 13%;
   position: relative;
   overflow: hidden;
   z-index: 2;
@@ -11730,7 +11731,7 @@ video.bg-video {
 }
 .masthead .masthead-content {
   position: relative;
-  max-width: 40rem;
+  max-width: 70rem;
   padding-top: 5rem;
   padding-bottom: 5rem;
 }
@@ -11833,4 +11834,20 @@ video.bg-video {
   text-align: center;
 
   z-index: 9999;
+}
+.nodec {
+  text-decoration: none;
+  font-size: 1.2em;
+  background-color: #636464;
+  width: 7em;
+  border: 1px solid black;
+  margin-right: 2px;
+  margin-top: 1%;
+}
+
+.nodec:hover {
+  border: 3px solid black;
+  font-size: 1.3em;
+  color: #636464;
+  background-color: black;
 }

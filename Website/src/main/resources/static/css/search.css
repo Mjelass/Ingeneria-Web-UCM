@@ -2,7 +2,13 @@ body {
   background: #dcdcdc;
   margin-top: 20px;
 }
-
+.info {
+  font-size: 1em;
+  margin: 0;
+}
+.tit {
+  text-decoration: none;
+}
 .widget-26 {
   color: #3c4142;
   font-weight: 400;
