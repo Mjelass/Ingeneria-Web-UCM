@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="h-100" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" class="h-100" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <th:block th:replace="fragments/head :: header" />
@@ -10,7 +10,7 @@
                 document.getElementById("acts-aft-join").style.display = "flex";
                 document.getElementById("acts-aft-join").style.flexDirection = "column";
                 document.getElementById("text-join").innerHTML = "Salir";
-                document.getElementById("pbar-progress").style.width = "150px";
+                document.getElementById("pbar-vacs-progress").style.width = "150px";
                 let takenVacs = Number(document.getElementById("taken-vacs").innerText);
                 takenVacs++;
                 document.getElementById("taken-vacs").innerText = takenVacs;
@@ -18,27 +18,66 @@
             else {
                 document.getElementById("acts-aft-join").style.display = "none";
                 document.getElementById("text-join").innerHTML = "Unirse";
-                document.getElementById("pbar-progress").style.width = "120px";
+                document.getElementById("pbar-vacs-progress").style.width = "120px";
                 let takenVacs = Number(document.getElementById("taken-vacs").innerText);
                 takenVacs--;
                 document.getElementById("taken-vacs").innerText = takenVacs;
             }
         }
     </script>
+    <style>
+        #images-header{
+            max-height: 200px;
+        }
+        #images-header img{
+            object-fit: cover;
+        }
+
+        #event-header>div{
+            max-width: 1400px; 
+            margin: auto;
+        }
+
+        #pbar-vacs-total{
+            width: 200px;
+            height: 10px;
+            background-color: rgb(197, 197, 197);
+        }
+
+        #pbar-vacs-progress{
+            width: 120px;
+            height: 10px;
+        }
+        #check-join{
+            width: 25px;
+            height: 25px;
+        }
+        #more-details{
+            max-width: 1400px;
+            margin: auto;
+        }
+        #main-details{
+            min-width: 400px;
+        }
+        #event-dets-calendar{
+            width: 200px;
+            height: 150px;
+        }
+    </style>
 </head>
 
 <body class="d-flex flex-column h-100">
     <header th:replace="fragments/nav.html :: nav"></header>
 
     <main class="flex-shrink-0">
-        <div id="images-header" class="d-flex flex-nowrap overflow-hidden" style="max-height: 200px;">
-            <div class="flex-fill"><img src="https://picsum.photos/300/150" class="w-100" alt="..." style="object-fit: cover;"></div>
-            <div class="flex-fill"><img src="https://picsum.photos/300/150" class="w-100" alt="..." style="object-fit: cover;"></div>
-            <div class="flex-fill"><img src="https://picsum.photos/300/150" class="w-100" alt="..." style="object-fit: cover;"></div>
+        <div id="images-header" class="d-flex flex-nowrap overflow-hidden">
+            <div class="flex-fill"><img src="https://picsum.photos/300/150" class="w-100" alt="..."></div>
+            <div class="flex-fill"><img src="https://picsum.photos/300/150" class="w-100" alt="..."></div>
+            <div class="flex-fill"><img src="https://picsum.photos/300/150" class="w-100" alt="..."></div>
         </div>
         <div id="event-header" class="border-bottom">
-            <div class="d-flex px-4 py-2 justify-content-between align-items-center" style="max-width: 1400px; margin: auto;">
-                <div class="d-flex d-flex flex-fill justify-content-between align-items-center">
+            <div class="d-flex px-4 py-2 justify-content-between align-items-center">
+                <div class="d-flex flex-fill justify-content-between align-items-center">
                     <div>
                         <span class="badge bg-primary fs-6">Evento</span>
                         <h1>TÍTULO DE EVENTO</h1>
@@ -54,31 +93,31 @@
                     </div>
                 </div>
                 <div class="d-flex flex-column align-items-center ms-4">
-                    <h1>100€<span class="fs-4 mb-0">/persona</span></h1> 
+                    <h1>100€<span class="fs-4 mb-0">/persona</span></h1>
                     <h5><span id="taken-vacs">3</span>/5 Vacantes</h5>
                     <div>
-                        <div id="pbar-total" class="rounded-pill" style="width: 200px;height: 10px;background-color: rgb(197, 197, 197);">
-                            <div id="pbar-progress" class="bg-primary rounded-pill" style="width: 120px;height: 10px;"></div>
+                        <div id="pbar-vacs-total" class="rounded-pill">
+                            <div id="pbar-vacs-progress" class="bg-primary rounded-pill"></div>
                         </div>
                     </div>
                 </div>
                 <div class="d-flex flex-column align-items-center ms-2">
-                    <input id="check-join" type="checkbox" style="width: 25px; height: 25px;" onclick="toggleActionsDisplay()">
+                    <input id="check-join" type="checkbox" onclick="toggleActionsDisplay()">
                     <p id="text-join" class="text-center mb-0">Unirse</p>
                 </div>
                 <div id="acts-aft-join" class="ms-2" style="display: none;">
-                    <button><a th:href="@{/chat}" href="/chat">Chat</a></button>
-                    <button><a th:href="@{/form}" href="/form">Form</a></button>
+                    <button class="btn btn-primary mb-1" type="button" th:href="@{/chat}" href="/chat">Chat</button>
+                    <button class="btn btn-primary" type="button" th:href="@{/form}" href="/form">Form</button>
                 </div>
             </div>
         </div>
         <div id="event-container" class="bg-light">
-            <div class="d-flex px-4 py-2" style="max-width: 1400px; margin: auto;">
+            <div id="more-details" class="d-flex px-4 py-2">
                 <div class="bg-white border my-2 me-2 p-4 flex-fill">
                     <div id="event-description" class="mb-5">
                         <h2>DESCRIPCIÓN</h2>
-                        <P>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque recusandae voluptatibus quae ad? Quaerat accusantium et omnis itaque. Harum temporibus aliquid nemo odio dolor velit optio repudiandae, praesentium fugiat sunt!</P>
-                        <P>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque recusandae voluptatibus quae ad? Quaerat accusantium et omnis itaque. Harum temporibus aliquid nemo odio dolor velit optio repudiandae, praesentium fugiat sunt!</P>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque recusandae voluptatibus quae ad? Quaerat accusantium et omnis itaque. Harum temporibus aliquid nemo odio dolor velit optio repudiandae, praesentium fugiat sunt!</p>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque recusandae voluptatibus quae ad? Quaerat accusantium et omnis itaque. Harum temporibus aliquid nemo odio dolor velit optio repudiandae, praesentium fugiat sunt!</p>
                     </div>
                     <div id="event-notes" class="mb-5">
                         <h2>ANOTACIONES</h2>
@@ -98,20 +137,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="bg-white border my-2 p-4 pb-5 flex-fill align-self-start" style="min-width: 400px;">
+                <div id="main-details" class="bg-white border my-2 p-4 pb-5 flex-fill align-self-start">
                     <h2 class="text-center">DETALLES</h2>
                     <div class="event-dets-sec">
                         <p><span class="fs-5 fw-bold">Destino: </span> [lugar] <span class="fs-5">🌍</span></p>
                     </div>
                     <div class="event-dets-sec">
                         <p><span class="fs-5 fw-bold">[fecha inicio] - [fecha fin] </span></p>
-                        <div id="event-dets-calendar" class="bg-primary" style="width: 200px;height: 150px;">
+                        <div id="event-dets-calendar" class="bg-primary">
                             <!-- CALENDARIO -->
                         </div>
                     </div>
                     <div class="event-dets-sec">
                         <p><span class="fs-5 fw-bold">Punto de reunión: </span> [lugar] <span class="fs-5">🌍</span></p>
-                        
                     </div>
                     <div class="event-dets-sec">
                         <p><span class="fs-5 fw-bold">Transporte: </span> <span class="fs-5">✈️</span></p>
