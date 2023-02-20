@@ -19,6 +19,7 @@
         <div class="col-lg-12 card-margin">
           <div class="card search-form">
             <div class="card-body p-0">
+              <!--Barra de busqueda-->
               <form id="search-form">
                 <div class="row">
                   <div class="col-12">
@@ -181,12 +182,12 @@
                                   <!--Informacion Persona-->
                                   <td>
                                     <div class="widget-26-job-title">
-                                      <p><strong>Name : </strong> Mehdi</p>
-                                      <p><strong>Age :</strong> 24</p>
-                                      <p>
+                                      <p class="info"  ><strong>Name : </strong> Mehdi</p>
+                                      <p class="info"><strong>Age :</strong> 24</p>
+                                      <p class="info">
                                         <strong>Nationality:</strong> Tunisian
                                       </p>
-                                      <p>
+                                      <p class="info">
                                         <strong>Languages:</strong>
                                         <div class="col-5 d-flex align-items-center p-2">
                                             
@@ -204,7 +205,7 @@
                                             
                                         </div>
                                       </p>
-                                      <p>
+                                      <p class="info">
                                         <strong>Type of the trip : </strong>
                                         <div class="col-5 d-flex align-items-center p-2">
                                             <p class="m-0">
@@ -214,7 +215,7 @@
                                         </div>
                                         
                                       </p>
-                                      <p>
+                                      <p class="info">
                                         <strong>Number of people : </strong> 3/5
                                       </p>
                                     </div>
@@ -222,13 +223,13 @@
                                   <!--Informacion destino-->
                                   <td>
                                      <div class="widget-26-job-info">
-                                      <p
-                                        class="type m-0"
-                                        style="font-size: 2em"
-                                      >
+                                      <a th:href="@{/event}" href="/event" class="tit">
+                                        <p style="font-size: 2.5em;">
                                         Tunisia, sidi bou said
                                       </p>
-                                      <p>
+                                      </a>
+                                      
+                                      <p class="info">
                                         Lorem ipsum dolor sit amet consectetur
                                         adipisicing elit. Fugit ex ipsa nulla
                                         corporis. Illo optio aut facilis
@@ -248,7 +249,7 @@
                                         th:attr="src=@{img/sidibousaid.jpg}"
                                         src=""
                                         alt=""
-                                        style="height: 18em; width: 18em"
+                                        style="height: 15em; width: 18em"
                                       />
                                   </td>
                                   <!--estrella para añadir a fasvoritos-->
@@ -287,12 +288,12 @@
                                   </td>
                                   <td>
                                     <div class="widget-26-job-title">
-                                      <p><strong>Name : </strong> Silvia</p>
-                                      <p><strong>Age :</strong> 23</p>
-                                      <p>
+                                      <p class="info"><strong>Name : </strong> Silvia</p>
+                                      <p class="info"><strong>Age :</strong> 23</p>
+                                      <p class="info">
                                         <strong>Nationality:</strong> Italian
                                       </p>
-                                      <p>
+                                      <p class="info">
                                         <strong>Languages:</strong>
                                         <div class="col-5 d-flex align-items-center p-2">
                                             <span class="badge rounded-pill bg-warning"
@@ -306,7 +307,7 @@
                                             
                                         </div>
                                       </p>
-                                      <p>
+                                      <p class="info">
                                         <strong>Type of the trip : </strong>
                                         <div class="col-5 d-flex align-items-center p-2">
                                             <p class="m-0">
@@ -316,20 +317,23 @@
                                         </div>
                                         
                                       </p>
-                                      <p>
+                                      <p class="info">
                                         <strong>Number of people : </strong> 3/5
                                       </p>
                                     </div>
                                   </td>
                                   <td>
                                      <div class="widget-26-job-info">
-                                      <p
-                                        class="type m-0"
-                                        style="font-size: 2em"
+                                       <a th:href="@{/event}" href="/event" class="tit">
+                                        <p
+                                        style="font-size: 2.5em;"
+                                        
                                       >
                                         Italia, Milano
                                       </p>
-                                      <p>
+                                      </a>
+                                    
+                                      <p class="info">
                                         Lorem ipsum dolor sit amet consectetur
                                         adipisicing elit. Fugit ex ipsa nulla
                                         corporis. Illo optio aut facilis
@@ -347,7 +351,7 @@
                                         th:attr="src=@{img/milano.jpg}"
                                         src=""
                                         alt=""
-                                        style="height: 18em; width: 18em"
+                                        style="height: 15em; width: 18em"
                                       />
                                   </td>
                                   <td>
@@ -380,6 +384,7 @@
                   </div>
                 </div>
               </div>
+              <!--Paginacion-->
               <nav class="d-flex justify-content-center">
                 <ul
                   class="pagination pagination-base pagination-boxed pagination-square mb-0"
