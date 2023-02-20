@@ -10,6 +10,7 @@
     <header th:replace="fragments/nav.html :: nav"></header>
 
     <main class="flex-shrink-0">
+        <!--
         <div id="books" class="border border-2 border-primary rounded">
             <label for="isbn">ISBN</label><input id="isbn" value="9780140328721" />
             <button id="fetchBook">Buscar datos online</button>
@@ -33,23 +34,77 @@
                 <button id="postAvatar">Usar como foto de perfil</button>
             </form>
         </div>
+        -->
 
-        <div class="container">
-            <h1 class="mt-5">Perfil de <span th:text="${user.username}">Paco</span></h1>
-            <!-- recepción de mensajes -->
-            <div class="py-5 row" id="mensajes">
+        <section class="vh-100">  
+            <div class="container-fluid h-100  d-flex align-items-end" th:style="'background:url('+ @{/img/default-pic.jpg} +');'" style="background-size: cover">
+                <div class="row w-100">
+                    <div class="col-12 text-center">
+                        <img  th:src="@{/user/{id}/pic(id=${session.u.id})}" />
+                    </div>
+                </div>
             </div>
-            <!-- envío de mensajes -->
-            <div class="py-5 row ">
-                <form th:action="@{/user/__${user.id}__/msg}" method="POST">
-                    <input type="text" id="message" placeholder="escribe a este usuario" />
-                    <button id="sendmsg" class="btn btn-secondary" type="submit">Enviar</button>
-                </form>
+        </section>
+          
+
+
+        <div class="row">
+            <div class="col-md-4">
+                <!-- My events/trips-->
+                <div style="border: 1px solid black; background-color: #f2f2f2; padding: 10px;">
+                    <h2 style="background-color: #f2f2f2; color: #333;">My events/trips</h2>
+                    <button><a th:href="@{/event}" href="/event">Madrid, Spain </a></button>
+                    <button><a th:href="@{/event}" href="/event">Paris, France </a></button>
+                    <button><a th:href="@{/event}" href="/event">Lisboa, Portugal </a></button>
+                    <button><a th:href="@{/event}" href="/event">Dublin, Germany </a></button>
+                </div>
             </div>
-            <button><a th:href="@{/chat}" href="/chat">Chat</a></button>
-        </div>
+
+            <div class="col-md-4">
+                <!-- User information -->
+                <div style="border: 1px solid black; background-color: #f2f2f2; padding: 10px;">
+                    <h2 style="background-color: #f2f2f2; color: #333;"> <span th:text="${session.u.username}">Pepe</span></h2>
+                    <ul>
+                        <li>Nacionality</li>
+                        <li>Languages</li>
+                        <li>Range</li>
+                        <li>Sex</li>
+                        <li>Age</li>
+                        <li>Valoration</li>
+                    </ul>
+                </div>
+
+                <!-- User description -->
+                <div style="border: 1px solid black; background-color: #f2f2f2; padding: 10px;">
+                    <h4 style="background-color: #f2f2f2; color: #333;">Description</h4>
+                    <p>Little description of the user.</p> 
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <!-- Open events/trips -->
+                <div style="border: 1px solid black; background-color: #f2f2f2; padding: 10px;">
+                    <h2 style="background-color: #f2f2f2; color: #333;">Open events/trips</h2>
+                    <button><a th:href="@{/event}" href="/event">New York, USA </a></button>
+                    <button><a th:href="@{/event}" href="/event">Roma, Italy </a></button>
+                </div>
+                <!-- Create new trip-->
+                <a th:href="@{/form}" href="/form">
+                <img th:src="@{/img/add.png}" alt="Add Trip" width="60" height="60">
+                </a>
+            </div>
+          </div>
+
+
+
+
+      
+        
+        
+
+        
+
     </main>
-
     <th:block th:replace="fragments/footer.html :: footer" />
 
     <script th:src="@{/js/ajax-demo.js}"></script>
