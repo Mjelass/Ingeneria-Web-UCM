@@ -4,66 +4,8 @@
 <head>
     <th:block th:replace="fragments/head :: header" />
     <title>DreamTrip</title>
-    <script>
-        function toggleActionsDisplay(){
-            if (document.getElementById("check-join").checked == true) {
-                document.getElementById("acts-aft-join").style.display = "flex";
-                document.getElementById("acts-aft-join").style.flexDirection = "column";
-                document.getElementById("text-join").innerHTML = "Salir";
-                document.getElementById("pbar-vacs-progress").style.width = "150px";
-                let takenVacs = Number(document.getElementById("taken-vacs").innerText);
-                takenVacs++;
-                document.getElementById("taken-vacs").innerText = takenVacs;
-            } 
-            else {
-                document.getElementById("acts-aft-join").style.display = "none";
-                document.getElementById("text-join").innerHTML = "Unirse";
-                document.getElementById("pbar-vacs-progress").style.width = "120px";
-                let takenVacs = Number(document.getElementById("taken-vacs").innerText);
-                takenVacs--;
-                document.getElementById("taken-vacs").innerText = takenVacs;
-            }
-        }
-    </script>
-    <style>
-        #images-header{
-            max-height: 200px;
-        }
-        #images-header img{
-            object-fit: cover;
-        }
-
-        #event-header>div{
-            max-width: 1400px; 
-            margin: auto;
-        }
-
-        #pbar-vacs-total{
-            width: 200px;
-            height: 10px;
-            background-color: rgb(197, 197, 197);
-        }
-
-        #pbar-vacs-progress{
-            width: 120px;
-            height: 10px;
-        }
-        #check-join{
-            width: 25px;
-            height: 25px;
-        }
-        #more-details{
-            max-width: 1400px;
-            margin: auto;
-        }
-        #main-details{
-            min-width: 400px;
-        }
-        #event-dets-calendar{
-            width: 200px;
-            height: 150px;
-        }
-    </style>
+    <script src="js/event.js"></script>
+    <link rel="stylesheet" href="css/event.css">
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -106,8 +48,8 @@
                     <p id="text-join" class="text-center mb-0">Unirse</p>
                 </div>
                 <div id="acts-aft-join" class="ms-2" style="display: none;">
-                    <button class="btn btn-primary mb-1" type="button" th:href="@{/chat}" href="/chat">Chat</button>
-                    <button class="btn btn-primary" type="button" th:href="@{/form}" href="/form">Form</button>
+                    <a class="btn btn-primary mb-1" th:href="@{/chat}" href="/chat">Chat</a>
+                    <a class="btn btn-primary" th:href="@{/form}" href="/form">Form</a>
                 </div>
             </div>
         </div>
