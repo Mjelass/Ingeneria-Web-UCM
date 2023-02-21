@@ -33,7 +33,11 @@
     display:none;
 }
 
-table{
+#reportlist{
+    display:none;
+}
+
+/* table{
     align-items: center;
     margin-left: auto;
     margin-right: auto;
@@ -46,9 +50,9 @@ table td {
     border: 1px solid black;
     width: 25%;
 
-}
+} */
 
-.tripstable ul{
+/* .tripstable ul{
     list-style: none;
     margin: 0;
     padding: 10%;
@@ -63,7 +67,7 @@ table td {
 
 .tripstable li+li{
     margin-top: 8px;
-}
+} */
 
 img{
     width: 25%
@@ -80,10 +84,14 @@ img{
 .cityimg img{
     display:block;
     margin:0 auto;
-    width: 70%;
+    width: 50%;
 }
 
 .buttons{
     margin-left: auto;
     margin-right: auto;
+}
+
+.usrlst {
+    margin-left: -70%; padding: 0;
 }
