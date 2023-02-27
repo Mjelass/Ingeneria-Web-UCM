@@ -4,7 +4,8 @@
 <head>
     <th:block th:replace="fragments/head :: header" />
     <title>IW: Admin</title>
-    <link rel="stylesheet" th:href="@{/css/admin.css}" href="../static/css/admin.css" type="text/css" />
+    <script src="/js/admin.js"></script>
+    <link rel="stylesheet" th:href="@{/css/admin.css}" href="/css/admin.css" type="text/css" />
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -13,27 +14,47 @@
     <main class="flex-shrink-0">
         <div class="container">
             <h1 class="mt-5">Administración</h1>
-            <div>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                  Dropdown button
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li><a class="dropdown-item" onclick="showUsers()">All users</a></li>
+                  <li><a class="dropdown-item" onclick="showTrips()">Trips</a></li>
+                  <li><a class="dropdown-item" onclick="showBlacklist()">Blacklist</a></li>
+                  <li><a class="dropdown-item" onclick="showReports()">Reports</a></li>
+                </ul>
+            </div>
+            <!-- <div>
             <ul class="sidenav">
                 <li><button onclick="showUsers()">All users</button></li>
                 <li><button onclick="showTrips()" >Trips</button></li>
                 <li><button onclick="showBlacklist()">Blacklist</button></li>
-                <script src="../static/js/admin.js"></script>
+                
             </ul>
-            </div>
+            </div> -->
             <div class="searchbar">
                 <input type="text" placeholder="Search..">
                 <button type="submit">Submit</button>
-                <button>Add user</button>
+                <button>Add item</button>
 
             </div>
 
             <div id="userlist">
                 <!-- All users list -->
-                <table>
+                <table class="table">
                     <tr>
                         <td><img src="https://bootdey.com/img/Content/avatar/avatar5.png" alt=""></td>
-                        <td><h3>Juan Calvo Isasi</h3></td>
+                        <td style="width:30%">
+                            <ul class="usrlst">
+                                <li>Name : Juan Calvo Isasi</li>
+                                <li>Range: </li>
+                                <li>Age: 20</li>
+                                <li>Languages: Spanish, English</li>
+                                <li>Nº of travelers: 4/6</li>
+                                <li>Trip type: Turism</li>
+                            </ul>
+                        </td>
                         <td>
                             <button type="submit">Add to Blacklist</button>
                             <button type="submit">Edit</button>
@@ -43,7 +64,16 @@
                     </tr>
                     <tr>
                         <td><img src="https://bootdey.com/img/Content/avatar/avatar4.png" alt=""></td>
-                        <td><h3>Alberto Perez</h3></td>
+                        <td>
+                            <ul class="usrlst">
+                                <li>Name: Alberto Perez</li>
+                                <li>Range: </li>
+                                <li>Age: 31</li>
+                                <li>Languages: Spanish</li>
+                                <li>Nº of travelers: 1/5</li>
+                                <li>Trip type: Turism</li>
+                            </ul>
+                        </td>
                         
                         <td>                            
                             <button type="submit">Add to Blacklist</button>
@@ -53,7 +83,16 @@
                     </tr>
                     <tr>
                         <td><img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt=""></td>
-                        <td><h3>Marina Sanchez</h3></td>
+                        <td>
+                            <ul class="usrlst">
+                                <li>Name: Marina Sanchez</li>
+                                <li>Range: </li>
+                                <li>Age: 20</li>
+                                <li>Languages: Spanish, French</li>
+                                <li>Nº of travelers: 3/6</li>
+                                <li>Trip type: Turism</li>
+                            </ul>
+                        </td>
                         <td>
                             <button type="submit">Add to Blacklist</button>
                             <button type="submit">Edit</button>
@@ -68,7 +107,7 @@
             <div id="triplist">
                 <!-- Trips list -->
 
-                <table class="tripstable">
+                <table class="table">
                     <tr>
                         <th colspan="100%">Milán</th>
                     </tr>
@@ -76,18 +115,17 @@
                         <td class = profile>
                             <img src="https://bootdey.com/img/Content/avatar/avatar5.png" alt="profile">
                         </td>
-                        <td>
+                        <td style="width:30%">
                             <ul>
-                                <li>Name: Juan Calvo Isasi</li>
+                                <li>Name : Juan Calvo Isasi</li>
                                 <li>Range: </li>
                                 <li>Age: 20</li>
                                 <li>Languages: Spanish, English</li>
-                                <li>Nº of travelers: 6</li>
-                                <li>hh</li>
+                                <li>Nº of travelers: 4/6</li>
                                 <li>Trip type: Turism</li>
                             </ul>
                         </td>
-                        <td class = "cityimg"> <img src="../static/img/milano.jpg" alt="city"></td>
+                        <td class = "cityimg"> <img src="/img/milano.jpg" alt="city"></td>
                         <td class = "buttons">
                             <button type="submit">Hide</button>
                             <button type="submit">Show</button>
@@ -108,12 +146,11 @@
                                 <li>Range: </li>
                                 <li>Age: 31</li>
                                 <li>Languages: Spanish</li>
-                                <li>Nº of travelers: 5</li>
-                                <li>hh</li>
+                                <li>Nº of travelers: 1/5</li>
                                 <li>Trip type: Turism</li>
                             </ul>
                         </td>
-                        <td class = "cityimg"> <img src="../static/img/sidibousaid.jpg" alt="city"></td>
+                        <td class = "cityimg"> <img src="/img/sidibousaid.jpg" alt="city"></td>
                         <td class = "buttons">
                             <button type="submit">Hide</button>
                             <button type="submit">Show</button>
@@ -135,12 +172,11 @@
                                 <li>Range: </li>
                                 <li>Age: 20</li>
                                 <li>Languages: Spanish, French</li>
-                                <li>Nº of travelers: 6</li>
-                                <li>hh</li>
+                                <li>Nº of travelers: 3/6</li>
                                 <li>Trip type: Turism</li>
                             </ul>
                         </td>
-                        <td class = "cityimg"> <img src="../static/img/paris.jpg" alt="city"></td>
+                        <td class = "cityimg"> <img src="/img/paris.jpg" alt="city"></td>
                         <td class = "buttons">
                             <button type="submit">Hide</button>
                             <button type="submit">Show</button>
@@ -156,10 +192,19 @@
             </div>
             <div id="blacklist">
                 <!-- Blacklist -->
-                <table>
+                <table class="table">
                     <tr>
                         <td><img src="https://bootdey.com/img/Content/avatar/avatar5.png" alt=""></td>
-                        <td><h3>Juan Calvo Isasi</h3></td>
+                        <td>
+                            <ul class="usrlst">
+                                <li>Name : Juan Calvo Isasi</li>
+                                <li>Range: </li>
+                                <li>Age: 20</li>
+                                <li>Languages: Spanish, English</li>
+                                <li>Nº of travelers: 4/6</li>
+                                <li>Trip type: Turism</li>
+                            </ul>
+                        </td>
                         <td>
                             <button type="submit">Erase from Blacklist</button>
                             <button type="submit">Edit</button>
@@ -169,7 +214,16 @@
                     </tr>
                     <tr>
                         <td><img src="https://bootdey.com/img/Content/avatar/avatar4.png" alt=""></td>
-                        <td><h3>Alberto Perez</h3></td>
+                        <td>
+                            <ul class="usrlst">
+                                <li>Name: Alberto Perez</li>
+                                <li>Range: </li>
+                                <li>Age: 31</li>
+                                <li>Languages: Spanish</li>
+                                <li>Nº of travelers: 1/5</li>
+                                <li>Trip type: Turism</li>
+                            </ul>
+                        </td>
                         <td>
                             <button type="submit">Erase from Blacklist</button>
                             <button type="submit">Edit</button>
@@ -178,11 +232,71 @@
                     </tr>
                     <tr>
                         <td><img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt=""></td>
-                        <td><h3>Marina Sanchez</h3></td>
+                        <td>
+                            <ul class="usrlst">
+                                <li>Name: Marina Sanchez</li>
+                                <li>Range: </li>
+                                <li>Age: 20</li>
+                                <li>Languages: Spanish, French</li>
+                                <li>Nº of travelers: 3/6</li>
+                                <li>Trip type: Turism</li>
+                            </ul>
+                        </td>
                         <td>
                             <button type="submit">Erase from Blacklist</button>
                             <button type="submit">Edit</button>
                             <button type="submit">Erase</button>
+                        </td>
+                        
+                    </tr>
+                </table>
+
+            </div>
+
+            <div id="reportlist">
+                <!-- Blacklist -->
+                <table class="table">
+                    <tr>
+                        <td><img src="https://bootdey.com/img/Content/avatar/avatar5.png" alt=""></td>
+                        <td style="width:25%"><h5>Juan Calvo Isasi</h5></td>
+                        <td style="width:50%">
+                            <p><strong> Report comment:</strong>
+                            </p>
+                            <p>Lorem ipsum dolor sit amet consectetur
+                                adipisicing elit. Fugit ex ipsa nulla
+                                corporis. Illo optio aut facilis
+                                perspiciatis vitae, veniam id officia
+                                sint cupiditate non voluptatem suscipit,
+                                explicabo tenetur deleniti!</p>
+                        </td>
+                        
+                    </tr>
+                    <tr>
+                        <td><img src="https://bootdey.com/img/Content/avatar/avatar4.png" alt=""></td>
+                        <td><h5>Alberto Perez</h5></td>
+                        <td>
+                            <p><strong>Report comment:</strong>
+                            </p>
+                            <p>Lorem ipsum dolor sit amet consectetur
+                                adipisicing elit. Fugit ex ipsa nulla
+                                corporis. Illo optio aut facilis
+                                perspiciatis vitae, veniam id officia
+                                sint cupiditate non voluptatem suscipit,
+                                explicabo tenetur deleniti!</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt=""></td>
+                        <td><h5>Marina Sanchez</h5></td>
+                        <td>
+                            <p><strong>Report comment:</strong>
+                            </p>
+                            <p>Lorem ipsum dolor sit amet consectetur
+                                adipisicing elit. Fugit ex ipsa nulla
+                                corporis. Illo optio aut facilis
+                                perspiciatis vitae, veniam id officia
+                                sint cupiditate non voluptatem suscipit,
+                                explicabo tenetur deleniti!</p>
                         </td>
                         
                     </tr>
