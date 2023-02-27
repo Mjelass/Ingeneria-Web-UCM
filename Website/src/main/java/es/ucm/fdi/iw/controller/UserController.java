@@ -110,8 +110,12 @@ public class UserController {
 	@GetMapping("{id}")
     public String index(@PathVariable long id, Model model, HttpSession session) {
         User target = entityManager.find(User.class, id);
+		User u = (User)session.getAttribute("u");
         model.addAttribute("user", target);
-        return "user";
+		model.addAttribute("idRequest", target.getId());
+		model.addAttribute("idUser", u != null? u.getId(): -1);
+		model.addAttribute("isOwner", u != null && (target.getId() == u.getId()));
+		return "user";
     }
 
     /**

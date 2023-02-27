@@ -105,13 +105,7 @@
                             <p class="mb-0"><span>⭐⭐⭐⭐⭐</span>10 valoraciones.</p>
                         </div>
                     </div>
-                    <div th:if="${application.debug}">
-                        <form class="d-flex" th:action="@{/login}" method="post">
-                            <input type="hidden" name="username" value="b">
-                            <input type="hidden" name="password" value="aa">
-                            <button type="submit" class="btn btn-outline-danger btn-sm">User Profile</button>
-                        </form>
-                    </div>
+                    <a class="btn btn-primary" th:href="@{/user/2}" href="/user/2">User</a>
                 </div>
             </div>
         </div>

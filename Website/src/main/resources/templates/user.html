@@ -4,18 +4,21 @@
 <head>
     <th:block th:replace="fragments/head :: header" />
     <title>IW: Perfil</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 
 <body class="d-flex flex-column h-100">
     <header th:replace="fragments/nav.html :: nav"></header>
-
+    <!-- <p th:text="'isOwner: ' + ${isOwner}">A</p>
+    <p th:text="'idRequest: ' + ${idRequest}">A</p>
+    <p th:text="'idUser: ' + ${idUser}">A</p> -->
     <main class="flex-shrink-0">
 
         <section class="vh-100">  
             <div class="container-fluid h-100  d-flex align-items-end" th:style="'background:url('+ @{/img/default-pic.jpg} +');'" style="background-size: cover">
                 <div class="row w-100">
                     <div class="col-12 text-center">
-                        <img  th:src="@{/user/{id}/pic(id=${session.u.id})}" />
+                        <img  th:src="@{/user/{id}/pic(id=${user.id})}" />
                     </div>
                 </div>
             </div>
@@ -37,14 +40,14 @@
                                             Madrid, Spain
                                         </a>
                                         <p class="small mb-0"><i class="far fa-star fa-lg"></i> <span class="mx-2">|</span> Trip by
-                                        <strong><span th:text="${session.u.username}">Pepe</span></h2></strong> on 11 April , 2021</p>
+                                        <strong><span th:text="${user.username}">Pepe</span></h2></strong> on 11 April , 2021</p>
                                         <hr class="my-4">
                                         <div class="d-flex justify-content-start align-items-center">
                                         <p class="mb-0 text-uppercase"><i class="fas fa-cog me-2"></i> <span
                                             class="font-italic">Description</span></p>
                                             <span class="ms-3 me-4">|</span></p>
-                                        <a th:href="@{/user/{id}(id=${session.u.id})}">
-                                            <img  th:src="@{/user/{id}/pic(id=${session.u.id})}" 
+                                        <a th:href="@{/user/{id}(id=${user.id})}">
+                                            <img  th:src="@{/user/{id}/pic(id=${user.id})}" 
                                             alt="avatar"
                                             class="img-fluid rounded-circle me-3" width="35"/>
                                         </a>
@@ -87,14 +90,14 @@
                                                 Paris, France
                                             </a>
                                             <p class="small mb-0"><i class="far fa-star fa-lg"></i> <span class="mx-2">|</span> Trip by
-                                            <strong><span th:text="${session.u.username}">Pepe</span></h2></strong> on 11 April , 2021</p>
+                                            <strong><span th:text="${user.username}">Pepe</span></h2></strong> on 11 April , 2021</p>
                                             <hr class="my-4">
                                             <div class="d-flex justify-content-start align-items-center">
                                             <p class="mb-0 text-uppercase"><i class="fas fa-cog me-2"></i> <span
                                                 class="font-italic">Description</span></p>
                                                 <span class="ms-3 me-4">|</span></p>
-                                            <a th:href="@{/user/{id}(id=${session.u.id})}">
-                                                <img  th:src="@{/user/{id}/pic(id=${session.u.id})}" 
+                                            <a th:href="@{/user/{id}(id=${user.id})}">
+                                                <img  th:src="@{/user/{id}/pic(id=${user.id})}" 
                                                 alt="avatar"
                                                 class="img-fluid rounded-circle me-3" width="35"/>
                                             </a>
@@ -137,14 +140,14 @@
                                                     Lisboa, Portugal
                                                 </a>
                                                 <p class="small mb-0"><i class="far fa-star fa-lg"></i> <span class="mx-2">|</span> Trip by
-                                                <strong><span th:text="${session.u.username}">Pepe</span></h2></strong> on 11 April , 2021</p>
+                                                <strong><span th:text="${user.username}">Pepe</span></h2></strong> on 11 April , 2021</p>
                                                 <hr class="my-4">
                                                 <div class="d-flex justify-content-start align-items-center">
                                                 <p class="mb-0 text-uppercase"><i class="fas fa-cog me-2"></i> <span
                                                     class="font-italic">Description</span></p>
                                                     <span class="ms-3 me-4">|</span></p>
-                                                <a th:href="@{/user/{id}(id=${session.u.id})}">
-                                                    <img  th:src="@{/user/{id}/pic(id=${session.u.id})}" 
+                                                <a th:href="@{/user/{id}(id=${user.id})}">
+                                                    <img  th:src="@{/user/{id}/pic(id=${user.id})}" 
                                                     alt="avatar"
                                                     class="img-fluid rounded-circle me-3" width="35"/>
                                                 </a>
@@ -187,14 +190,14 @@
                                                         Dublin, Ireland
                                                     </a>
                                                     <p class="small mb-0"><i class="far fa-star fa-lg"></i> <span class="mx-2">|</span> Trip by
-                                                    <strong><span th:text="${session.u.username}">Pepe</span></h2></strong> on 11 April , 2021</p>
+                                                    <strong><span th:text="${user.username}">Pepe</span></h2></strong> on 11 April , 2021</p>
                                                     <hr class="my-4">
                                                     <div class="d-flex justify-content-start align-items-center">
                                                     <p class="mb-0 text-uppercase"><i class="fas fa-cog me-2"></i> <span
                                                         class="font-italic">Description</span></p>
                                                         <span class="ms-3 me-4">|</span></p>
-                                                    <a th:href="@{/user/{id}(id=${session.u.id})}">
-                                                        <img  th:src="@{/user/{id}/pic(id=${session.u.id})}" 
+                                                    <a th:href="@{/user/{id}(id=${user.id})}">
+                                                        <img  th:src="@{/user/{id}/pic(id=${user.id})}" 
                                                         alt="avatar"
                                                         class="img-fluid rounded-circle me-3" width="35"/>
                                                     </a>
@@ -264,14 +267,14 @@
                                             New York, USA
                                         </a>
                                         <p class="small mb-0"><i class="far fa-star fa-lg"></i> <span class="mx-2">|</span> Trip by
-                                        <strong><span th:text="${session.u.username}">Pepe</span></h2></strong> on 11 April , 2021</p>
+                                        <strong><span th:text="${user.username}">Pepe</span></h2></strong> on 11 April , 2021</p>
                                         <hr class="my-4">
                                         <div class="d-flex justify-content-start align-items-center">
                                         <p class="mb-0 text-uppercase"><i class="fas fa-cog me-2"></i> <span
                                             class="font-italic">Description</span></p>
                                             <span class="ms-3 me-4">|</span></p>
-                                        <a th:href="@{/user/{id}(id=${session.u.id})}">
-                                            <img  th:src="@{/user/{id}/pic(id=${session.u.id})}" 
+                                        <a th:href="@{/user/{id}(id=${user.id})}">
+                                            <img  th:src="@{/user/{id}/pic(id=${user.id})}" 
                                             alt="avatar"
                                             class="img-fluid rounded-circle me-3" width="35"/>
                                         </a>
@@ -307,11 +310,12 @@
                             
                         </div>
                         </div>  
-                        <!-- Create new trip-->
-                        <div style="width: 100%; text-align: center;">
-                            <a th:href="@{/form}" href="/form">
-                                <img th:src="@{/img/add.png}" alt="Add Trip" width="60" height="60">
+                        <!-- Create new trip: show if it's his profile -->
+                        <div class="d-flex justify-content-center" th:if="${isOwner}">
+                            <a th:href="@{/form}" href="/form" class="card-btn btn btn-primary mb-5 d-flex align-items-center w-50" style="border-radius: 10px;">
+                                <i class="material-icons">add_circle</i>Add Trip
                             </a>
+                            <!-- Show a model -->
                         </div>
                         
                   </div>
