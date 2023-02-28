@@ -17,3 +17,16 @@ function toggleActionsDisplay(){
         document.getElementById("taken-vacs").innerText = takenVacs;
     }
 }
+
+function toggleFav(){
+    let fav = document.getElementById("fav-i");
+    let numf = document.getElementById("fav-n");
+    if(fav.innerText == "❤️"){
+        fav.innerText = "🤍";
+        numf.innerText = Number(numf.innerText) - 1;
+    }
+    else{
+        fav.innerText = "❤️";
+        numf.innerText = Number(numf.innerText) + 1;
+    }
+}
