@@ -1,5 +1,7 @@
+
 package es.ucm.fdi.iw.model;
 
+import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -34,6 +36,12 @@ public class User implements Transferable<User.Transfer> {
         ADMIN,          // admin users
     }
 
+    public enum State {
+        Begginer,
+        Medium,
+        Advanced
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen")
     @SequenceGenerator(name = "gen", sequenceName = "gen")
@@ -46,6 +54,21 @@ public class User implements Transferable<User.Transfer> {
 
     private String firstName;
     private String lastName;
+
+    private String location;
+    private LocalDate birthdate;
+    private String description;
+    private Long rating;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private State state;
+
+    @Column(unique = true)
+    private String email;
+
+    @OneToMany
+    private List<Languages> languages = new ArrayList<>();
 
     private boolean enabled;
     private String roles; // split by ',' to separate roles
