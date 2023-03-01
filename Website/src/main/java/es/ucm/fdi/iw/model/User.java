@@ -2,16 +2,28 @@
 package es.ucm.fdi.iw.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * An authorized user of the system.
@@ -19,6 +31,7 @@ import java.util.List;
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @NamedQueries({
         @NamedQuery(name="User.byUsername",
                 query="SELECT u FROM User u "
@@ -37,9 +50,9 @@ public class User implements Transferable<User.Transfer> {
     }
 
     public enum State {
-        Begginer,
-        Medium,
-        Advanced
+        BEGINNER,
+        MEDIUM,
+        ADVANCED
     }
 
     @Id
@@ -59,16 +72,24 @@ public class User implements Transferable<User.Transfer> {
     private LocalDate birthdate;
     private String description;
     private Long rating;
-
+    private String  languages;// split by ',' to separate languages
+/* 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private State state;
 
     @Column(unique = true)
     private String email;
 
+     */
+    //Eventos en los que ha participado antes(estan en estado finish)
     @OneToMany
-    private List<Languages> languages = new ArrayList<>();
+    @JoinColumn(name = "old_events")
+    private List<Event> OldEvents = new ArrayList<>();
+
+    //Eventos que el user les tiene en favoritos
+    @OneToMany
+    @JoinColumn(name = "fav_events")
+    private List<Event> favEvents = new ArrayList<>();
 
     private boolean enabled;
     private String roles; // split by ',' to separate roles
