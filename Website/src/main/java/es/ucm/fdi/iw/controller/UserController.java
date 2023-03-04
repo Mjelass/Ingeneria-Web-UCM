@@ -41,7 +41,9 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.io.*;
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
+import java.time.Year;
 import java.util.Base64;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -112,7 +114,9 @@ public class UserController {
     public String index(@PathVariable long id, Model model, HttpSession session) {
         User target = entityManager.find(User.class, id);
 		User u = (User)session.getAttribute("u");
+		int age =Year.now().getValue()  - target.getBirthdate().getYear();
         model.addAttribute("user", target);
+								model.addAttribute("age", age);
 		model.addAttribute("idRequest", target.getId());
 		model.addAttribute("idUser", u != null? u.getId(): -1);
 		model.addAttribute("isOwner", u != null && (target.getId() == u.getId()));
@@ -331,7 +335,7 @@ public class UserController {
 			User InsertUser = new User();
 			InsertUser.setFirstName(user.getFirstName());
 			InsertUser.setLastName(user.getLastName());
-			InsertUser.setPassword(encodePassword(user.getFirstName()));
+			InsertUser.setPassword(encodePassword(user.getPassword()));
 			InsertUser.setUsername(user.getUsername());
 			InsertUser.setLocation(user.getLocation());
 			InsertUser.setDescription(user.getDescription());
