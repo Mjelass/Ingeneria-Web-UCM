@@ -240,18 +240,20 @@
                 <!-- User information -->
                 <p class="lead fw-normal mb-1" style="text-align: center;">About</p>
                 <div class="p-4" style="background-color: #f8f9fa;">
-                    <p class="font-italic mb-1">Nayionality</p>
-                    <p class="font-italic mb-1">Languages</p>
-                    <p class="font-italic mb-0">Range of age</p>
-                    <p class="font-italic mb-0">Sex</p>
-                    <p class="font-italic mb-0">Age</p>
-                    <p class="font-italic mb-0">Evaluation</p>
+                    <p class="font-italic mb-1  b" style="font-weight: bold;">FirstName : <span th:text="${user.firstName}" style="font-weight: normal;"></span></p>
+                    <p class="font-italic mb-1 b" style="font-weight: bold;">LastName :  <span th:text="${user.lastName}" style="font-weight: normal;"></span></p>
+                    <p class="font-italic mb-0 b" style="font-weight: bold;">Location : <span th:text="${user.location}" style="font-weight: normal;"></span></p>
+                    <p class="font-italic mb-0 b" style="font-weight: bold;">Languages : <span th:text="${user.languages}" style="font-weight: normal;"></span></p>
+                    <p class="font-italic mb-0 b" style="font-weight: bold;">Sex</p>
+                    <p class="font-italic mb-0 b" style="font-weight: bold;">Age : <span th:text="${age}" style="font-weight: normal;"></span></p>
+                    <p class="font-italic mb-0 b" style="font-weight: bold;">Email : <span th:text="${user.email}" style="font-weight: normal;"></span></p>
+                    <p class="font-italic mb-0 b">Evaluation</p>
                   </div>
 
                 <!-- User description -->
-                <p class="lead fw-normal mb-1">Description</p>
+                <p class="lead fw-normal mb-1 b">Description</p>
                 <div class="p-4" style="background-color: #f8f9fa;">
-                    <p class="font-italic mb-1">Little description of the user.</p>
+                    <p class="font-italic mb-1" th:text="${user.description}">Little description of the user.</p>
                   </div>
             </div>
 
