@@ -9,145 +9,56 @@
       href="css/search.css"
       type="text/css"
     />
-    <link
-      rel="stylesheet"
-      th:href="@{https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0}"
-    />
-    <link
-      rel="stylesheet"
-      th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css}"
-    />
-    <script type="text/javascript" th:src="@{/js/signUp.js}"></script>
+   
+
   </head>
 
   <body class="d-flex flex-column h-100">
     <header th:replace="fragments/nav.html :: nav"></header>
 
-    <div class="container mt-5" style="margin: auto">
-      <div class="row d-flex justify-content-center align-items-center">
-        <div class="col-md-8">
-          <form id="regForm">
-            <h1 id="register" style="font-size: 3em">Sign in</h1>
-            <div class="all-steps" id="all-steps">
-              <span class="step"
-                ><span class="material-symbols-outlined"> person </span></span
-              >
-              <span class="step"
-                ><span class="material-symbols-outlined"> cake </span></span
-              >
-              <span class="step"
-                ><span class="material-symbols-outlined"> language </span></span
-              >
-              <span class="step"
-                ><span class="material-symbols-outlined"> flag </span></span
-              >
-              <span class="step"
-                ><span class="material-symbols-outlined">
-                  photo_camera
-                </span></span
-              >
-              <span class="step"
-                ><span class="material-symbols-outlined"> edit </span></span
-              >
-            </div>
-
-            <div class="tab">
-              <h6 class="request">What's your name?</h6>
-              <p>
-                <input
-                  placeholder="Name..."
-                  oninput="this.className = ''"
-                  name="fname"
-                />
-              </p>
-              <p>
-                <input
-                  placeholder="Surname..."
-                  oninput="this.className = ''"
-                  name="Sname"
-                />
-              </p>
-            </div>
-
-            <div class="tab">
-              <h6 class="request">When is your birthday?</h6>
-              <p>
-                <input type="date" oninput="this.className = ''" name="dd" />
-              </p>
-            </div>
-
-            <div class="tab">
-              <h6 class="request">Where are you from?</h6>
-              <p>
-                <select id="country" name="country" class="form-control">
-                  <option value="Swaziland">Swaziland</option>
-                  <option value="Sweden">Sweden</option>
-                  <option value="Switzerland">Switzerland</option>
-                  <option value="Thailand">Thailand</option>
-                  <option value="Timor-leste">Timor-leste</option>
-                  <option value="Togo">Togo</option>
-                </select>
-              </p>
-            </div>
-
-            <div class="tab">
-              <h6 class="request">What languages do you know?</h6>
-              <p>
-                <input
-                  placeholder="Language..."
-                  oninput="this.className = ''"
-                  name="uname"
-                />
-              </p>
-            </div>
-
-            <div class="tab">
-              <h6 class="request">Show us some pictures of you!</h6>
-              <input
-                type="file"
-                oninput="this.className = ''"
-                name="uname"
-                style="border: none"
-              />
-            </div>
-
-            <div class="tab">
-              <h6 class="request">Tell us something about yourself!</h6>
-              <textarea
-                name=""
-                id=""
-                cols="30"
-                rows="10"
-                style="width: 100%; resize: vertical"
-              ></textarea>
-            </div>
-
-            <div class="thanks-message text-center" id="text-message">
-              <img
-                src="https://i.imgur.com/O18mJ1K.png"
-                width="100"
-                class="mb-4"
-              />
-              <h3>You signed up successfully!</h3>
-              <span
-                >There's someone out there who's looking forward to travel with
-                you :)
-              </span>
-            </div>
-            <div style="overflow: auto" id="nextprevious">
-              <div style="float: right">
-                <button type="button" id="prevBtn" onclick="nextPrev(-1)">
-                  <i class="fa fa-angle-double-left"></i>
-                </button>
-                <button type="button" id="nextBtn" onclick="nextPrev(1)">
-                  <i class="fa fa-angle-double-right"></i>
-                </button>
-              </div>
-            </div>
-          </form>
-        </div>
+    <main class="flex-shrink-0">
+      <div class="container">
+        <form method="post" th:action="@{/user/saveUser}" th:object="${User}">
+          <div class="form-group">
+            <label for="firstName">First Name : </label>
+            <input type="text" class="form-control" id="firstName"  placeholder="First Name" th:field="*{firstName}" required>
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name : </label>
+            <input type="text" class="form-control" id="lastName"  placeholder="Last Name" th:field="*{lastName}"  required>
+          </div>
+          <div class="form-group">
+            <label for="username">Username : </label>
+            <input type="text" class="form-control" id="username"  placeholder="Username" th:field="*{username}" required>
+          </div>
+          <div class="form-group">
+            <label for="Password">Password : </label>
+            <input type="password" class="form-control" id="Password" placeholder="Password" th:field="*{password}" >
+          </div>
+          <div class="form-group">
+            <label for="location">Location : </label>
+            <input type="text" class="form-control" id="location" placeholder="location" th:field="*{location}" required>
+          </div>
+          <div class="form-group">
+            <label for="birthdate">Birthdate : </label>
+            <input type="date" class="form-control" id="birthdate"  placeholder="birthdate" th:field="*{birthdate}" required>
+          </div>
+          <div class="form-group">
+            <label for="description">Description</label>
+            <input type="text" class="form-control" id="description" placeholder="Tell us about you" th:field="*{description}">
+          </div>
+          <div class="form-group">
+            <label for="languages">Languages</label>
+            <input type="text" class="form-control" id="languages" placeholder="languages. Ex: french,english" th:field="*{languages}">
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" placeholder="Email" th:field="*{email}" >
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
       </div>
-    </div>
+    </main>
 
     <th:block th:replace="fragments/footer.html :: footer" />
   </body>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html class="h-100" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="fragments/head :: header" />
+    <title>ok</title>
+</head>
+<body>
+    <h1>form ok, Success</h1>
+    <h1 th:text="${User.id}"></h1>
+    <h1 th:text="${User.username}"></h1>
+    <h1 th:text="${User.password}"></h1>
+    <h1 th:text="${User.firstName}"></h1>
+    <h1 th:text="${User.lastName}"></h1>
+    <h1 th:text="${User.location}"></h1>
+    <h1 th:text="${User.birthdate}"></h1>
+    <h1 th:text="${User.description}"></h1>
+    <h1 th:text="${User.languages}"></h1>
+    <h1 th:text="${User.email}"></h1>
+    
+</body>
+</html>

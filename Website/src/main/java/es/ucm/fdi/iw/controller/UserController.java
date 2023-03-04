@@ -5,6 +5,7 @@ import es.ucm.fdi.iw.model.Message;
 import es.ucm.fdi.iw.model.Transferable;
 import es.ucm.fdi.iw.model.User;
 import es.ucm.fdi.iw.model.User.Role;
+import es.ucm.fdi.iw.model.User.State;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -317,4 +318,37 @@ public class UserController {
     public String login(Model model) {
         return "chat";
     }
+
+
+
+
+	//ADD User to the dataBase when you fill the form
+	//Falta redirigirlo a la pagina errorSignUp si hay error
+	@Transactional
+	@PostMapping("/saveUser")
+        public String saveUser(@ModelAttribute User user, Model model){
+            
+			User InsertUser = new User();
+			InsertUser.setFirstName(user.getFirstName());
+			InsertUser.setLastName(user.getLastName());
+			InsertUser.setPassword(encodePassword(user.getFirstName()));
+			InsertUser.setUsername(user.getUsername());
+			InsertUser.setLocation(user.getLocation());
+			InsertUser.setDescription(user.getDescription());
+			InsertUser.setLanguages(user.getLanguages());
+			InsertUser.setEmail(user.getEmail());
+			InsertUser.setBirthdate(user.getBirthdate());
+			InsertUser.setRating(0L);
+			InsertUser.setState(State.BEGINNER);
+			InsertUser.setRoles(Role.USER.name());
+			InsertUser.setEnabled(true);
+			InsertUser.setOldEvents(null);
+			InsertUser.setFavEvents(null);
+			InsertUser.setSent(null);
+			InsertUser.setReceived(null);
+			entityManager.persist(InsertUser);
+			entityManager.flush();
+			model.addAttribute("User", InsertUser);
+            return "ok";
+        } 
 }

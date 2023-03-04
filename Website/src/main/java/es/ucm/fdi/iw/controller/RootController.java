@@ -4,7 +4,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import es.ucm.fdi.iw.model.User;
 
 /**
  *  Non-authenticated requests only.
@@ -18,8 +23,11 @@ public class RootController {
 
     @GetMapping("/signUp")
         public String signIn(Model model) {
+            model.addAttribute("User", new User());
             return "signUp";
     }
+
+    
 
     @GetMapping("/search")
         public String search(Model model) {
