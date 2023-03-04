@@ -27,11 +27,11 @@ public class IwApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		//Aqui es para probar a insertar en la base de datos
-		User user1 = new User(1,"a","{bcrypt}$2a$10$2BpNTbrsarbHjNsUWgzfNubJqBRf.0Vz9924nRSHBqlbPKerkgX.W","ff","ll","Madrid",LocalDate.now(),"me gusta viajar",8L,"muchos",null,null,true,"ADMIN,USER",null,null);
+		User user1 = new User(1,"a","{bcrypt}$2a$10$2BpNTbrsarbHjNsUWgzfNubJqBRf.0Vz9924nRSHBqlbPKerkgX.W","ff","ll","Madrid",LocalDate.now(),"me gusta viajar",8L,"muchos",null,null,null,null, true,"ADMIN,USER",null,null);
 
-		User user2 = new User(2,"b","{bcrypt}$2a$10$2BpNTbrsarbHjNsUWgzfNubJqBRf.0Vz9924nRSHBqlbPKerkgX.W","ff","ll","Madrid",LocalDate.now(),"me gusta viajar",8L,"muchos",null,null,true,"USER",null,null);
+		User user2 = new User(2,"b","{bcrypt}$2a$10$2BpNTbrsarbHjNsUWgzfNubJqBRf.0Vz9924nRSHBqlbPKerkgX.W","ff","ll","Madrid",LocalDate.now(),"me gusta viajar",8L,"muchos",null,null,null, null, true,"USER",null,null);
 
-		User user3 = new User(4,"userTest3","pass","ff","ll","Madrid",LocalDate.now(),"me gusta viajar",8L,"muchos",null,null,true,"USER",null,null);
+		User user3 = new User(4,"userTest3","pass","ff","ll","Madrid",LocalDate.now(),"me gusta viajar",8L,"muchos",null,null,null, null, true,"USER",null,null);
 
 		userRepository.save(user1);
 		userRepository.save(user2);

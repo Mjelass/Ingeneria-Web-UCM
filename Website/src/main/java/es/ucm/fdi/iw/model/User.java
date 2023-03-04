@@ -19,6 +19,10 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -69,18 +73,20 @@ public class User implements Transferable<User.Transfer> {
     private String lastName;
 
     private String location;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthdate;
     private String description;
     private Long rating;
     private String  languages;// split by ',' to separate languages
-/* 
+ 
     @Enumerated(EnumType.STRING)
     private State state;
 
     @Column(unique = true)
     private String email;
 
-     */
+     
     //Eventos en los que ha participado antes(estan en estado finish)
     @OneToMany
     @JoinColumn(name = "old_events")
@@ -92,7 +98,7 @@ public class User implements Transferable<User.Transfer> {
     private List<Event> favEvents = new ArrayList<>();
 
     private boolean enabled;
-    private String roles; // split by ',' to separate roles
+    private String roles; // split by ',' to separate roles User or Admin
 
 	@OneToMany
 	@JoinColumn(name = "sender_id")
