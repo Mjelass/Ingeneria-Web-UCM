@@ -14,3 +14,4 @@ Feature: envío de mensajes
 
     Then match html('#mensajes') contains mensaje
     And driver.screenshot()
+    
