@@ -1,6 +1,7 @@
 
 package es.ucm.fdi.iw.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,7 +39,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserEvent {
+public class UserEvent implements Serializable{
 
     // @Id
     // private Long userId;
@@ -46,20 +47,20 @@ public class UserEvent {
     // private Long eventId;
     // private 
 
+    // @Id
+    // @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen")
+    // @SequenceGenerator(name = "gen", sequenceName = "gen")
+    // private Long id;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen")
-    @SequenceGenerator(name = "gen", sequenceName = "gen")
-    private Long id;
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
 
-    // @Id
-    // @ManyToOne
-    // @MapsId("userId")
-    // private User user;
-
-    // @Id
-    // @ManyToOne
-    // @MapsId("eventId")
-    // private Event event;
+    @Id
+    @ManyToOne
+    @JoinColumn(name = "event_id", referencedColumnName = "id")
+    private Event event;
     
     private Boolean fav;
 

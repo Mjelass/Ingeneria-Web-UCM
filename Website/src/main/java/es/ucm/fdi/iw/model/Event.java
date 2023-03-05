@@ -59,17 +59,16 @@ public class Event {
     @OneToOne
     private User userOwner;
   
-    //Lista de los participantes del viaje
-    @OneToMany
-    @JoinColumn(name = "EventParts")
-    private List<User> participants = new ArrayList<>();
-
-    @OneToMany
-    @JoinColumn(name = "rolsParts")
-    private List<Rols> rolsParticipants = new ArrayList<>();
+    // //Lista de los participantes del viaje
+    // @OneToMany
+    // @JoinColumn(name = "EventParts")
+    // private List<User> participants = new ArrayList<>();
 
     // @OneToMany
-    // @JoinColumn(name = "userEvent")
-    // private List<UserEvent> userEvent = new ArrayList<>();
+    // @JoinColumn(name = "rolsParts")
+    // private List<Rols> rolsParticipants = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<UserEvent> userEvent = new ArrayList<>();
   
 }

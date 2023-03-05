@@ -107,9 +107,8 @@ public class User implements Transferable<User.Transfer> {
     */
 
 
-    // @OneToMany
-    // @JoinColumn(name = "userEvent")
-    // private List<UserEvent> userEvent = new ArrayList<>();
+    @OneToMany(mappedBy = "event")
+    private List<UserEvent> userEvent = new ArrayList<>();
 
     private boolean enabled;
     private String roles; // split by ',' to separate roles User or Admin

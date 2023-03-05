@@ -115,7 +115,13 @@ public class UserController {
     public String index(@PathVariable long id, Model model, HttpSession session) {
         User target = entityManager.find(User.class, id);
 		User u = (User)session.getAttribute("u");
-		int age =Year.now().getValue()  - target.getBirthdate().getYear();
+		int age;
+		if(target.getBirthdate() == null){
+			age = -1;
+		}
+		else{
+			age = Year.now().getValue()  - target.getBirthdate().getYear();
+		}
         model.addAttribute("user", target);
 								model.addAttribute("age", age);
 		model.addAttribute("idRequest", target.getId());
@@ -292,7 +298,7 @@ public class UserController {
 		
 		// construye mensaje, lo guarda en BD
 		Message m = new Message();
-		m.setreceiver(u);
+		m.setReceiver(u);
 		m.setSender(sender);
 		m.setDateSent(LocalDateTime.now());
 		m.setText(text);
