@@ -5,7 +5,8 @@ import es.ucm.fdi.iw.model.Message;
 import es.ucm.fdi.iw.model.Transferable;
 import es.ucm.fdi.iw.model.User;
 import es.ucm.fdi.iw.model.User.Role;
-import es.ucm.fdi.iw.model.User.State;
+import es.ucm.fdi.iw.model.User.Status;
+import es.ucm.fdi.iw.model.User.Level;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -291,7 +292,7 @@ public class UserController {
 		
 		// construye mensaje, lo guarda en BD
 		Message m = new Message();
-		m.setRecipient(u);
+		m.setreceiver(u);
 		m.setSender(sender);
 		m.setDateSent(LocalDateTime.now());
 		m.setText(text);
@@ -342,13 +343,13 @@ public class UserController {
 			InsertUser.setLanguages(user.getLanguages());
 			InsertUser.setEmail(user.getEmail());
 			InsertUser.setBirthdate(user.getBirthdate());
-			InsertUser.setRating(0L);
-			InsertUser.setState(State.BEGINNER);
+			InsertUser.setRating(0F);
+			InsertUser.setStatus(Status.ACTIVE);
 			InsertUser.setRoles(Role.USER.name());
 			InsertUser.setEnabled(true);
-			InsertUser.setOldEvents(null);
-			InsertUser.setFavEvents(null);
+			InsertUser.setUserEvent(null);
 			InsertUser.setSent(null);
+			InsertUser.setLevel(Level.BRONZE);
 			InsertUser.setReceived(null);
 			entityManager.persist(InsertUser);
 			entityManager.flush();

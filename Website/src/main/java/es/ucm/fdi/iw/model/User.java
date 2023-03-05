@@ -52,11 +52,16 @@ public class User implements Transferable<User.Transfer> {
         USER,			// normal users 
         ADMIN,          // admin users
     }
-
-    public enum State {
-        BEGINNER,
-        MEDIUM,
-        ADVANCED
+    public enum Level {
+        NONE,
+        BRONZE,
+        SILVER,
+        GOLD
+    }
+    public enum Status {
+        ACTIVE,
+        SUSPENDED,
+        BLACK_LISTED
     }
 
     @Id
@@ -77,16 +82,19 @@ public class User implements Transferable<User.Transfer> {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthdate;
     private String description;
-    private Long rating;
+    private Float rating;
     private String  languages;// split by ',' to separate languages
  
     @Enumerated(EnumType.STRING)
-    private State state;
+    private Level level;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
     @Column(unique = true)
     private String email;
 
-     
+     /*
     //Eventos en los que ha participado antes(estan en estado finish)
     @OneToMany
     @JoinColumn(name = "old_events")
@@ -96,6 +104,12 @@ public class User implements Transferable<User.Transfer> {
     @OneToMany
     @JoinColumn(name = "fav_events")
     private List<Event> favEvents = new ArrayList<>();
+    */
+
+
+    // @OneToMany
+    // @JoinColumn(name = "userEvent")
+    // private List<UserEvent> userEvent = new ArrayList<>();
 
     private boolean enabled;
     private String roles; // split by ',' to separate roles User or Admin
@@ -104,7 +118,7 @@ public class User implements Transferable<User.Transfer> {
 	@JoinColumn(name = "sender_id")
 	private List<Message> sent = new ArrayList<>();
 	@OneToMany
-	@JoinColumn(name = "recipient_id")	
+	@JoinColumn(name = "receiver_id")	
 	private List<Message> received = new ArrayList<>();		
 
     /**
