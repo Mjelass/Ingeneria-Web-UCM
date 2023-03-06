@@ -10,4 +10,8 @@ Feature: login en servidor
     Given driver baseUrl + '/search'
     When click("#ss")
     Then waitForUrl(baseUrl + '/event')
-    
+    And click("#check-join")
+    When click("#ch")
+    Then waitForUrl(baseUrl + '/chat')
+    And input('#textAreaExample2', 'Hello , i would like to join you to the trip please')
+    And click("#env")
