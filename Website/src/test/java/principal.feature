@@ -11,7 +11,7 @@ Feature: login en servidor
     When click("#ss")
     Then waitForUrl(baseUrl + '/event')
     And click("#check-join")
-    When click("#ch")
+    When click("#acts-aft-join > a:first-child")
     Then waitForUrl(baseUrl + '/chat')
     And input('#textAreaExample2', 'Hello , i would like to join you to the trip please')
     And click("#env")
