@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -11,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -45,19 +47,28 @@ public class Event {
     private String title;
     private LocalDate initDate;
     private LocalDate finishDate;
+    private String destination;
+    private String reunionPoint;
+    
+    @Column(columnDefinition = "TEXT")
     private String description;
     private int price;
     private int capacity;
     private int occupied;
-
-    
+    private String transport; // split by ',' to separate notes
+    // PLANE, BUS, CAR, SHIP, ...
     private String notes; // split by ',' to separate notes
+    // NO_KIDS, NO_ANIMALS, ...
+
     @Enumerated(EnumType.STRING)
     private Type type; 
-
+    @Enumerated(EnumType.STRING)
+    private Status status;
       
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "user_owner_id", referencedColumnName = "id")
     private User userOwner;
+    
   
     // //Lista de los participantes del viaje
     // @OneToMany

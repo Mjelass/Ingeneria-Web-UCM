@@ -81,6 +81,8 @@ public class User implements Transferable<User.Transfer> {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthdate;
+    
+    @Column(columnDefinition = "TEXT")
     private String description;
     private Float rating;
     private String  languages;// split by ',' to separate languages
