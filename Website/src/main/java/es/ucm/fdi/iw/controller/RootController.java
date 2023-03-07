@@ -39,10 +39,10 @@ public class RootController {
             return "form";
     }
 
-    @GetMapping("/event")
-    public String event(Model model) {
-            return "event";
-    }
+    // @GetMapping("/event")
+    // public String event(Model model) {
+    //         return "event";
+    // }
 
     @GetMapping("/chat")
     public String chat(Model model) {

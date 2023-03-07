@@ -36,6 +36,7 @@ public class Event {
 
     public enum Type {
       TRIP,
+      EVENT,
       CONCERT,
       CAMPING,
       MUSEUM
