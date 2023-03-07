@@ -167,7 +167,7 @@
                     <div class="result-body">
                       <div class="table-responsive">
                         <table class="table widget-26">
-                          <tbody>
+                          <tbody th:each="event:${allEvents}">
                              <!--Empieza nueva persona-->                               
                                 <tr class="fil">
                                   <td>
@@ -182,25 +182,23 @@
                                   <!--Informacion Persona-->
                                   <td>
                                     <div class="widget-26-job-title">
-                                      <p class="info"  ><strong>Name : </strong> Mehdi</p>
-                                      <p class="info"><strong>Age :</strong> 24</p>
+                                      <p class="info" ><strong>Name : </strong > 
+                                        <span>
+                                          <span th:text="${event.userOwner.firstName}"></span>, 
+                                          <span th:text="${event.userOwner.lastName}"></span>
+                                        </span>  </p>
+                                      <p class="info"><strong>Age : </strong> <span th:text="${#dates.year(#dates.createNow()) - event.userOwner.birthdate.getYear()}"></span> </p>
                                       <p class="info">
-                                        <strong>Nationality:</strong> Tunisian
+                                        <strong>Location : </strong> 
+                                        <span th:text="${event.userOwner.location}"></span>
                                       </p>
                                       <p class="info">
                                         <strong>Languages:</strong>
                                         <div class="col-5 d-flex align-items-center p-2">
                                             
                                             <span class="badge rounded-pill bg-warning"
-                                                style="margin-right: 0.5em;">arabic</span
+                                                style="margin-right: 0.5em;" th:text="${event.userOwner.languages}">arabic</span
                                             >
-                                            <span class="badge rounded-pill bg-warning"
-                                                style="margin-right: 0.5em;">french</span
-                                            >
-                                            <span class="badge rounded-pill bg-warning"
-                                                style="margin-right: 0.5em;">english</span
-                                            >
-                                            <span class="badge rounded-pill bg-warning" style="margin-right: 0.5em;">spanish</span>
                                             
                                             
                                         </div>
@@ -209,14 +207,14 @@
                                         <strong>Type of the trip : </strong>
                                         <div class="col-5 d-flex align-items-center p-2">
                                             <p class="m-0">
-                                                <span class="badge rounded-pill bg-primary">Cultural</span>
-                                                <span class="badge rounded-pill bg-primary">Hiking</span>
+                                                <span class="badge rounded-pill bg-primary" th:text="${event.type}">Cultural</span>
+                                                
                                             </p>
                                         </div>
                                         
                                       </p>
                                       <p class="info">
-                                        <strong>Number of people : </strong> 3/5
+                                        <strong >Number of people : </strong> <span th:text="${event.occupied}"></span>/ <span th:text="${event.capacity}"></span>
                                       </p>
                                     </div>
                                   </td>
@@ -224,18 +222,13 @@
                                   <td>
                                      <div class="widget-26-job-info">
                                       <a th:href="@{/event/2}" href="/event/2" class="tit" id="ss">
-                                        <p style="font-size: 2.5em;">
-                                        Tunisia, sidi bou said
+                                        <p style="font-size: 2.5em;" th:text="${event.destination}">
+                                        aqui, destinacion
                                       </p>
                                       </a>
                                       
-                                      <p class="info">
-                                        Lorem ipsum dolor sit amet consectetur
-                                        adipisicing elit. Fugit ex ipsa nulla
-                                        corporis. Illo optio aut facilis
-                                        perspiciatis vitae, veniam id officia
-                                        sint cupiditate non voluptatem suscipit,
-                                        explicabo tenetur deleniti!
+                                      <p class="info" th:text="${event.description}">
+                                        Aqui description
                                       </p>
                                     </div>
                                   </td>
@@ -245,12 +238,8 @@
                                   </td>
                                   <!--Imagen destino-->
                                   <td>
-                                    <img
-                                        th:attr="src=@{img/sidibousaid.jpg}"
-                                        src=""
-                                        alt=""
-                                        style="height: 15em; width: 18em"
-                                      />
+                                    <img style="height: 15em; width: 18em" src="https://picsum.photos/100/100" alt="">
+                      
                                   </td>
                                   <!--estrella para añadir a fasvoritos-->
                                   <td>
@@ -268,107 +257,6 @@
                                           stroke-linejoin="round"
                                           class="feather feather-star starred"
                                         ><!--anadir la clase starred para llenar estrella-->
-                                          <polygon
-                                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                                          ></polygon>
-                                        </svg>
-                                      </a>
-                                    </div>
-                                  </td>
-                                </tr>
-                             <!--Empieza nueva persona-->                               
-                                <tr class="fil">
-                                  <td>
-                                    <div class="widget-26-job-emp-img">
-                                      <img
-                                        src="https://bootdey.com/img/Content/avatar/avatar3.png"
-                                        alt="Company"
-                                      />
-                                    </div>
-                                  </td>
-                                  <td>
-                                    <div class="widget-26-job-title">
-                                      <p class="info"><strong>Name : </strong> Silvia</p>
-                                      <p class="info"><strong>Age :</strong> 23</p>
-                                      <p class="info">
-                                        <strong>Nationality:</strong> Italian
-                                      </p>
-                                      <p class="info">
-                                        <strong>Languages:</strong>
-                                        <div class="col-5 d-flex align-items-center p-2">
-                                            <span class="badge rounded-pill bg-warning"
-                                                style="margin-right: 0.5em;">italian</span
-                                            >
-                                            <span class="badge rounded-pill bg-warning"
-                                                style="margin-right: 0.5em;">english</span
-                                            >
-                                            <span class="badge rounded-pill bg-warning" style="margin-right: 0.5em;">spanish</span>
-                                            
-                                            
-                                        </div>
-                                      </p>
-                                      <p class="info">
-                                        <strong>Type of the trip : </strong>
-                                        <div class="col-5 d-flex align-items-center p-2">
-                                            <p class="m-0">
-                                                <span class="badge rounded-pill bg-primary">Party</span>
-                                                <span class="badge rounded-pill bg-primary">Music</span>
-                                            </p>
-                                        </div>
-                                        
-                                      </p>
-                                      <p class="info">
-                                        <strong>Number of people : </strong> 3/5
-                                      </p>
-                                    </div>
-                                  </td>
-                                  <td>
-                                     <div class="widget-26-job-info">
-                                       <a th:href="@{/event/2}" href="/event/2" class="tit">
-                                        <p
-                                        style="font-size: 2.5em;"
-                                        
-                                      >
-                                        Italia, Milano
-                                      </p>
-                                      </a>
-                                    
-                                      <p class="info">
-                                        Lorem ipsum dolor sit amet consectetur
-                                        adipisicing elit. Fugit ex ipsa nulla
-                                        corporis. Illo optio aut facilis
-                                        perspiciatis vitae, veniam id officia
-                                        sint cupiditate non voluptatem suscipit,
-                                        explicabo tenetur deleniti!
-                                      </p>
-                                    </div>
-                                  </td>
-                                  <td>
-                                    
-                                  </td>
-                                  <td>
-                                     <img
-                                        th:attr="src=@{img/milano.jpg}"
-                                        src=""
-                                        alt=""
-                                        style="height: 15em; width: 18em"
-                                      />
-                                  </td>
-                                  <td>
-                                    <div class="widget-26-job-starred">
-                                      <a href="#">
-                                        <svg
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          width="24"
-                                          height="24"
-                                          viewBox="0 0 24 24"
-                                          fill="none"
-                                          stroke="currentColor"
-                                          stroke-width="2"
-                                          stroke-linecap="round"
-                                          stroke-linejoin="round"
-                                          class="feather feather-star"
-                                        >
                                           <polygon
                                             points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
                                           ></polygon>
