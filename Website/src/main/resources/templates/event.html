@@ -31,7 +31,7 @@
                     </div>
                     <div class="d-flex flex-column align-items-center">
                         <button type="button" id="fav-i" class="border-0 bg-white fs-2 mb-0" onclick="toggleFav()">🤍</button>
-                        <p class="text-center mb-0"><span id="fav-n"><span th:text="${event.favs}" style="font-weight: normal;"></span></span> Me Gustas</p>
+                        <p class="text-center mb-0"><span id="fav-n"><span th:text="${numFavs}" style="font-weight: normal;"></span></span> Me Gustas</p>
                     </div>
                 </div>
                 <div class="d-flex flex-column align-items-center ms-4">
@@ -87,7 +87,7 @@
                         <p><span class="fs-5 fw-bold">Destino: </span> <span th:text="${event.destination}" style="font-weight: normal;"></span> <span class="fs-5">🌍</span></p>
                     </div>
                     <div class="event-dets-sec">
-                        <p><span class="fs-5 fw-bold"><span th:datetime="${event.initdate}" style="font-weight: normal;"></span> - <span th:datetime="${event.finishdate}" style="font-weight: normal;"></span> </span></p>
+                        <p><span class="fs-5 fw-bold"><span th:text="${event.initDate}" style="font-weight: normal;"></span> - <span th:text="${event.finishDate}" style="font-weight: normal;"></span> </span></p>
                         <div id="event-dets-calendar" class="bg-primary">
                             <!-- CALENDARIO -->
                         </div>
@@ -102,12 +102,12 @@
                     <div class="event-dets-sec d-flex align-items-center mb-3">
                         <img class="rounded-circle align-self-start" src="https://picsum.photos/100/100" alt="">
                         <div class="ms-4">
-                            <h5><span th:text="${event.userOwner.name}" style="font-weight: normal;"></span></h5>
-                            <h5><span th:text="${event.userOwner.surname}" style="font-weight: normal;"></span></h5>
-                            <p class="mb-0"><span>⭐⭐⭐⭐⭐</span><span th:text="${event.idownerratings}" style="font-weight: normal;"></span> valoraciones.</p>
+                            <h5><span th:text="${event.userOwner.firstName}" style="font-weight: normal;">Nombre</span></h5>
+                            <h5><span th:text="${event.userOwner.lastName}" style="font-weight: normal;">Apellidos</span></h5>
+                            <p class="mb-0"><span>⭐⭐⭐⭐⭐</span><span th:text="${ownerRatings}" style="font-weight: normal;"></span> valoraciones.</p>
                         </div>
                     </div>
-                    <a class="btn btn-primary" th:href="@{/user/2}" href="/user/2">User</a>
+                    <a class="btn btn-primary" th:href="@{/user/{id}(id=${event.userOwner.id})}" href="/user/2">User</a>
                 </div>
             </div>
         </div>

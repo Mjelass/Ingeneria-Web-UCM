@@ -27,6 +27,7 @@ public class EventController {
 	@Autowired
     private LocalData localData;
 
+
         /**
      * Landing page for a user profile
      */
@@ -34,6 +35,10 @@ public class EventController {
     public String index(@PathVariable long id, Model model, HttpSession session) {
         Event target = entityManager.find(Event.class, id);
 		// Event e = (Event)session.getAttribute("u");
+        int numFavs = 10; //TODO Query
+        model.addAttribute("numFavs", numFavs);
+        int ownerRatings = 10;
+        model.addAttribute("ownerRatings", ownerRatings);
         model.addAttribute("event", target);
 		return "event";
     }
