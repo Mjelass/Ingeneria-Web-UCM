@@ -189,7 +189,7 @@
                                         </span>  </p>
                                       <p class="info"><strong>Age : </strong> <span th:text="${#dates.year(#dates.createNow()) - event.userOwner.birthdate.getYear()}"></span> </p>
                                       <p class="info">
-                                        <strong>Location : </strong> 
+                                        <strong>Location : </strong>
                                         <span th:text="${event.userOwner.location}"></span>
                                       </p>
                                       <p class="info">
@@ -221,12 +221,12 @@
                                   <!--Informacion destino-->
                                   <td>
                                      <div class="widget-26-job-info">
-                                      <a th:href="@{/event/2}" href="/event/2" class="tit" id="ss">
-                                        <p style="font-size: 2.5em;" th:text="${event.destination}">
-                                        aqui, destinacion
+                                      <a th:href="@{/event/{id}(id=${event.id})}" href="/event/2" class="tit">
+                                        <p style="font-size: 2.5em;" th:text="${event.title}">
+                                        Titulo
                                       </p>
                                       </a>
-                                      
+                                      <p class="fs-6"><strong>Destino: </strong><span th:text="${event.destination}">Destino</span></p>
                                       <p class="info" th:text="${event.description}">
                                         Aqui description
                                       </p>
@@ -234,7 +234,7 @@
                                   </td>
                                   <!--columna vacia para que cuadre-->
                                   <td>
-                                    
+
                                   </td>
                                   <!--Imagen destino-->
                                   <td>
