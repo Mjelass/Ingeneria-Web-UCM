@@ -29,10 +29,10 @@ public class RootController {
 
     
 
-    @GetMapping("/search")
-        public String search(Model model) {
-            return "search";
-    }
+    // @GetMapping("/search")
+    //     public String search(Model model) {
+    //         return "search";
+    // }
 
     @GetMapping("/form")
     public String form(Model model) {
