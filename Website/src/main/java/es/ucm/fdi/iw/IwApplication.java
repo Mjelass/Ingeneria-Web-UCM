@@ -1,11 +1,14 @@
 package es.ucm.fdi.iw;
 
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 
 import es.ucm.fdi.iw.Repositories.EventRepository;
 import es.ucm.fdi.iw.Repositories.UserRepository;
@@ -44,6 +47,9 @@ public class IwApplication implements CommandLineRunner {
 		// Event pp = eventRepository.findById(1L).get();
 		// System.out.println("********"+pp.getTitle()+"***************");
 		// System.out.println("********"+pp.getDescription()+"***************");
+	
+    
+				
 	}
 
 }
