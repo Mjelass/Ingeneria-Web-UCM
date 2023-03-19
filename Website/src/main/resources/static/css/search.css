@@ -283,3 +283,62 @@ body {
   color: black;
   font-size: 1em;
 }
+
+
+
+
+
+
+.search-panel {
+  max-width: 1000px;
+  box-sizing: border-box;
+}
+
+#search-form-short {
+  display: none;
+}
+
+@media only screen and (max-width: 870px) {
+  #search-form-short {
+    display: block;
+  }
+  #search-form-long{
+    display: none;
+  }
+}
+
+
+
+.results-panel {
+  margin: auto;
+  max-width: 1200px;
+  box-sizing: border-box;
+}
+
+
+.event {
+  box-shadow: 0px 0px 10px rgba(43, 42, 42, 0.221);
+}
+
+.event > .event-info > .event-header .title > a{
+  color: inherit;
+  text-decoration: none;
+}
+
+.event > .event-info > .event-body .main-info {
+  gap: 5px 20px;
+}
+
+.event > .event-info > .event-body .description {
+  overflow: hidden;
+  height: 100px;
+}
+
+.event > .event-info > .event-body .description {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+

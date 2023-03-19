@@ -78,13 +78,17 @@ public  List<Integer> splitdate(String date) {
         PageRequest pageRequest = PageRequest.of(page, size);
         PageEvents = new PageImpl<>(pageList, pageRequest, total);
         }
-   model.addAttribute("allEvents",PageEvents.getContent());
-   model.addAttribute("numpages", new int[PageEvents.getTotalPages()]);
-   model.addAttribute("currentPage",page);
-   model.addAttribute("search",search);
-   model.addAttribute("init",init);
-   model.addAttribute("fin",fin);
-  return "search";
+        model.addAttribute("allEvents",PageEvents.getContent());
+        model.addAttribute("numpages", new int[PageEvents.getTotalPages()]);
+        model.addAttribute("numResults", PageEvents.getTotalPages() * size);
+        model.addAttribute("numFirstRes", (page * size) + 1);
+        model.addAttribute("size", size);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("numPages", PageEvents.getTotalPages());
+        model.addAttribute("search",search);
+        model.addAttribute("init",init);
+        model.addAttribute("fin",fin);
+        return "search";
  }
 
 }

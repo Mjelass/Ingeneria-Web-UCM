@@ -11,265 +11,100 @@
     />
   </head>
 
-  <body class="d-flex flex-column h-100" style="margin-top: 0;">
+  <body class="bg-light d-flex flex-column h-100" style="margin-top: 0;">
     <header th:replace="fragments/nav.html :: nav"></header>
 
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12 card-margin">
-          <div class="card search-form">
-            <div class="card-body p-0">
-              <!--Barra de busqueda-->
-              <form id="search-form" method="get" th:action="@{/search}">
-                <div class="row">
-                  <div class="col-12">
-                    <div class="row no-gutters">
-                      <!--Parte texto Search-->
-                      <div class="col-lg-5 col-md-3 col-sm-9 p-0">
-                        <input
-                          type="text"
-                          placeholder="Search for your destination..."
-                          class="form-control"
-                          id="search"
-                          name="search"
-                          required
-                        />
-                      </div>
-                      <!--Parte Calendario from Search-->
-                      <div class="col-lg-3 col-md-3 col-sm-12 p-0">
-                        <input placeholder="start date:" type="text" onfocus="(this.type = 'date')"  id="date" name="init" required>
-                      </div>
-                      <!--Parte Calendario To Search-->
-                      <div class="col-lg-3 col-md-3 col-sm-12 p-0">
-                        <input placeholder="end date :" type="text" onfocus="(this.type = 'date')"  id="date" name="fin" required>
-                      </div>
-                      <!--Boton para buscar-->
-                      <div class="col-lg-1 col-md-3 col-sm-12 p-0">
-                        <button type="submit" class="btn btn-base">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            class="feather feather-search"
-                          >
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                          </svg>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </form>
-            </div>
+    <main class="bg-light d-flex flex-column align-items-center">
+      <div class="search-panel w-100 px-3 pt-4">
+        <!-- Search Long -->
+        <form id="search-form-long" method="get" th:action="@{/search}" class="input-group">
+          <button type="submit" class="input-group-text">🔍</button>
+          <input type="text" class="form-control w-25" placeholder="Buscar..." aria-label="Username" aria-describedby="basic-addon1" name="search"
+          required>
+          <span class="input-group-text">📅 Inicio</span>
+          <input type="date" class="form-control" aria-label="Username" aria-describedby="basic-addon1" name="init" required>
+          <span class="input-group-text">📅 Fin</span>
+          <input type="date" class="form-control" aria-label="Username" aria-describedby="basic-addon1" name="fin" required>
+        </form>
+        <form id="search-form-short" method="get" th:action="@{/search}">
+          <div class="input-group">
+            <button type="submit" class="input-group-text">🔍</button>
+            <input type="text" class="form-control" placeholder="Buscar..." aria-label="Username" aria-describedby="basic-addon1" name="search"
+            required>
           </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12">
-          <div class="card card-margin">
-            <div class="card-body">
-              <div class="row search-body">
-                <div class="col-lg-12">
-                  <div class="search-result">
-                    <div class="result-header">
-                      <div class="row">
-                        <div class="col-lg-6">
-                          <div class="records">
-                            Showing: <b>1-20</b> of <b>200</b> result
-                          </div>
-                        </div>
-                        <div class="col-lg-6">
-                          <div class="result-actions">
-                            <div class="result-sorting">
-                              <span>Sort By:</span>
-                              <select
-                                class="form-control border-0"
-                                id="exampleOption"
-                              >
-                                <option value="1">Relevance</option>
-                                <option value="2">Names (A-Z)</option>
-                                <option value="3">Names (Z-A)</option>
-                              </select>
-                            </div>
-                            <div class="result-views">
-                              <form method="get" th:action="@{/search}">
-                              <button
-                                type="submit"
-                                class="btn btn-primary "
-                              >
-                               See all
-                              </button>
-                              </form>
-                              
-                             
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="result-body">
-                      <div class="table-responsive">
-                        <table class="table widget-26">
-                          <tbody th:each="event:${allEvents}">
-                             <!--Empieza nueva persona-->                               
-                                <tr class="fil">
-                                  <td>
-                                    <div class="widget-26-job-emp-img">
-                                        <!--imagen persona-->
-                                      <img
-                                        src="https://bootdey.com/img/Content/avatar/avatar5.png"
-                                        alt="Company"
-                                      />
-                                    </div>
-                                  </td>
-                                  <!--Informacion Persona-->
-                                  <td>
-                                    <div class="widget-26-job-title">
-                                      <p class="info" ><strong>Name : </strong > 
-                                        <span>
-                                          <span th:text="${event.userOwner.firstName}"></span>, 
-                                          <span th:text="${event.userOwner.lastName}"></span>
-                                        </span>  </p>
-                                      <p class="info"><strong>Age : </strong> <span th:text="${#dates.year(#dates.createNow()) - event.userOwner.birthdate.getYear()}"></span> </p>
-                                      <p class="info">
-                                        <strong>Location : </strong>
-                                        <span th:text="${event.userOwner.location}"></span>
-                                      </p>
-                                      <p class="info">
-                                        <strong>Languages:</strong>
-                                        <div class="col-5 d-flex align-items-center p-2">
-                                            
-                                            <span class="badge rounded-pill bg-warning"
-                                                style="margin-right: 0.5em;" th:text="${event.userOwner.languages}">arabic</span
-                                            >
-                                            
-                                            
-                                        </div>
-                                      </p>
-                                      <p class="info">
-                                        <strong>Type of the trip : </strong>
-                                        <div class="col-5 d-flex align-items-center p-2">
-                                            <p class="m-0">
-                                                <span class="badge rounded-pill bg-primary" th:text="${event.type}">Cultural</span>
-                                                
-                                            </p>
-                                        </div>
-                                        
-                                      </p>
-                                      <p class="info">
-                                        <strong >Number of people : </strong> <span th:text="${event.occupied}"></span>/ <span th:text="${event.capacity}"></span>
-                                      </p>
-                                    </div>
-                                  </td>
-                                  <!--Informacion destino-->
-                                  <td>
-                                     <div class="widget-26-job-info">
-                                      <a th:href="@{/event/{id}(id=${event.id})}" href="/event/2" class="tit">
-                                        <p style="font-size: 2.5em;" th:text="${event.title}">
-                                        Titulo
-                                      </p>
-                                      </a>
-                                      <p class="fs-6"><strong>Destino: </strong><span th:text="${event.destination}">Destino</span></p>
-                                      <p class="info" th:text="${event.description}">
-                                        Aqui description
-                                      </p>
-                                    </div>
-                                  </td>
-                                  <!--columna vacia para que cuadre-->
-                                  <td>
-
-                                  </td>
-                                  <!--Imagen destino-->
-                                  <td>
-                                    <img style="height: 15em; width: 18em" src="https://picsum.photos/100/100" alt="">
-                      
-                                  </td>
-                                  <!--estrella para añadir a fasvoritos-->
-                                  <td>
-                                    <div class="widget-26-job-starred">
-                                      <a href="#">
-                                        <svg
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          width="24"
-                                          height="24"
-                                          viewBox="0 0 24 24"
-                                          fill="none"
-                                          stroke="currentColor"
-                                          stroke-width="2"
-                                          stroke-linecap="round"
-                                          stroke-linejoin="round"
-                                          class="feather feather-star starred"
-                                        ><!--anadir la clase starred para llenar estrella-->
-                                          <polygon
-                                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                                          ></polygon>
-                                        </svg>
-                                      </a>
-                                    </div>
-                                  </td>
-                                </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!--Paginacion-->
-              <nav class="d-flex justify-content-center">
-                <ul
-                  class="pagination pagination-base pagination-boxed pagination-square mb-0" 
-                >
-                 
-                  <li  th:each="page,status:${numpages}">
-                    <a th:class="${status.index==currentPage?'btn btn-primary':'btn'}" th:href="@{search(page=${status.index},search=${search},init=${init},fin=${fin})}" th:text="${status.index}">1</a>
-                  </li>
-                 
-                 
-                </ul>
-              </nav>
-            </div>
+          <div class="input-group">
+            <span class="input-group-text">📅 Inicio</span>
+            <input type="date" class="form-control" aria-label="Username" aria-describedby="basic-addon1" name="init" required>
+            <span class="input-group-text">📅 Fin</span>
+            <input type="date" class="form-control" aria-label="Username" aria-describedby="basic-addon1" name="fin" required>
           </div>
-        </div>
+        </form>
       </div>
-    </div>
-
-    <main class="d-flex flex-column">
-      <div>
-        <!-- Search Panel -->
-        <p>Buscador</p>
-      </div>
-      <div class="bg-white border my-2 me-2 p-4">
+      <div class="results-panel px-3 py-4">
         <!-- Results Panel -->
-        <div class="results-details">
-          <p>Resultados ...</p>
+        <div class="results-details mb-4">
+          <p class="fw-bold text-muted">Mostrando: <span th:text="${numFirstRes}">1</span> - <span th:text="${numFirstRes + size - 1}">3</span> de <span th:text="${numResults}">20</span> (aprox.) resultados</p>
+          <form class="d-flex" action="">
+            <div class="d-flex gap-3">
+              <label for="sort-by">Ordenar por:</label>
+              <select id="sort-by" class="form-select form-select-sm" aria-label="Default select example" style="width: 200px">
+                <option value="0" selected>Relevancia</option>
+                <option value="1">Nombre (A-Z)</option>
+                <option value="2">Nombre (Z-A)</option>
+              </select>
+            </div>
+          </form>
         </div>
-        <div class="results d-flex flex-column gap-2">
-          <div class="event d-flex border" th:each="event:${allEvents}">
+        <div class="results d-flex flex-column gap-3">
+          <div class="event bg-white d-flex rounded overflow-hidden" th:each="event:${allEvents}">
             <img src="https://picsum.photos/200/250" alt="">
             <div class="event-info p-4">
-              <div class="event-header d-flex gap-2 align-items-center">
-                <span class="badge bg-primary">Evento</span>
-                <h2 th:text="${event.title}">Titulo</h2>
-              </div>
-              <div class="event-body d-flex">
-                <div>
-                  <p><strong>Destino: </strong><span th:text="${event.destination}">destino</span></p>
-                  <div style="overflow: hidden;text-overflow: ellipsis;word-wrap: break-word;max-height: 25px;">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta optio fuga esse? Voluptatum quam, soluta cumque illum asperiores, veniam placeat debitis alias, ut obcaecati enim cum exercitationem aliquid ratione eligendi.</div>
+              <div class="event-header d-flex gap-2 align-items-center justify-content-between">
+                <div class="d-flex gap-2 align-items-center">
+                  <span class="badge bg-primary" th:text="${event.type}">Evento</span>
+                  <h2 class="title"><a th:text="${event.title}" th:href="@{/event/{id}(id=${event.id})}" href="/event/2">Title</a></h2>
                 </div>
-                <div>
-                  <p><strong>Organizador: </strong><span th:text="${event.userOwner.firstName} + ' ' + ${event.userOwner.lastName}">Nombre Apellidos</span></p>
+                <div class="d-flex align-items-center">
+                  <div class="d-flex flex-column align-items-center ms-2">
+                    <input id="check-join" type="checkbox" onclick="toggleActionsDisplay()" >
+                    <p id="text-join" class="text-center mb-0">Unirse</p>
+                  </div>
+                  <div>
+                    <button type="button" id="fav-i" class="border-0 bg-white fs-4 mb-0" onclick="toggleFav()">🤍</button>
+                  </div>
+                </div>
+              </div>
+              <div class="event-body d-flex gap-3">
+                <div class="w-75 overflow-hidden d-flex flex-column gap-2">
+                  <div class="main-info d-flex flex-wrap">
+                    <p class="m-0"><strong>Precio: </strong><span th:text="${#numbers.formatDecimal(event.price,1,2)}"></span><span>/persona</span></p>
+                    <p class="m-0"><strong>Vacantes: </strong><span id="taken-vacs"><span th:text="${event.occupied}"></span></span>/<span th:text="${event.capacity}"></span></p>
+                    <p class="m-0"><strong>Destino: </strong><span th:text="${event.destination}">destino</span></p>
+                  </div>
+                  <p class="description m-0">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta optio fuga esse? Voluptatum quam, soluta cumque illum asperiores, veniam placeat debitis alias, ut obcaecati enim cum exercitationem aliquid ratione eligendi.</p>
+                  <p class="m-0"><strong>Anotaciones: </strong><span th:text="${event.notes}"></span> </p>
+                </div>
+                <div class="">
+                  <p class="m-0"><strong>📅 Inicio: </strong><span th:text="${event.initDate}">Fecha Inicio</span></p>
+                  <p><strong>📅 Fin: </strong><span th:text="${event.finishDate}">Fecha Fin</span></p>
+                  <p class="m-0"><strong>Organizador: </strong><span th:text="${event.userOwner.firstName} + ' ' + ${event.userOwner.lastName}">Nombre Apellidos</span></p>
+                  <p class="m-0"><strong>Idiomas: </strong><span th:text="${event.userOwner.languages}">Español</span></p>
+                  <p class="mb-0"><span>⭐⭐⭐⭐⭐</span></p>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+        <div class="pagination-panel mt-4 d-flex justify-content-center">
+          <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              <li th:class="'page-item' + ${currentPage==0?' disabled':''}"><a class="page-link" th:href="@{search(page=${currentPage - 1},search=${search},init=${init},fin=${fin})}">Previous</a></li>
+              <li th:each="page,status:${numpages}" th:class="'page-item' + ${status.index==currentPage?' active':''}">
+                <a class="page-link" th:href="@{search(page=${status.index},search=${search},init=${init},fin=${fin})}" th:text="${status.index + 1}">1</a>
+              </li>
+              <li th:class="'page-item' + ${currentPage==(numPages -1)?' disabled':''}"><a class="page-link" th:href="@{search(page=${currentPage + 1},search=${search},init=${init},fin=${fin})}">Next</a></li>
+            </ul>
+          </nav>
         </div>
       </div>
     </main>
