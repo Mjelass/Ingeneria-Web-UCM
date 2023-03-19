@@ -291,6 +291,39 @@
       </div>
     </div>
 
+    <main class="d-flex flex-column">
+      <div>
+        <!-- Search Panel -->
+        <p>Buscador</p>
+      </div>
+      <div class="bg-white border my-2 me-2 p-4">
+        <!-- Results Panel -->
+        <div class="results-details">
+          <p>Resultados ...</p>
+        </div>
+        <div class="results d-flex flex-column gap-2">
+          <div class="event d-flex border" th:each="event:${allEvents}">
+            <img src="https://picsum.photos/200/250" alt="">
+            <div class="event-info p-4">
+              <div class="event-header d-flex gap-2 align-items-center">
+                <span class="badge bg-primary">Evento</span>
+                <h2 th:text="${event.title}">Titulo</h2>
+              </div>
+              <div class="event-body d-flex">
+                <div>
+                  <p><strong>Destino: </strong><span th:text="${event.destination}">destino</span></p>
+                  <div style="overflow: hidden;text-overflow: ellipsis;word-wrap: break-word;max-height: 25px;">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta optio fuga esse? Voluptatum quam, soluta cumque illum asperiores, veniam placeat debitis alias, ut obcaecati enim cum exercitationem aliquid ratione eligendi.</div>
+                </div>
+                <div>
+                  <p><strong>Organizador: </strong><span th:text="${event.userOwner.firstName} + ' ' + ${event.userOwner.lastName}">Nombre Apellidos</span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
     <th:block th:replace="fragments/footer.html :: footer" />
   </body>
 </html>
