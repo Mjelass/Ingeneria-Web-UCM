@@ -4,8 +4,8 @@
 <head>
     <th:block th:replace="fragments/head :: header" />
     <title>DreamTrip</title>
-    <script src="js/event.js"></script>
-    <link rel="stylesheet" href="css/event.css">
+    <script th:src="@{/js/event.js}" src="js/event.js"></script>
+    <link rel="stylesheet" th:href="@{/css/event.css}" href="css/event.css">
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -22,7 +22,7 @@
                 <div class="d-flex flex-fill justify-content-between align-items-center">
                     <div>
                         <span class="badge bg-primary fs-6">Evento</span>
-                        <h1><span th:text="${event.title}" style="font-weight: normal;">TITLE</span></h1>
+                        <h1><span th:text="${event.title}">TITLE</span></h1>
                         <div>
                             <span class="badge bg-primary">Tag1</span>
                             <span class="badge bg-primary">Tag2</span>

@@ -1,3 +1,5 @@
+// import "iw.js"
+
 function toggleActionsDisplay(){
     if (document.getElementById("check-join").checked == true) {
         document.getElementById("acts-aft-join").style.display = "flex";
@@ -21,9 +23,13 @@ function toggleActionsDisplay(){
 function toggleFav(){
     let fav = document.getElementById("fav-i");
     let numf = document.getElementById("fav-n");
+    console.log("Toggle");
     if(fav.innerText == "❤️"){
         fav.innerText = "🤍";
         numf.innerText = Number(numf.innerText) - 1;
+        go("/login", "GET", {})
+            .then(d => console.log("ok!"))
+            .catch(e => console.log(e))
     }
     else{
         fav.innerText = "❤️";
