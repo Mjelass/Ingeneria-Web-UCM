@@ -47,10 +47,11 @@
                     </div>
                 </div>
                 <div class="d-flex flex-column align-items-center ms-2">
-                    <input id="check-join" type="checkbox" onclick="toggleActionsDisplay()" th:disabled="!${isLogged}">
+                    <input id="check-join" type="checkbox" th:attr="onclick=|toggleJoin(this, '${event.id}')|"
+                    th:disabled="!${isLogged}" th:checked="${joined}">
                     <p id="text-join" class="text-center mb-0">Unirse</p>
                 </div>
-                <div id="acts-aft-join" class="ms-2" style="display: none;">
+                <div id="acts-aft-join" class="ms-2" th:style="${joined}? 'display:flex; flex-direction: column;' : 'display: none;'">
                     <a class="btn btn-primary mb-1" th:href="@{/chat}" href="/chat">Chat</a>
                     <a class="btn btn-primary" th:href="@{/form}" href="/form">Form</a>
                 </div>

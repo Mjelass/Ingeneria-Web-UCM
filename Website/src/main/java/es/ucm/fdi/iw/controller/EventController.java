@@ -88,14 +88,19 @@ public class EventController {
             fav = body.getFav() == null ? false: body.getFav();
             joined = body.getJoined() == null ? false: body.getJoined();
             rol = body.getRol() == null ? "": body.getRol();
+            e.setOccupied(e.getOccupied() + (joined? 1: 0));
         }
         else {
             fav = body.getFav() == null ? ue.getFav(): body.getFav();
             joined = body.getJoined() == null ? ue.getJoined(): body.getJoined();
             rol = body.getRol() == null ? ue.getRol(): body.getRol();
+            if (ue.getJoined() != joined) {
+                e.setOccupied(e.getOccupied() + (joined? 1: -1));
+            }
         }
         ue = new UserEvent(u, e, fav, joined, rol);
         userEventRepository.save(ue);
+        eventRepository.save(e);
         return "ok";
         // Event target = entityManager.find(Event.class, id);
 		// // Event e = (Event)session.getAttribute("u");
