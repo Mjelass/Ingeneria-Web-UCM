@@ -30,13 +30,16 @@
                         </div>
                     </div>
                     <div class="d-flex flex-column align-items-center">
-                        <button type="button" id="fav-i" class="border-0 bg-white fs-2 mb-0" onclick="toggleFav()">🤍</button>
-                        <p class="text-center mb-0"><span id="fav-n"><span th:text="${numFavs}" style="font-weight: normal;"></span></span> Me Gustas</p>
+                        <button type="button" id="fav-i" class="border-0 bg-white fs-2 mb-0" th:attr="onclick=|toggleFav(this, '${event.id}')|"
+                            th:text="${fav}? '❤️': '🤍'" th:disabled="!${isLogged}">
+                            🤍
+                        </button>
+                        <p class="text-center mb-0"><span id="fav-n"><span th:text="${numFavs}"></span></span> Me Gustas</p>
                     </div>
                 </div>
                 <div class="d-flex flex-column align-items-center ms-4">
-                    <h1><span th:text="${#numbers.formatDecimal(event.price,1,2)}" style="font-weight: normal;"></span><span class="fs-4 mb-0">/persona</span></h1>
-                    <h5><span id="taken-vacs"><span th:text="${event.occupied}" style="font-weight: normal;"></span></span>/<span th:text="${event.capacity}" style="font-weight: normal;"></span> Vacantes</h5>
+                    <h1><span th:text="${#numbers.formatDecimal(event.price,1,2)}"></span><span class="fs-4 mb-0">/persona</span></h1>
+                    <h5><span id="taken-vacs"><span th:text="${event.occupied}"></span></span>/<span th:text="${event.capacity}"></span> Vacantes</h5>
                     <div>
                         <div id="pbar-vacs-total" class="rounded-pill">
                             <div id="pbar-vacs-progress" class="bg-primary rounded-pill"></div>
@@ -44,7 +47,7 @@
                     </div>
                 </div>
                 <div class="d-flex flex-column align-items-center ms-2">
-                    <input id="check-join" type="checkbox" onclick="toggleActionsDisplay()" >
+                    <input id="check-join" type="checkbox" onclick="toggleActionsDisplay()" th:disabled="!${isLogged}">
                     <p id="text-join" class="text-center mb-0">Unirse</p>
                 </div>
                 <div id="acts-aft-join" class="ms-2" style="display: none;">
@@ -58,14 +61,14 @@
                 <div id="more-details" class="bg-white border my-2 me-2 p-4 flex-fill">
                     <div id="event-description" class="mb-5">
                         <h2>DESCRIPCIÓN</h2>
-                        <span th:text="${event.description}" style="font-weight: normal;"></span> 
+                        <span th:text="${event.description}"></span> 
                         <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque recusandae voluptatibus quae ad? Quaerat accusantium et omnis itaque. Harum temporibus aliquid nemo odio dolor velit optio repudiandae, praesentium fugiat sunt!</p>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque recusandae voluptatibus quae ad? Quaerat accusantium et omnis itaque. Harum temporibus aliquid nemo odio dolor velit optio repudiandae, praesentium fugiat sunt!</p> -->
                     </div>
                     <div id="event-notes" class="mb-5">
                         <h2>ANOTACIONES</h2>
                         <div class="d-flex flex-wrap">
-                            <span th:text="${event.notes}" style="font-weight: normal;"></span> 
+                            <span th:text="${event.notes}"></span>
                             <!--<p class="flex-fill"><span class="fs-4">🐾</span> Se admiten animales.</p>
                             <p class="flex-fill"><span class="fs-4">👶</span> Se permiten bebés.</p>-->
                         </div>
@@ -84,27 +87,27 @@
                 <div id="main-details" class="bg-white border my-2 p-4 pb-5 flex-fill align-self-start">
                     <h2 class="text-center">DETALLES</h2>
                     <div class="event-dets-sec">
-                        <p><span class="fs-5 fw-bold">Destino: </span> <span th:text="${event.destination}" style="font-weight: normal;"></span> <span class="fs-5">🌍</span></p>
+                        <p><span class="fs-5 fw-bold">Destino: </span> <span th:text="${event.destination}"></span> <span class="fs-5">🌍</span></p>
                     </div>
                     <div class="event-dets-sec">
-                        <p><span class="fs-5 fw-bold"><span th:text="${event.initDate}" style="font-weight: normal;"></span> - <span th:text="${event.finishDate}" style="font-weight: normal;"></span> </span></p>
+                        <p><span class="fs-5 fw-bold"><span th:text="${event.initDate}"></span> - <span th:text="${event.finishDate}"></span> </span></p>
                         <div id="event-dets-calendar" class="bg-primary">
                             <!-- CALENDARIO -->
                         </div>
                     </div>
                     <div class="event-dets-sec">
-                        <p><span class="fs-5 fw-bold">Punto de reunión: </span> <span th:text="${event.reunionPoint}" style="font-weight: normal;"></span><span class="fs-5">🌍</span></p>
+                        <p><span class="fs-5 fw-bold">Punto de reunión: </span> <span th:text="${event.reunionPoint}"></span><span class="fs-5">🌍</span></p>
                     </div>
                     <div class="event-dets-sec">
-                        <p><span class="fs-5 fw-bold">Transporte: </span> <span th:text="${event.transport}" style="font-weight: normal;"></span><span class="fs-5">✈️</span></p>
+                        <p><span class="fs-5 fw-bold">Transporte: </span> <span th:text="${event.transport}"></span><span class="fs-5">✈️</span></p>
                     </div>
                     <h3 class="text-center">ORGANIZADOR</h3>
                     <div class="event-dets-sec d-flex align-items-center mb-3">
                         <img class="rounded-circle align-self-start" src="https://picsum.photos/100/100" alt="">
                         <div class="ms-4">
-                            <h5><span th:text="${event.userOwner.firstName}" style="font-weight: normal;">Nombre</span></h5>
-                            <h5><span th:text="${event.userOwner.lastName}" style="font-weight: normal;">Apellidos</span></h5>
-                            <p class="mb-0"><span>⭐⭐⭐⭐⭐</span><span th:text="${ownerRatings}" style="font-weight: normal;"></span> valoraciones.</p>
+                            <h5><span th:text="${event.userOwner.firstName}">Nombre</span></h5>
+                            <h5><span th:text="${event.userOwner.lastName}">Apellidos</span></h5>
+                            <p class="mb-0"><span>⭐⭐⭐⭐⭐</span><span th:text="${ownerRatings}"></span> valoraciones.</p>
                         </div>
                     </div>
                     <a class="btn btn-primary" th:href="@{/user/{id}(id=${event.userOwner.id})}" href="/user/2">User</a>

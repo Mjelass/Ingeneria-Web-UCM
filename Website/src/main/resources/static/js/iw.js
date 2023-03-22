@@ -67,6 +67,8 @@ const ws = {
  * @param {*} data, typically a JSON-izable object, like a Message
  * @param {*} headers, to be used instead of defaults, if specified. To send NO headers,
  *  use {}. To send defaults, specify no value, or use false
+ * @param {boolean} json, Promise<Response> is interpreted as json (true) or not (false).
+ * By default is false.
  * 
  * @return {Promise}, which you should chain with `.then()` to manage responses, 
  *             and with `.catch()` to manage possible errors. 
@@ -78,7 +80,7 @@ const ws = {
  *     text: <describing the error>
  *  }
  */
-function go(url, method, data = {}, headers = false) {
+function go(url, method, data = {}, json = true, headers = false) {
     let params = {
         method: method, // POST, GET, POST, PUT, DELETE, etc.
         headers: headers === false ? {
@@ -97,7 +99,7 @@ function go(url, method, data = {}, headers = false) {
         .then(response => {
             const r = response;
             if (r.ok) {
-                return r.json().then(json => Promise.resolve(json));
+                return json? r.json().then(json => Promise.resolve(json)): r;
             } else {
                 return r.text().then(text => Promise.reject({
                     url,

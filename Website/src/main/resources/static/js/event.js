@@ -20,19 +20,29 @@ function toggleActionsDisplay(){
     }
 }
 
-function toggleFav(){
-    let fav = document.getElementById("fav-i");
+function toggleFav(elem, eventId){
+    // console.log(elem)
+    // let favI = document.getElementById("fav-i");
     let numf = document.getElementById("fav-n");
-    console.log("Toggle");
-    if(fav.innerText == "❤️"){
-        fav.innerText = "🤍";
-        numf.innerText = Number(numf.innerText) - 1;
-        go("/login", "GET", {})
-            .then(d => console.log("ok!"))
-            .catch(e => console.log(e))
+    // console.log("Toggle");
+    if(elem.innerText == "❤️"){
+        elem.innerText = "🤍";
+        if (numf != null) {
+            numf.innerText = Number(numf.innerText) - 1;
+        }
+        let fav = false;
+        go(`/event/${eventId}/userEvent`, "POST", {fav}, false)
+            .then(d => console.log(d))
+            .catch(e => console.log(e));
     }
     else{
-        fav.innerText = "❤️";
-        numf.innerText = Number(numf.innerText) + 1;
+        elem.innerText = "❤️";
+        if (numf != null) {
+            numf.innerText = Number(numf.innerText) + 1;
+        }
+        let fav = true;
+        go(`/event/${eventId}/userEvent`, "POST", {fav}, false)
+            .then(d => console.log(d))
+            .catch(e => console.log(e));
     }
 }

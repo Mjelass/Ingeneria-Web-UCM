@@ -3,12 +3,8 @@
   <head>
     <th:block th:replace="fragments/head :: header" />
     <title>DreamTrip</title>
-    <link
-      rel="stylesheet"
-      th:href="@{/css/search.css}"
-      href="css/search.css"
-      type="text/css"
-    />
+    <link rel="stylesheet" th:href="@{/css/search.css}" href="css/search.css" type="text/css" />
+    <script th:src="@{/js/event.js}" src="js/event.js"></script>
   </head>
 
   <body class="bg-light d-flex flex-column h-100" style="margin-top: 0;">
@@ -56,7 +52,7 @@
           </form>
         </div>
         <div class="results d-flex flex-column gap-3">
-          <div class="event bg-white d-flex rounded overflow-hidden" th:each="event:${allEvents}">
+          <div class="event bg-white d-flex rounded overflow-hidden" th:each="event, iter:${allEvents}">
             <img src="https://picsum.photos/200/250" alt="">
             <div class="event-info p-4">
               <div class="event-header d-flex gap-2 align-items-center justify-content-between">
@@ -64,15 +60,11 @@
                   <span class="badge bg-primary" th:text="${event.type}">Evento</span>
                   <h2 class="title"><a th:text="${event.title}" th:href="@{/event/{id}(id=${event.id})}" href="/event/2">Title</a></h2>
                 </div>
-                <div class="d-flex align-items-center">
-                  <div class="d-flex flex-column align-items-center ms-2">
-                    <input id="check-join" type="checkbox" onclick="toggleActionsDisplay()" >
-                    <p id="text-join" class="text-center mb-0">Unirse</p>
-                  </div>
-                  <div>
-                    <button type="button" id="fav-i" class="border-0 bg-white fs-4 mb-0" onclick="toggleFav()">🤍</button>
-                  </div>
-                </div>
+                <!-- <button type="button" id="fav-i" class="border-0 bg-white fs-4 mb-0" onclick="toggleFav()">🤍</button> -->
+                <button type="button" id="fav-i" class="border-0 bg-white fs-2 mb-0" th:attr="onclick=|toggleFav(this,'${event.id}')|"
+                    th:text="${favPageEvents[iter.index]}? '❤️': '🤍'" th:disabled="!${isLogged}">
+                    🤍
+                </button>
               </div>
               <div class="event-body d-flex gap-3">
                 <div class="w-75 overflow-hidden d-flex flex-column gap-2">

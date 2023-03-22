@@ -51,7 +51,7 @@ public class Event {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
     private String title;
     private LocalDate initDate;
     private LocalDate finishDate;
