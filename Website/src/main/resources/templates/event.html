@@ -23,11 +23,7 @@
                     <div>
                         <span class="badge bg-primary fs-6">Evento</span>
                         <h1><span th:text="${event.title}">TITLE</span></h1>
-                        <div>
-                            <span class="badge bg-primary">Tag1</span>
-                            <span class="badge bg-primary">Tag2</span>
-                            <span class="badge bg-primary">Tag3</span>
-                        </div>
+                        <span class="badge bg-primary" th:text="${event.status}">Open</span>
                     </div>
                     <div class="d-flex flex-column align-items-center">
                         <button type="button" id="fav-i" class="border-0 bg-white fs-2 mb-0" th:attr="onclick=|toggleFav(this, '${event.id}')|"
@@ -39,10 +35,11 @@
                 </div>
                 <div class="d-flex flex-column align-items-center ms-4">
                     <h1><span th:text="${#numbers.formatDecimal(event.price,1,2)}"></span><span class="fs-4 mb-0">/persona</span></h1>
-                    <h5><span id="taken-vacs"><span th:text="${event.occupied}"></span></span>/<span th:text="${event.capacity}"></span> Vacantes</h5>
+                    <h5><span id="occupied" th:text="${event.occupied}">1</span>/<span id="capacity" th:text="${event.capacity}">5</span> Vacantes</h5>
                     <div>
-                        <div id="pbar-vacs-total" class="rounded-pill">
-                            <div id="pbar-vacs-progress" class="bg-primary rounded-pill"></div>
+                        <div id="pbar-vacs-total" class="rounded-pill overflow-hidden">
+                            <div id="pbar-vacs-progress" class="bg-primary"
+                                th:style="'width:' + ${((event.occupied + 0.0)/ event.capacity)*200} + 'px'"></div>
                         </div>
                     </div>
                 </div>
@@ -68,10 +65,21 @@
                     </div>
                     <div id="event-notes" class="mb-5">
                         <h2>ANOTACIONES</h2>
-                        <div class="d-flex flex-wrap">
-                            <span th:text="${event.notes}"></span>
-                            <!--<p class="flex-fill"><span class="fs-4">🐾</span> Se admiten animales.</p>
-                            <p class="flex-fill"><span class="fs-4">👶</span> Se permiten bebés.</p>-->
+                        <div class="d-flex flex-wrap" th:each="note: ${event.notes.split(',')}">
+                            <th:block th:switch="${note}">
+                                <th:block th:case="'NO_KIDS'">
+                                    <p class="flex-fill"><span class="fs-4">👶</span> No se permiten bebés.</p>
+                                </th:block>
+                                <th:block th:case="'NO_ANIMALS'">
+                                    <p class="flex-fill"><span class="fs-4">🐾</span> No se admiten animales.</p>
+                                </th:block>
+                                <th:block th:case="'KIDS'">
+                                    <p class="flex-fill"><span class="fs-4">👶</span> Se permiten bebés.</p>
+                                </th:block>
+                                <th:block th:case="'ANIMALS'">
+                                    <p class="flex-fill"><span class="fs-4">🐾</span> Se admiten animales.</p>
+                                </th:block>
+                            </th:block>
                         </div>
                     </div>
                     <div id="event-m-imgs" class="mb-5">
@@ -100,7 +108,25 @@
                         <p><span class="fs-5 fw-bold">Punto de reunión: </span> <span th:text="${event.reunionPoint}"></span><span class="fs-5">🌍</span></p>
                     </div>
                     <div class="event-dets-sec">
-                        <p><span class="fs-5 fw-bold">Transporte: </span> <span th:text="${event.transport}"></span><span class="fs-5">✈️</span></p>
+                        <p><span class="fs-5 fw-bold">Transporte: </span>
+                            <!-- <span th:text="${event.transport}"></span><span class="fs-5">✈️</span> -->
+                            <th:block th:each="t: ${event.transport.split(',')}">
+                                <th:block th:switch="${t}">
+                                    <th:block th:case="'PLANE'">
+                                        <span class="fs-4">✈️</span> Avión
+                                    </th:block>
+                                    <th:block th:case="'BUS'">
+                                        <span class="fs-4">🚌</span> Autobús
+                                    </th:block>
+                                    <th:block th:case="'CAR'">
+                                        <span class="fs-4">🚗</span> Coche
+                                    </th:block>
+                                    <th:block th:case="'SHIP'">
+                                        <span class="fs-4">🚢</span> Barco
+                                    </th:block>
+                                </th:block>
+                            </th:block>
+                        </p>
                     </div>
                     <h3 class="text-center">ORGANIZADOR</h3>
                     <div class="event-dets-sec d-flex align-items-center mb-3">
