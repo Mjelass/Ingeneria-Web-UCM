@@ -12,49 +12,52 @@ import org.springframework.web.bind.annotation.PostMapping;
 import es.ucm.fdi.iw.model.User;
 
 /**
- *  Non-authenticated requests only.
+ * Non-authenticated requests only.
  */
 @Controller
 public class RootController {
 
-	private static final Logger log = LogManager.getLogger(RootController.class);
+    private static final Logger log = LogManager.getLogger(RootController.class);
 
     // Added
 
     @GetMapping("/signUp")
-        public String signIn(Model model) {
-            model.addAttribute("User", new User());
-            return "signUp";
+    public String signIn(Model model) {
+        model.addAttribute("User", new User());
+        return "signUp";
     }
 
-    
-
     // @GetMapping("/search")
-    //     public String search(Model model) {
-    //         return "search";
+    // public String search(Model model) {
+    // return "search";
     // }
 
-    @GetMapping("/form")
-    public String form(Model model) {
-            return "form";
+    @GetMapping("/formRateEvent")
+    public String formRateEvent(Model model) {
+        return "formRateEvent";
+    }
+
+    @GetMapping("/formAddEvent")
+    public String formAddEvent(Model model) {
+        return "formAddEvent";
     }
 
     // @GetMapping("/event")
     // public String event(Model model) {
-    //         return "event";
+    // return "event";
     // }
 
     @GetMapping("/chat")
     public String chat(Model model) {
-            return "chat";
+        return "chat";
     }
 
-	@GetMapping("/login")
+    @GetMapping("/login")
     public String login(Model model) {
         return "login";
     }
 
-	@GetMapping("/")
+    @GetMapping("/")
     public String index(Model model) {
         return "index";
     }
