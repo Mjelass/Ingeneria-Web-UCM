@@ -52,17 +52,6 @@ import lombok.NoArgsConstructor;
 })
 public class UserEvent implements Serializable{
 
-    // @Id
-    // private Long userId;
-    // @Id
-    // private Long eventId;
-    // private 
-
-    // @Id
-    // @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen")
-    // @SequenceGenerator(name = "gen", sequenceName = "gen")
-    // private Long id;
-
     @Id
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")

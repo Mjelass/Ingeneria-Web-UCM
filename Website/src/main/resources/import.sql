@@ -42,5 +42,13 @@ INSERT INTO USER_EVENT (user_id, event_id, joined, fav, rol) VALUES (8, 8, TRUE,
 INSERT INTO USER_EVENT (user_id, event_id, joined, fav, rol) VALUES (4, 9, TRUE, TRUE, 'HOST');
 INSERT INTO USER_EVENT (user_id, event_id, joined, fav, rol) VALUES (11, 10, TRUE, TRUE, 'HOST');
 
+-- insert report:
+insert into REPORT (id, user_source, user_target, description) values (1, 12, 11, 'porttitor lacus at turpis donec posuere metus vitae ipsum aliquam non mauris morbi non lectus');
+insert into REPORT (id, user_source, user_target, description) values (2, 6, 9, 'at feugiat non pretium quis lectus suspendisse potenti in eleifend quam a odio in');
+insert into REPORT (id, user_source, user_target, description) values (3, 7, 9, 'facilisi cras non velit nec nisi vulputate nonummy maecenas tincidunt lacus');
+insert into REPORT (id, user_source, user_target, description) values (4, 11, 3, 'sit amet justo morbi ut odio cras mi pede malesuada in imperdiet et commodo vulputate justo in blandit ultrices');
+insert into REPORT (id, user_source, user_target, description) values (5, 3, 6, 'felis eu sapien cursus vestibulum proin eu mi nulla ac enim in tempor turpis nec');
+
+
 -- start id numbering from a value that is larger than any assigned above
 ALTER SEQUENCE "PUBLIC"."GEN" RESTART WITH 1024;
