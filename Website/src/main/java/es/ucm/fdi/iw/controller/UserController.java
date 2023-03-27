@@ -1,7 +1,9 @@
 package es.ucm.fdi.iw.controller;
 
 import es.ucm.fdi.iw.LocalData;
+import es.ucm.fdi.iw.Repositories.ReportRepository;
 import es.ucm.fdi.iw.model.Message;
+import es.ucm.fdi.iw.model.Report;
 import es.ucm.fdi.iw.model.Transferable;
 import es.ucm.fdi.iw.model.User;
 import es.ucm.fdi.iw.model.User.Role;
@@ -71,6 +73,9 @@ public class UserController {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+
+	@Autowired
+	private ReportRepository reportRepository;
 
     /**
      * Exception to use when denying access to unauthorized users.
@@ -322,6 +327,22 @@ public class UserController {
 
 		messagingTemplate.convertAndSend("/user/"+u.getUsername()+"/queue/updates", json);
 		return "{\"result\": \"message sent.\"}";
+	}
+
+	@PostMapping("{id}/report")
+    @ResponseBody
+    @Transactional
+    public String updateUserEvent(@PathVariable long id, Model model, HttpSession session,
+        @RequestBody Report report) {
+		User userSource = (User)session.getAttribute("u");
+		User userTarget = entityManager.find(User.class, id);
+		if (userSource == null || userTarget == null){
+			throw new IllegalArgumentException();
+		}
+		report.setUserSource(userSource);
+		report.setUserTarget(userTarget);
+		reportRepository.save(report);
+		return "ok";
 	}
 
 

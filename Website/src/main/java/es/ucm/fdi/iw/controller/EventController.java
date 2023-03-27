@@ -2,6 +2,7 @@ package es.ucm.fdi.iw.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -73,6 +74,7 @@ public class EventController {
     // Update userEvent table
     @PostMapping("{id}/userEvent")
     @ResponseBody
+    @Transactional
     public String updateUserEvent(@PathVariable long id, Model model, HttpSession session,
         @RequestBody UserEvent body) {
         Boolean fav;

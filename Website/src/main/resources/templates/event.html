@@ -5,6 +5,7 @@
     <th:block th:replace="fragments/head :: header" />
     <title>DreamTrip</title>
     <script th:src="@{/js/event.js}" src="js/event.js"></script>
+    <script th:src="@{/js/report.js}" src="js/report.js"></script>
     <link rel="stylesheet" th:href="@{/css/event.css}" href="css/event.css">
 </head>
 
@@ -130,14 +131,20 @@
                     </div>
                     <h3 class="text-center">ORGANIZADOR</h3>
                     <div class="event-dets-sec d-flex align-items-center mb-3">
-                        <img class="rounded-circle align-self-start" src="https://picsum.photos/100/100" alt="">
+                        <a class="text-decoration-none text-body" th:href="@{/user/{id}(id=${event.userOwner.id})}">
+                            <img class="rounded-circle align-self-start" src="https://picsum.photos/100/100" alt="profile">
+                        </a>
                         <div class="ms-4">
-                            <h5><span th:text="${event.userOwner.firstName}">Nombre</span></h5>
-                            <h5><span th:text="${event.userOwner.lastName}">Apellidos</span></h5>
+                            <h5><a class="text-decoration-none text-body" th:href="@{/user/{id}(id=${event.userOwner.id})}">
+                                <span th:text="${event.userOwner.firstName}">Nombre</span>
+                            </a></h5>
+                            <h5><a class="text-decoration-none text-body" th:href="@{/user/{id}(id=${event.userOwner.id})}">
+                                <span th:text="${event.userOwner.lastName}">Apellidos</span>
+                            </a></h5>
                             <p class="mb-0"><span>⭐⭐⭐⭐⭐</span><span th:text="${ownerRatings}"></span> valoraciones.</p>
                         </div>
                     </div>
-                    <a class="btn btn-primary" th:href="@{/user/{id}(id=${event.userOwner.id})}" href="/user/2">User</a>
+                    <button type="button" class="btn btn-danger" th:attr="onclick=|reportUser('${event.userOwner.id}')|">Reportar</button>
                 </div>
             </div>
         </div>
