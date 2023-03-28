@@ -3,33 +3,20 @@
   <head>
     <th:block th:replace="fragments/head :: header" />
     <title>DreamTrip</title>
-    <link
-      rel="stylesheet"
-      th:href="@{/css/main.css}"
-      href="css/main.css"
-      type="text/css"
-    />
-    <link
-      rel="stylesheet"
-      th:href="@{/css/search.css}"
-      href="css/search.css"
-      type="text/css"
-    />
-    <link
-      rel="stylesheet"
-      th:href="@{https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0}"
-    />
+    <link rel="stylesheet" th:href="@{/css/main.css}" href="css/main.css" type="text/css" />
+    <!-- <link rel="stylesheet" th:href="@{/css/search.css}" href="css/search.css" type="text/css"/> -->
+    <link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0}"/>
   </head>
 
   <body class="d-flex flex-column h-100">
     <div class="fullscreen">
       <header th:replace="fragments/nav.html :: nav"></header>
 
-      <a th:href="@{/search}" href="/search" class="btn nodec">Search</a>
+      <!-- <a th:href="@{/search}" href="/search" class="btn nodec">Search</a>
 
       <a th:href="@{/login}" href="/login" class="btn nodec">LogIn</a>
 
-      <a th:href="@{/signUp}" href="/signUp" class="btn nodec">SignUp</a>
+      <a th:href="@{/signUp}" href="/signUp" class="btn nodec">SignUp</a> -->
     </div>
     <!-- Background Video-->
     <video
@@ -51,61 +38,20 @@
           <!--Barra de busqueda-->
           <div class="row">
             <div class="col-lg-12 card-margin">
-              <div class="card search-form">
-                <div class="card-body p-0">
-                  <form id="search-form">
-                    <div class="row no-gutters">
-                      <!--Parte texto Search-->
-                      <div class="col-lg-5 col-md-5 col-sm-9 p-0">
-                        <input
-                          type="text"
-                          placeholder="Search for your destination..."
-                          class="form-control"
-                          id="search"
-                          name="search"
-                        />
-                      </div>
-                      <!--Parte Calendario start Search-->
-                      <div class="col-lg-3 col-md-3 col-sm-12 p-0">
-                        <input
-                          placeholder="start date:"
-                          type="text"
-                          onfocus="(this.type = 'date')"
-                          id="date"
-                        />
-                      </div>
-                      <!--Parte Calendario end Search-->
-                      <div class="col-lg-3 col-md-3 col-sm-12 p-0">
-                        <input
-                          placeholder="end date :"
-                          type="text"
-                          onfocus="(this.type = 'date')"
-                          id="date"
-                        />
-                      </div>
-                      <!--Boton para buscar-->
-                      <div class="col-lg-1 col-md-1 col-sm-12 p-0">
-                        <button type="submit" class="btn btn-base">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            class="feather feather-search"
-                          >
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                          </svg>
-                        </button>
-                      </div>
-                    </div>
-                  </form>
-                </div>
+              <div class="search-panel w-100 px-3 pt-4">
+                <form id="search-form-short" method="get" th:action="@{/search}" style="">
+                  <div class="input-group mb-2">
+                    <button type="submit" class="input-group-text">🔍</button>
+                    <input type="text" class="form-control" placeholder="Buscar..." aria-label="Username" aria-describedby="basic-addon1" name="search"
+                    required>
+                  </div>
+                  <div class="input-group">
+                    <span class="input-group-text">📅 Inicio</span>
+                    <input type="date" class="form-control" aria-label="Username" aria-describedby="basic-addon1" name="init" required>
+                    <span class="input-group-text">📅 Fin</span>
+                    <input type="date" class="form-control" aria-label="Username" aria-describedby="basic-addon1" name="fin" required>
+                  </div>
+                </form>
               </div>
             </div>
           </div>

@@ -100,10 +100,12 @@
                         <p><span class="fs-5 fw-bold">Destino: </span> <span th:text="${event.destination}"></span> <span class="fs-5">🌍</span></p>
                     </div>
                     <div class="event-dets-sec">
-                        <p><span class="fs-5 fw-bold"><span th:text="${event.initDate}"></span> - <span th:text="${event.finishDate}"></span> </span></p>
-                        <div id="event-dets-calendar" class="bg-primary">
+                        <!-- <p><span class="fs-5 fw-bold"><span th:text="${event.initDate}"></span> - <span th:text="${event.finishDate}"></span> </span></p> -->
+                        <p class="m-0"><span class="fs-5 fw-bold">📅 Inicio: </span> <span th:text="${event.initDate}"></span></p>
+                        <p><span class="fs-5 fw-bold">📅 Fin: </span> <span th:text="${event.finishDate}"></span></p>
+                        <!-- <div id="event-dets-calendar" class="bg-primary"> -->
                             <!-- CALENDARIO -->
-                        </div>
+                        <!-- </div> -->
                     </div>
                     <div class="event-dets-sec">
                         <p><span class="fs-5 fw-bold">Punto de reunión: </span> <span th:text="${event.reunionPoint}"></span><span class="fs-5">🌍</span></p>
@@ -153,10 +155,8 @@
     <div id="report-form-cont" style="display: none">
         <div class="report-form bg-white rounded">
             <h3>Reportar a <span th:text="${event.userOwner.firstName} + ' ' + ${event.userOwner.lastName}"></span> .</h3>
-            <div class="form-floating">
-                <textarea class="form-control" id="report-desc" name="report-desc" placeholder="Leave a comment here"></textarea>
-                <label for="floatingTextarea">Motivo de la denuncia:</label>
-            </div>
+            <label for="report-desc" class="form-label">Motivo de la denuncia:</label>
+            <textarea class="form-control" id="report-desc" name="report-desc" placeholder="Leave a comment here" style="height: 150px; width: 100%"></textarea>
             <br>
             <button type="submit" class="btn btn-primary" th:attr="onclick=|reportUser('${event.userOwner.id}')|">
                 Enviar
