@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 public class Report {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rep")
-    @SequenceGenerator(name = "rep", sequenceName = "rep", initialValue = 11, allocationSize = 1)
+    @SequenceGenerator(name = "rep", sequenceName = "rep", initialValue = 6, allocationSize = 1)
     private Long id;
     @ManyToOne
     @JoinColumn(name = "user_source", referencedColumnName = "id")

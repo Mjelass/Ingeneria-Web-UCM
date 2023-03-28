@@ -58,3 +58,15 @@ function toggleFav(elem, eventId){
                 alert("Something went wrong."));
     }
 }
+
+
+function toggleReportForm(){
+    let formCont = document.getElementById('report-form-cont');
+    if(formCont.style.display == 'none'){
+        formCont.style.display = 'flex';
+    }
+    else {
+        formCont.style.display = 'none';
+        document.getElementById('report-desc').value = '';
+    }
+}

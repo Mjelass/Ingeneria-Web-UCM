@@ -144,12 +144,26 @@
                             <p class="mb-0"><span>⭐⭐⭐⭐⭐</span><span th:text="${ownerRatings}"></span> valoraciones.</p>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-danger" th:attr="onclick=|reportUser('${event.userOwner.id}')|">Reportar</button>
+                    <button type="button" class="btn btn-danger" th:disabled="!${isLogged}" onclick="toggleReportForm()">Reportar</button>
+                    <!-- th:attr="onclick=|reportUser('${event.userOwner.id}')|" -->
                 </div>
             </div>
         </div>
     </main>
-
+    <div id="report-form-cont" style="display: none">
+        <div class="report-form bg-white rounded">
+            <h3>Reportar a <span th:text="${event.userOwner.firstName} + ' ' + ${event.userOwner.lastName}"></span> .</h3>
+            <div class="form-floating">
+                <textarea class="form-control" id="report-desc" name="report-desc" placeholder="Leave a comment here"></textarea>
+                <label for="floatingTextarea">Motivo de la denuncia:</label>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary" th:attr="onclick=|reportUser('${event.userOwner.id}')|">
+                Enviar
+            </button>
+            <button type="button" class="btn btn-primary" onclick="toggleReportForm()">Cancelar</button>
+        </div>
+    </div>
     <th:block th:replace="fragments/footer.html :: footer" />
 </body>
 
