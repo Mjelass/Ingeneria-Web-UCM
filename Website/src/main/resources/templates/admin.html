@@ -11,38 +11,129 @@
 <body class="d-flex flex-column h-100">
     <header th:replace="fragments/nav.html :: nav"></header>
 
-    <main class="flex-shrink-0">
+    <main class="bg-light d-flex flex-column align-items-center">
         <div class="container">
             <h1 class="mt-5">Administración</h1>
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                  Dropdown button
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                  <li><a class="dropdown-item" onclick="showUsers()">All users</a></li>
-                  <li><a class="dropdown-item" onclick="showTrips()">Trips</a></li>
-                  <li><a class="dropdown-item" onclick="showBlacklist()">Blacklist</a></li>
-                  <li><a class="dropdown-item" onclick="showReports()">Reports</a></li>
-                </ul>
+            <div  mb-2>
+                <form action="">
+                    <div>
+                        <label for="">Mostrar: </label>
+                        <select name="" id="">
+                            <option value="0" selected>Users</option>
+                            <option value="1">Trips</option>
+                            <option value="2">Blacklist</option>
+                            <option value="3">Reports</option>
+                        </select>
+                    </div>
+                </form>
+                <!-- <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    Dropdown button
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><a class="dropdown-item" onclick="showUsers()">All users</a></li>
+                    <li><a class="dropdown-item" onclick="showTrips()">Trips</a></li>
+                    <li><a class="dropdown-item" onclick="showBlacklist()">Blacklist</a></li>
+                    <li><a class="dropdown-item" onclick="showReports()">Reports</a></li>
+                    </ul>
+                </div> -->
+                <div class="searchbar">
+                    <input type="text" placeholder="Search..">
+                    <button type="submit">Submit</button>
+                    <button>Add item</button>
+                </div>
             </div>
-            <!-- <div>
-            <ul class="sidenav">
-                <li><button onclick="showUsers()">All users</button></li>
-                <li><button onclick="showTrips()" >Trips</button></li>
-                <li><button onclick="showBlacklist()">Blacklist</button></li>
-                
-            </ul>
-            </div> -->
-            <div class="searchbar">
-                <input type="text" placeholder="Search..">
-                <button type="submit">Submit</button>
-                <button>Add item</button>
-
-            </div>
-
-            <div id="userlist">
+            <div class="d-flex">
                 <!-- All users list -->
-                <table class="table">
+                <!-- <div class="event bg-white d-flex rounded overflow-hidden" th:each="event, iter:${allEvents}"> -->                   
+                <div class="item-list bg-white d-flex rounded overflow-hidden my-2">
+                    <img class="align-middle" src="https://bootdey.com/img/Content/avatar/avatar5.png" alt="">
+                    <div class="d-flex justify-content-between">
+                        <div class="p-2">
+                        <!-- Info -->
+                            <div class="d-flex justify-content-start">
+                                <p class="mx-2"><strong>Nombre: </strong>Juan Calvo Isasi</p>
+                                <p class="mx-2"><strong>Edad: </strong>20</p>
+                                <p class="mx-2"><strong>Rango: </strong></p>                            
+                            </div>
+                            <div class="d-flex justify-content-start">
+                                <p class="mx-2"><strong>Email: </strong>jcalvoisasi@gmail.com</p>
+                                <p class="mx-2"><strong>Idiomas: </strong>Spanish, English</p>
+                                <p class="mx-2">⭐⭐⭐⭐⭐</p>
+                            </div>
+                            <p class="mx-2"><strong>Descripción: </strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Faucibus scelerisque eleifend donec pretium vulputate sapien nec sagittis aliquam. Pretium viverra suspendisse potenti nullam.</p>
+                            <p class="mx-2"><strong>⚠ Incidencias: </strong>0</p>
+                        </div>
+                        <div class=" buttons d-flex flex-wrap">
+                            <!-- Botones -->
+                            <button type="button" class="btn btn-secondary btn-sm my-2">📝 Blacklist</button>
+                            <button type="button" class="btn btn-secondary btn-sm">✏ Editar</button>
+                            <button type="button" class="btn btn-secondary btn-sm"> 🗑️ Eliminar</button>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <div class="d-flex">
+                <!-- All users list -->
+                <!-- <div class="event bg-white d-flex rounded overflow-hidden" th:each="event, iter:${allEvents}"> -->                   
+                <div class="item-list bg-white d-flex rounded overflow-hidden my-2">
+                    <img class="align-middle" src="https://bootdey.com/img/Content/avatar/avatar4.png" alt="">
+                    <div class="d-flex justify-content-between">
+                        <div class="p-2">
+                        <!-- Info -->
+                            <div class="d-flex justify-content-start">
+                                <p class="mx-2"><strong>Nombre: </strong>Alberto Perez</p>
+                                <p class="mx-2"><strong>Edad: </strong>31</p>
+                                <p class="mx-2"><strong>Rango: </strong></p>                            
+                            </div>
+                            <div class="d-flex justify-content-start">
+                                <p class="mx-2"><strong>Email: </strong>albertoprz@gmail.com</p>
+                                <p class="mx-2"><strong>Idiomas: </strong>Spanish</p>
+                                <p class="mx-2">⭐⭐⭐</p>
+                            </div>
+                            <p class="mx-2"><strong>Descripción: </strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Faucibus scelerisque eleifend donec pretium vulputate sapien nec sagittis aliquam. Pretium viverra suspendisse potenti nullam.</p>
+                            <p class="mx-2"><strong>⚠ Incidencias: </strong>2</p>
+                        </div>
+                        <div class=" buttons d-flex flex-wrap">
+                            <!-- Botones -->
+                            <button type="button" class="btn btn-secondary btn-sm">📝 Blacklist</button>
+                            <button type="button" class="btn btn-secondary btn-sm">✏ Editar</button>
+                            <button type="button" class="btn btn-secondary btn-sm"> 🗑️ Eliminar</button>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <div class="d-flex">
+                <!-- All users list -->
+                <!-- <div class="event bg-white d-flex rounded overflow-hidden" th:each="event, iter:${allEvents}"> -->                   
+                <div class="item-list bg-white d-flex rounded overflow-hidden my-2">
+                    <img class="align-middle" src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="">
+                    <div class="d-flex justify-content-between">
+                        <div class="p-2">
+                        <!-- Info -->
+                            <div class="d-flex justify-content-start">
+                                <p class="mx-2"><strong>Nombre: </strong>Marina Sanchez</p>
+                                <p class="mx-2"><strong>Edad: </strong>20</p>
+                                <p class="mx-2"><strong>Rango: </strong></p>                            
+                            </div>
+                            <div class="d-flex justify-content-start">
+                                <p class="mx-2"><strong>Email: </strong>marinascz@gmail.com</p>
+                                <p class="mx-2"><strong>Idiomas: </strong>French</p>
+                                <p class="mx-2">⭐⭐⭐⭐⭐</p>
+                            </div>
+                            <p class="mx-2"><strong>Descripción: </strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Faucibus scelerisque eleifend donec pretium vulputate sapien nec sagittis aliquam. Pretium viverra suspendisse potenti nullam.</p>
+                            <p class="mx-2"><strong>⚠ Incidencias: </strong>0</p>
+                        </div>
+                        <div class=" buttons d-flex flex-wrap">
+                            <!-- Botones -->
+                            <button type="button" class="btn btn-secondary btn-sm m-2">📝 Blacklist</button>
+                            <button type="button" class="btn btn-secondary btn-sm">✏ Editar</button>
+                            <button type="button" class="btn btn-secondary btn-sm"> 🗑️ Eliminar</button>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+                <!-- <table class="table">
                     <tr>
                         <td><img src="https://bootdey.com/img/Content/avatar/avatar5.png" alt=""></td>
                         <td style="width:30%">
@@ -100,10 +191,10 @@
                         </td>
                         
                     </tr>
-                </table>
+                </table> -->
                 
 
-            </div>
+            
             <div id="triplist">
                 <!-- Trips list -->
 
