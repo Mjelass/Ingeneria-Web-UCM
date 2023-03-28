@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import es.ucm.fdi.iw.model.Event;
 import es.ucm.fdi.iw.model.User;
 
 /**
@@ -39,6 +40,7 @@ public class RootController {
 
     @GetMapping("/formAddEvent")
     public String formAddEvent(Model model) {
+        model.addAttribute("Event", new Event());
         return "formAddEvent";
     }
 

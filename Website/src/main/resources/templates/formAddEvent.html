@@ -1,1 +1,81 @@
-<!-- A -->
+<!DOCTYPE html>
+<html class="h-100" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:replace="fragments/head :: header" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Add Event</title>
+</head>
+<body class="d-flex flex-column h-100">
+    <header th:replace="fragments/nav.html :: nav"></header>
+
+    <main class="flex-shrink-0">
+      <div class="container">
+        <form method="post" th:action="@{/event/saveEvent}" th:object="${Event}">
+          <div class="form-group">
+            <label for="title">title : </label>
+            <input type="text" class="form-control" id="title"  placeholder="title" th:field="*{title}" required>
+          </div>
+          <div class="form-group">
+            <label for="initDate">initDate : </label>
+            <input type="date" class="form-control" id="initDate"   th:field="*{initDate}" required>
+          </div>
+          <div class="form-group">
+            <label for="finishDate">finishDate : </label>
+            <input type="date" class="form-control" id="finishDate"   th:field="*{finishDate}" required>
+          </div>
+          <div class="form-group">
+            <label for="destination">destination : </label>
+            <input type="text" class="form-control" id="destination"  placeholder="destination" th:field="*{destination}"  required>
+          </div>
+          <div class="form-group">
+            <label for="reunionPoint">reunionPoint : </label>
+            <input type="text" class="form-control" id="reunionPoint"  placeholder="reunionPoint" th:field="*{reunionPoint}" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="description">description : </label>
+            <input type="text" class="form-control" id="description" placeholder="description" th:field="*{description}" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="price">price($) :</label>
+            <input type="number" class="form-control" id="price"  th:field="*{price}" required>
+          </div>
+
+          <div class="form-group">
+            <label for="capacity">capacity</label>
+            <input type="number" class="form-control" id="capacity"  th:field="*{capacity}" min="2" required>
+          </div>
+
+
+          <div class="form-group">
+            <label for="transport">transport</label>
+            <input type="text" class="form-control" id="transport" placeholder="EX: bus,plane" th:field="*{transport}" required>
+          </div>
+
+          <div class="form-group">
+            <label for="notes">notes</label>
+            <input type="text" class="form-control" id="notes" placeholder="EX: NO_KIDS, NO_ANIMALS" th:field="*{notes}" required>
+          </div>
+
+          <div class="form-group">
+            <label for="type">type</label>
+            <select name="select" th:field="*{type}">
+              <option value="TRIP" selected>TRIP</option>
+              <option value="EVENT" >EVENT</option>
+              <option value="CONCERT">CONCERT</option>
+              <option value="CAMPING">CAMPING</option>
+              <option value="MUSEUM">MUSEUM</option>
+            </select>
+          </div>
+          
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </main>
+
+    <th:block th:replace="fragments/footer.html :: footer" />
+  </body>
+</html>
