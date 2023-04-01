@@ -49,11 +49,6 @@ public class RootController {
     // return "event";
     // }
 
-    @GetMapping("/chat")
-    public String chat(Model model) {
-        return "chat";
-    }
-
     @GetMapping("/login")
     public String login(Model model) {
         return "login";

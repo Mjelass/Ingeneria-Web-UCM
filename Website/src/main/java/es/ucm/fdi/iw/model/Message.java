@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -24,28 +25,34 @@ import lombok.AllArgsConstructor;
  *
  */
 @Entity
-@NamedQueries({
-	@NamedQuery(name="Message.countUnread",
-	query="SELECT COUNT(m) FROM Message m "
-			+ "WHERE m.receiver.id = :userId AND m.dateRead = null")
-})
+// @NamedQueries({
+// 	@NamedQuery(name="Message.countUnread",
+// 	query="SELECT COUNT(m) FROM Message m "
+// 			+ "WHERE m.receiver.id = :userId AND m.dateRead = null")
+// })
 @Data
 public class Message implements Transferable<Message.Transfer> {
 	
 	private static Logger log = LogManager.getLogger(Message.class);	
 	
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "gen")
-    @SequenceGenerator(name = "gen", sequenceName = "gen")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "msg")
+    @SequenceGenerator(name = "msg", sequenceName = "msg" , initialValue = 1)
 	private long id;
 	@ManyToOne
+    @JoinColumn(name = "sender_id", referencedColumnName = "id")
 	private User sender;
+	// @ManyToOne
+    // @JoinColumn(name = "event_id", referencedColumnName = "id")
+	// private User receiver;
 	@ManyToOne
-	private User receiver;
+    @JoinColumn(name = "event_id", referencedColumnName = "id")
+	private Event event;
+
 	private String text;
 	
 	private LocalDateTime dateSent;
-	private LocalDateTime dateRead;
+	// private LocalDateTime dateRead;
 	
 	/**
 	 * Objeto para persistir a/de JSON
@@ -54,18 +61,25 @@ public class Message implements Transferable<Message.Transfer> {
     @Getter
     @AllArgsConstructor
 	public static class Transfer {
-		private String from;
-		private String to;
-		private String sent;
-		private String received;
+		// private String from;
+		// private String to;
+		// private String sent;
+		// private String received;
+		// private String text;
+		private String senderId;
+		private String sender;
+		private String event;
 		private String text;
+		private String dateSent;
 		long id;
 		public Transfer(Message m) {
-			this.from = m.getSender().getUsername();
-			this.to = m.getReceiver().getUsername();
-			this.sent = DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(m.getDateSent());
-			this.received = m.getDateRead() == null ?
-					null : DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(m.getDateRead());
+			this.senderId = String.valueOf(m.getSender().getId());
+			this.sender = m.getSender().getUsername();
+			this.event = String.valueOf(m.getEvent().getId());
+			// this.to = m.getReceiver().getUsername();
+			this.dateSent = DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(m.getDateSent());
+			// this.received = m.getDateRead() == null ?
+			// 		null : DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(m.getDateRead());
 			this.text = m.getText();
 			this.id = m.getId();
 		}
@@ -73,10 +87,11 @@ public class Message implements Transferable<Message.Transfer> {
 
 	@Override
 	public Transfer toTransfer() {
-		return new Transfer(sender.getUsername(), receiver.getUsername(), 
-			DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(dateSent),
-			dateRead == null ? null : DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(dateRead),
-			text, id
-        );
+		// return new Transfer(sender.getUsername(), receiver.getUsername(), 
+		// 	DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(dateSent),
+		// 	dateRead == null ? null : DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(dateRead),
+		// 	text, id
+        // );
+		return new Transfer(this);
     }
 }
