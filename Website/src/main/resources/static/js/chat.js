@@ -17,8 +17,10 @@ const wsChat = {
         if (document.getElementById('userId').innerText != text['senderId']){
             updateChat(false, {'sender': text['sender'], 'chatId': text['event'],
                 'text': text['text'], 'dateSent': text['dateSent']});
-
-            scrollDownChat()
+            
+            if(currentChatId != 'ini'){
+                scrollDownChat();
+            }
 
             updateChatList(false, {'sender': text['sender'], 'chatId': text['event'],
                 'text': text['text'], 'dateSent': text['dateSent']});
@@ -176,7 +178,7 @@ function updateChatList(local, values){
         let cardT = chatB.querySelector('.card-text');
         cardT.classList.add('text-nowrap', 'text-truncate');
         cardT.innerHTML = local? `<strong>Tú: </strong>`:
-            `<strong>${values['sender']}</strong>`;
+            `<strong>${values['sender']}: </strong>`;
         cardT.innerHTML += `<span>${values['text']}</span>`;
 
         let divDate = document.createElement('div');
