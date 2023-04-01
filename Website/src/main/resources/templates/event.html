@@ -22,7 +22,7 @@
             <div class="d-flex px-4 py-2 justify-content-between align-items-center">
                 <div class="d-flex flex-fill justify-content-between align-items-center">
                     <div>
-                        <span class="badge bg-primary fs-6">Evento</span>
+                        <span class="badge bg-primary fs-6">Event</span>
                         <h1><span th:text="${event.title}">TITLE</span></h1>
                         <span class="badge bg-primary" th:text="${event.status}">Open</span>
                     </div>
@@ -31,12 +31,12 @@
                             th:text="${fav}? '❤️': '🤍'" th:disabled="!${isLogged}">
                             🤍
                         </button>
-                        <p class="text-center mb-0"><span id="fav-n"><span th:text="${numFavs}"></span></span> Me Gustas</p>
+                        <p class="text-center mb-0"><span id="fav-n"><span th:text="${numFavs}"></span></span> Likes</p>
                     </div>
                 </div>
                 <div class="d-flex flex-column align-items-center ms-4">
-                    <h1><span th:text="${#numbers.formatDecimal(event.price,1,2)}"></span><span class="fs-4 mb-0">/persona</span></h1>
-                    <h5><span id="occupied" th:text="${event.occupied}">1</span>/<span id="capacity" th:text="${event.capacity}">5</span> Vacantes</h5>
+                    <h1><span th:text="${#numbers.formatDecimal(event.price,1,2)}"></span><span class="fs-4 mb-0">/person</span></h1>
+                    <h5><span id="occupied" th:text="${event.occupied}">1</span>/<span id="capacity" th:text="${event.capacity}">5</span> Vacancies</h5>
                     <div>
                         <div id="pbar-vacs-total" class="rounded-pill overflow-hidden">
                             <div id="pbar-vacs-progress" class="bg-primary"
@@ -47,7 +47,7 @@
                 <div class="d-flex flex-column align-items-center ms-2">
                     <input id="check-join" type="checkbox" th:attr="onclick=|toggleJoin(this, '${event.id}')|"
                     th:disabled="${!isLogged || !event.status.name().equals('OPEN')}" th:checked="${joined}">
-                    <p id="text-join" class="text-center mb-0">Unirse</p>
+                    <p id="text-join" class="text-center mb-0">Join</p>
                 </div>
                 <div id="acts-aft-join" class="ms-2" th:style="${joined}? 'display:flex; flex-direction: column;' : 'display: none;'">
                     <a class="btn btn-primary mb-1" th:href="@{/chat}" href="/chat">Chat</a>
@@ -59,32 +59,32 @@
             <div class="d-flex px-4 py-2">
                 <div id="more-details" class="bg-white border my-2 me-2 p-4 flex-fill">
                     <div id="event-description" class="mb-5">
-                        <h2>DESCRIPCIÓN</h2>
+                        <h2>DESCRIPTION</h2>
                         <span th:text="${event.description}"></span> 
                         <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque recusandae voluptatibus quae ad? Quaerat accusantium et omnis itaque. Harum temporibus aliquid nemo odio dolor velit optio repudiandae, praesentium fugiat sunt!</p>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque recusandae voluptatibus quae ad? Quaerat accusantium et omnis itaque. Harum temporibus aliquid nemo odio dolor velit optio repudiandae, praesentium fugiat sunt!</p> -->
                     </div>
                     <div id="event-notes" class="mb-5">
-                        <h2>ANOTACIONES</h2>
+                        <h2>NOTES</h2>
                         <div class="d-flex flex-wrap" th:each="note: ${event.notes.split(',')}">
                             <th:block th:switch="${note}">
                                 <th:block th:case="'NO_KIDS'">
-                                    <p class="flex-fill"><span class="fs-4">👶</span> No se permiten bebés.</p>
+                                    <p class="flex-fill"><span class="fs-4">👶❌</span> Babies are not allowed</p>
                                 </th:block>
                                 <th:block th:case="'NO_ANIMALS'">
-                                    <p class="flex-fill"><span class="fs-4">🐾</span> No se admiten animales.</p>
+                                    <p class="flex-fill"><span class="fs-4">🐾❌</span> Pets are not allowed</p>
                                 </th:block>
                                 <th:block th:case="'KIDS'">
-                                    <p class="flex-fill"><span class="fs-4">👶</span> Se permiten bebés.</p>
+                                    <p class="flex-fill"><span class="fs-4">👶</span> Babies are allowed</p>
                                 </th:block>
                                 <th:block th:case="'ANIMALS'">
-                                    <p class="flex-fill"><span class="fs-4">🐾</span> Se admiten animales.</p>
+                                    <p class="flex-fill"><span class="fs-4">🐾</span> Pets allowed</p>
                                 </th:block>
                             </th:block>
                         </div>
                     </div>
                     <div id="event-m-imgs" class="mb-5">
-                        <h2>MÁS IMÁGENES</h2>
+                        <h2>Other images</h2>
                         <div class="d-flex flex-wrap">
                             <img src="https://picsum.photos/280/150" class="m-2" alt="">
                             <img src="https://picsum.photos/280/150" class="m-2" alt="">
@@ -95,58 +95,58 @@
                     </div>
                 </div>
                 <div id="main-details" class="bg-white border my-2 p-4 pb-5 flex-fill align-self-start">
-                    <h2 class="text-center">DETALLES</h2>
+                    <h2 class="text-center">DETAILES</h2>
                     <div class="event-dets-sec">
-                        <p><span class="fs-5 fw-bold">Destino: </span> <span th:text="${event.destination}"></span> <span class="fs-5">🌍</span></p>
+                        <p><span class="fs-5 fw-bold">Destination: </span> <span th:text="${event.destination}"></span> <span class="fs-5">🌍</span></p>
                     </div>
                     <div class="event-dets-sec">
                         <!-- <p><span class="fs-5 fw-bold"><span th:text="${event.initDate}"></span> - <span th:text="${event.finishDate}"></span> </span></p> -->
-                        <p class="m-0"><span class="fs-5 fw-bold">📅 Inicio: </span> <span th:text="${event.initDate}"></span></p>
-                        <p><span class="fs-5 fw-bold">📅 Fin: </span> <span th:text="${event.finishDate}"></span></p>
+                        <p class="m-0"><span class="fs-5 fw-bold">📅 From: </span> <span th:text="${event.initDate}"></span></p>
+                        <p><span class="fs-5 fw-bold">📅 To: </span> <span th:text="${event.finishDate}"></span></p>
                         <!-- <div id="event-dets-calendar" class="bg-primary"> -->
                             <!-- CALENDARIO -->
                         <!-- </div> -->
                     </div>
                     <div class="event-dets-sec">
-                        <p><span class="fs-5 fw-bold">Punto de reunión: </span> <span th:text="${event.reunionPoint}"></span><span class="fs-5">🌍</span></p>
+                        <p><span class="fs-5 fw-bold">Meeting point: </span> <span th:text="${event.reunionPoint}"></span><span class="fs-5">🌍</span></p>
                     </div>
                     <div class="event-dets-sec">
-                        <p><span class="fs-5 fw-bold">Transporte: </span>
+                        <p><span class="fs-5 fw-bold">Transport: </span>
                             <!-- <span th:text="${event.transport}"></span><span class="fs-5">✈️</span> -->
                             <th:block th:each="t: ${event.transport.split(',')}">
                                 <th:block th:switch="${t}">
                                     <th:block th:case="'PLANE'">
-                                        <span class="fs-4">✈️</span> Avión
+                                        <span class="fs-4">✈️</span> Plane
                                     </th:block>
                                     <th:block th:case="'BUS'">
-                                        <span class="fs-4">🚌</span> Autobús
+                                        <span class="fs-4">🚌</span> Autobus
                                     </th:block>
                                     <th:block th:case="'CAR'">
-                                        <span class="fs-4">🚗</span> Coche
+                                        <span class="fs-4">🚗</span> Car
                                     </th:block>
                                     <th:block th:case="'SHIP'">
-                                        <span class="fs-4">🚢</span> Barco
+                                        <span class="fs-4">🚢</span> Ship
                                     </th:block>
                                 </th:block>
                             </th:block>
                         </p>
                     </div>
-                    <h3 class="text-center">ORGANIZADOR</h3>
+                    <h3 class="text-center">ORGANIZER</h3>
                     <div class="event-dets-sec d-flex align-items-center mb-3">
                         <a class="text-decoration-none text-body" th:href="@{/user/{id}(id=${event.userOwner.id})}">
                             <img class="rounded-circle align-self-start" src="https://picsum.photos/100/100" alt="profile">
                         </a>
                         <div class="ms-4">
                             <h5><a class="text-decoration-none text-body" th:href="@{/user/{id}(id=${event.userOwner.id})}">
-                                <span th:text="${event.userOwner.firstName}">Nombre</span>
+                                <span th:text="${event.userOwner.firstName}">Name</span>
                             </a></h5>
                             <h5><a class="text-decoration-none text-body" th:href="@{/user/{id}(id=${event.userOwner.id})}">
-                                <span th:text="${event.userOwner.lastName}">Apellidos</span>
+                                <span th:text="${event.userOwner.lastName}">Surname</span>
                             </a></h5>
-                            <p class="mb-0"><span>⭐⭐⭐⭐⭐</span><span th:text="${ownerRatings}"></span> valoraciones.</p>
+                            <p class="mb-0"><span>⭐⭐⭐⭐⭐</span><span th:text="${ownerRatings}"></span> ratings</p>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-danger" th:disabled="!${isLogged}" onclick="toggleReportForm()">Reportar</button>
+                    <button type="button" class="btn btn-danger" th:disabled="!${isLogged}" onclick="toggleReportForm()">Report</button>
                     <!-- th:attr="onclick=|reportUser('${event.userOwner.id}')|" -->
                 </div>
             </div>
@@ -154,14 +154,14 @@
     </main>
     <div id="report-form-cont" style="display: none">
         <div class="report-form bg-white rounded">
-            <h3>Reportar a <span th:text="${event.userOwner.firstName} + ' ' + ${event.userOwner.lastName}"></span> .</h3>
-            <label for="report-desc" class="form-label">Motivo de la denuncia:</label>
+            <h3>Report <span th:text="${event.userOwner.firstName} + ' ' + ${event.userOwner.lastName}"></span> .</h3>
+            <label for="report-desc" class="form-label">Reason of the report:</label>
             <textarea class="form-control" id="report-desc" name="report-desc" placeholder="Leave a comment here" style="height: 150px; width: 100%"></textarea>
             <br>
             <button type="submit" class="btn btn-primary" th:attr="onclick=|reportUser('${event.userOwner.id}')|">
-                Enviar
+                Send
             </button>
-            <button type="button" class="btn btn-primary" onclick="toggleReportForm()">Cancelar</button>
+            <button type="button" class="btn btn-primary" onclick="toggleReportForm()">Delete</button>
         </div>
     </div>
     <th:block th:replace="fragments/footer.html :: footer" />
