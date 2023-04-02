@@ -303,7 +303,7 @@ public class UserController {
 		
 		// construye mensaje, lo guarda en BD
 		Message m = new Message();
-		m.setReceiver(u);
+		// m.setReceiver(u);
 		m.setSender(sender);
 		m.setDateSent(LocalDateTime.now());
 		m.setText(text);
@@ -358,29 +358,29 @@ public class UserController {
 	//Falta redirigirlo a la pagina errorSignUp si hay error
 	@Transactional
 	@PostMapping("/saveUser")
-        public String saveUser(@ModelAttribute User user, Model model){
-            
-			User InsertUser = new User();
-			InsertUser.setFirstName(user.getFirstName());
-			InsertUser.setLastName(user.getLastName());
-			InsertUser.setPassword(encodePassword(user.getPassword()));
-			InsertUser.setUsername(user.getUsername());
-			InsertUser.setLocation(user.getLocation());
-			InsertUser.setDescription(user.getDescription());
-			InsertUser.setLanguages(user.getLanguages());
-			InsertUser.setEmail(user.getEmail());
-			InsertUser.setBirthdate(user.getBirthdate());
-			InsertUser.setRating(0F);
-			InsertUser.setStatus(Status.ACTIVE);
-			InsertUser.setRoles(Role.USER.name());
-			InsertUser.setEnabled(true);
-			InsertUser.setUserEvent(null);
-			InsertUser.setSent(null);
-			InsertUser.setLevel(Level.BRONZE);
-			InsertUser.setReceived(null);
-			entityManager.persist(InsertUser);
-			entityManager.flush();
-			model.addAttribute("User", InsertUser);
-            return "ok";
-        } 
+	public String saveUser(@ModelAttribute User user, Model model){
+		
+		User InsertUser = new User();
+		InsertUser.setFirstName(user.getFirstName());
+		InsertUser.setLastName(user.getLastName());
+		InsertUser.setPassword(encodePassword(user.getPassword()));
+		InsertUser.setUsername(user.getUsername());
+		InsertUser.setLocation(user.getLocation());
+		InsertUser.setDescription(user.getDescription());
+		InsertUser.setLanguages(user.getLanguages());
+		InsertUser.setEmail(user.getEmail());
+		InsertUser.setBirthdate(user.getBirthdate());
+		InsertUser.setRating(0F);
+		InsertUser.setStatus(Status.ACTIVE);
+		InsertUser.setRoles(Role.USER.name());
+		InsertUser.setEnabled(true);
+		InsertUser.setUserEvent(null);
+		InsertUser.setSent(null);
+		InsertUser.setLevel(Level.BRONZE);
+		InsertUser.setReceived(null);
+		entityManager.persist(InsertUser);
+		entityManager.flush();
+		model.addAttribute("User", InsertUser);
+		return "ok";
+	}
 }
