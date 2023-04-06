@@ -43,7 +43,14 @@ import lombok.NoArgsConstructor;
         @NamedQuery(name="User.hasUsername",
                 query="SELECT COUNT(u) "
                         + "FROM User u "
-                        + "WHERE u.username = :username")
+                        + "WHERE u.username = :username"),
+        @NamedQuery(name="User.allUsers",
+                query="SELECT u FROM User u "
+                        + "WHERE u.status = 'ACTIVE'"),
+        @NamedQuery(name="User.blackList",
+                query="SELECT u FROM User u "
+                        + "WHERE u.status = 'BLACK_LISTED'")
+        
 })
 @Table(name="IWUser")
 public class User implements Transferable<User.Transfer> {
@@ -60,7 +67,7 @@ public class User implements Transferable<User.Transfer> {
     }
     public enum Status {
         ACTIVE,
-        SUSPENDED,
+        //SUSPENDED,
         BLACK_LISTED
     }
 

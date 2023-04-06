@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
@@ -18,6 +20,13 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@NamedQueries({
+       
+        @NamedQuery(name="Reports.allReports",
+                query="SELECT r FROM Report  r")
+        
+        
+})
 public class Report {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rep")

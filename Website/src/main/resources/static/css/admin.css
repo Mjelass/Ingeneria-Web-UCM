@@ -19,22 +19,24 @@
     display: flex;
     justify-content: center;
 }
-
+.mr{
+    margin-left: 0.5em;
+}
 
 #userlist{
     display:block;
 }
 
 #triplist{
-    display:none;
+    display:block;
 }
 
 #blacklist{
-    display:none;
+    display:block;
 }
 
 #reportlist{
-    display:none;
+    display:block;
 }
 
 .cityimg img{
