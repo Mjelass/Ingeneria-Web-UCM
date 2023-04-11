@@ -30,7 +30,10 @@
             <div class="col-md-4">
                 <!-- My events/trips-->
                 <p class="lead fw-normal mb-1" style="text-align: center;">My events/trips</p>
-
+                <div class="event bg-white d-flex rounded overflow-hidden" th:each="event:${allEventsDone}">
+                    <h2 class="title"><a th:text="${event.title}" href="/event/2">Title</a></h2>
+                </div>
+                <!--
                 <div class="p-4" style="background-color: #f8f9fa;">
                     <div class="card mb-5" style="border-radius: 15px;">
                         <div class="card-body p-4">
@@ -233,7 +236,7 @@
                                     </div>
                                     </div>   
                 </div>
-                
+            -->
             </div>
 
             <div class="col-md-4">
