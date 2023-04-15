@@ -404,17 +404,17 @@ public class UserController {
 		return "ok";
 	}
 
-	@PostMapping("{id}/delete")
-	@Transactional
-	public String deleteUser(@PathVariable long id, Model model, HttpSession session) {
-		User userSource = (User) session.getAttribute("u");
-		User userTarget = entityManager.find(User.class, id);
-		if (userSource == null || userTarget == null) {
-			throw new IllegalArgumentException();
-		}
-		report.setUserSource(userSource);
-		report.setUserTarget(userTarget);
-		reportRepository.save(report);
-		return "ok";
-	}
+	// @PostMapping("{id}/delete")
+	// @Transactional
+	// public String deleteUser(@PathVariable long id, Model model, HttpSession session) {
+	// 	User userSource = (User) session.getAttribute("u");
+	// 	User userTarget = entityManager.find(User.class, id);
+	// 	if (userSource == null || userTarget == null) {
+	// 		throw new IllegalArgumentException();
+	// 	}
+	// 	report.setUserSource(userSource);
+	// 	report.setUserTarget(userTarget);
+	// 	reportRepository.save(report);
+	// 	return "ok";
+	// }
 }
