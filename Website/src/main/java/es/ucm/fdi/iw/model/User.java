@@ -49,7 +49,10 @@ import lombok.NoArgsConstructor;
                         + "WHERE u.status = 'ACTIVE'"),
         @NamedQuery(name="User.blackList",
                 query="SELECT u FROM User u "
-                        + "WHERE u.status = 'BLACK_LISTED'")
+                        + "WHERE u.status = 'BLACK_LISTED'"),
+        @NamedQuery(name="User.delete",
+                query="SELECT u FROM User u "
+                        + "WHERE u.id = :id")
         
 })
 @Table(name="IWUser")
