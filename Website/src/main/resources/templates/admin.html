@@ -67,10 +67,10 @@
                  <button type="button" class="btn btn-secondary btn-sm my-2" style="width: 7em;">
                     📝 Blacklist
                   </button>
-                  
-                  <button type="button" class="btn btn-secondary btn-sm" style="width: 7em;" onclick="deleteForm()">
+                  <!-- th:href="@{/user/{id}(id=${user.id})}"  -->
+                  <a type="button" class="btn btn-secondary btn-sm" style="width: 7em;" onclick="deleteForm()" >
                     🗑️ Delete
-                  </button>
+                  </a>
 
                 </div>
               </div>
@@ -114,7 +114,7 @@
                 </div>
                 <div class=" col-1">
                             <!-- Botones -->
-                            <div class="row"><button type="button" class="btn btn-secondary btn-sm mt-2" onclick="deleteForm()"> 🗑️ Delete</button></div>
+                            <div class="row"><button type="button" class="btn btn-secondary btn-sm mt-2"> 🗑️ Delete</button></div>
                         </div>
               </div>
             </div>
@@ -196,7 +196,7 @@
                     📝 Blacklist
                   </button>
                  
-                  <button type="button" class="btn btn-secondary btn-sm" style="width: 7em;" onclick="deleteForm()">
+                  <button type="button" class="btn btn-secondary btn-sm" style="width: 7em;">
                     🗑️ Delete
                   </button>
                 </div>
@@ -223,11 +223,12 @@
 
     <div id="delete-form-cont" style="display: none">
       <div class="delete-form bg-white rounded">
-          <label for="delete-desc" class="form-label">Are you sure you want to delete this item?</label>
+          <h3>Are you sure you want to delete ?</h3> <!-- <span th:text="${user.firstName} + ' ' + ${user.lastName}"></span> -->
           <br>
-          <button type="submit" class="btn btn-primary" th:attr="onclick =|reportUser('${user.id}')|"> <!-- DELETE USER -> QUERIES-->
+          <!-- '${user.id}' -->
+          <a href="" class="btn btn-primary" id ="delRef" th:attr="onclick=|deleteUser('3')|">  
               Yes
-          </button>
+          </a>
           <button type="button" class="btn btn-primary" onclick="deleteForm()">No</button>
       </div>
     </div>

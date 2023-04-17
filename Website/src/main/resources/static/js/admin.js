@@ -14,3 +14,12 @@ function deleteForm(){
       document.getElementById('delete-desc').value = '';
   }
 }
+
+function deleteUser(id){
+  go(`/user/${id}/deleteUser`, "POST", false)
+  .then(d => {console.log(d);
+    deleteForm();})
+  .catch(e => {console.log(e)
+      alert("Something went wrong.");
+      });
+}
