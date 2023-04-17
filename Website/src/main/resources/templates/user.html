@@ -9,17 +9,12 @@
 
 <body class="d-flex flex-column h-100">
     <header th:replace="fragments/nav.html :: nav"></header>
-    <!-- <p th:text="'isOwner: ' + ${isOwner}">A</p>
-    <p th:text="'idRequest: ' + ${idRequest}">A</p>
-    <p th:text="'idUser: ' + ${idUser}">A</p> -->
     <main class="flex-shrink-0">
 
-        <section class="vh-100">  
-            <div class="container-fluid h-100  d-flex align-items-end" th:style="'background:url('+ @{/img/default-pic.jpg} +');'" style="background-size: cover">
-                <div class="row w-100">
-                    <div class="col-12 text-center">
-                        <img  th:src="@{/user/{id}/pic(id=${user.id})}" />
-                    </div>
+        <section class="vh-50">
+            <div class="container-fluid d-flex align-items-end" th:style="'background:url('+ @{/img/default-pic.jpg} +'); background-size: cover; height: 300px; margin-bottom:80px'">
+                <div class="col-12 text-center">
+                    <img th:src="@{/user/{id}/pic(id=${user.id})}" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid white; margin-bottom: -60px;"/>
                 </div>
             </div>
         </section>
@@ -30,130 +25,22 @@
             <div class="col-md-4">
                 <!-- My events/trips-->
                 <p class="lead fw-normal mb-1" style="text-align: center;">My events/trips</p>
-                <div class="event bg-white d-flex rounded overflow-hidden" th:each="event:${allEventsDone}">
-                    <h2 class="title"><a th:text="${event.title}" href="/event/2">Title</a></h2>
-                </div>
-                <!--
+
                 <div class="p-4" style="background-color: #f8f9fa;">
-                    <div class="card mb-5" style="border-radius: 15px;">
-                        <div class="card-body p-4">
-                        <div class="row align-items-center">
-                            <div class="col-md-8">
-                                        <a th:href="@{/event}" href="/event" class="card-btn btn btn-primary mb-5" style="border-radius: 10px;">
-                                            Madrid, Spain
-                                        </a>
-                                        <p class="small mb-0"><i class="far fa-star fa-lg"></i> <span class="mx-2">|</span> Trip by
-                                        <strong><span th:text="${user.username}">Pepe</span></h2></strong> on 11 April , 2021</p>
-                                        <hr class="my-4">
-                                        <div class="d-flex justify-content-start align-items-center">
-                                        <p class="mb-0 text-uppercase"><i class="fas fa-cog me-2"></i> <span
-                                            class="font-italic">Description</span></p>
-                                            <span class="ms-3 me-4">|</span></p>
-                                        <a th:href="@{/user/{id}(id=${user.id})}">
-                                            <img  th:src="@{/user/{id}/pic(id=${user.id})}" 
-                                            alt="avatar"
-                                            class="img-fluid rounded-circle me-3" width="35"/>
-                                        </a>
-                                </div>
-                            </div>
-                
-                            <div class="col-md-4 justify-content-center align-items-center">
-                
-                                <div class="row g-2">
-                                    <div class="col mb-2">
-                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"
-                                        alt="image 1" class="w-100 rounded-3">
-                                    </div>
-                                    <div class="col mb-2">
-                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp"
-                                        alt="image 1" class="w-100 rounded-3">
-                                    </div>
-                                    </div>
-                                    <div class="row g-2">
-                                    <div class="col">
-                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(108).webp"
-                                        alt="image 1" class="w-100 rounded-3">
-                                    </div>
-                                    <div class="col">
-                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(114).webp"
-                                        alt="image 1" class="w-100 rounded-3">
-                                    </div>
-                                    </div>
-                
-                            </div>
-                        </div>
-                
-                        </div>
-                        </div>   
+                    <div class="event bg-white d-flex rounded overflow-hidden" th:each="event:${allEventsDone}">
                         <div class="card mb-5" style="border-radius: 15px;">
                             <div class="card-body p-4">
-                            <div class="row align-items-center">
-                                <div class="col-md-8">
-                                            <a th:href="@{/event}" href="/event" class="card-btn btn btn-primary mb-5" style="border-radius: 10px;">
-                                                Paris, France
-                                            </a>
-                                            <p class="small mb-0"><i class="far fa-star fa-lg"></i> <span class="mx-2">|</span> Trip by
-                                            <strong><span th:text="${user.username}">Pepe</span></h2></strong> on 11 April , 2021</p>
-                                            <hr class="my-4">
-                                            <div class="d-flex justify-content-start align-items-center">
-                                            <p class="mb-0 text-uppercase"><i class="fas fa-cog me-2"></i> <span
-                                                class="font-italic">Description</span></p>
-                                                <span class="ms-3 me-4">|</span></p>
-                                            <a th:href="@{/user/{id}(id=${user.id})}">
-                                                <img  th:src="@{/user/{id}/pic(id=${user.id})}" 
-                                                alt="avatar"
-                                                class="img-fluid rounded-circle me-3" width="35"/>
-                                            </a>
-                                    </div>
-                                </div>
-                    
-                                <div class="col-md-4 justify-content-center align-items-center">
-                    
-                                    <div class="row g-2">
-                                        <div class="col mb-2">
-                                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"
-                                            alt="image 1" class="w-100 rounded-3">
-                                        </div>
-                                        <div class="col mb-2">
-                                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp"
-                                            alt="image 1" class="w-100 rounded-3">
-                                        </div>
-                                        </div>
-                                        <div class="row g-2">
-                                        <div class="col">
-                                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(108).webp"
-                                            alt="image 1" class="w-100 rounded-3">
-                                        </div>
-                                        <div class="col">
-                                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(114).webp"
-                                            alt="image 1" class="w-100 rounded-3">
-                                        </div>
-                                        </div>
-                    
-                                </div>
-                            </div>
-                    
-                            </div>
-                            </div>   
-                            <div class="card mb-5" style="border-radius: 15px;">
-                                <div class="card-body p-4">
                                 <div class="row align-items-center">
                                     <div class="col-md-8">
-                                                <a th:href="@{/event}" href="/event" class="card-btn btn btn-primary mb-5" style="border-radius: 10px;">
-                                                    Lisboa, Portugal
-                                                </a>
+                                                <a th:text="${event.title}" href="/event/2" class="card-btn btn btn-primary mb-5" style="border-radius: 10px;">Title</a>
                                                 <p class="small mb-0"><i class="far fa-star fa-lg"></i> <span class="mx-2">|</span> Trip by
-                                                <strong><span th:text="${user.username}">Pepe</span></h2></strong> on 11 April , 2021</p>
+                                                    <a class="text-decoration-none text-body" th:href="@{/user/{id}(id=${event.userOwner.id})}">
+                                                        <strong><span th:text="${event.userOwner.username}">Pepe</span></h2></strong>
+                                                    </a>
+                                                on  <a th:text="${event.initDate}">Date</a></p>
                                                 <hr class="my-4">
                                                 <div class="d-flex justify-content-start align-items-center">
-                                                <p class="mb-0 text-uppercase"><i class="fas fa-cog me-2"></i> <span
-                                                    class="font-italic">Description</span></p>
-                                                    <span class="ms-3 me-4">|</span></p>
-                                                <a th:href="@{/user/{id}(id=${user.id})}">
-                                                    <img  th:src="@{/user/{id}/pic(id=${user.id})}" 
-                                                    alt="avatar"
-                                                    class="img-fluid rounded-circle me-3" width="35"/>
-                                                </a>
+                                                <a th:text="${event.description}">Description</a>
                                         </div>
                                     </div>
                         
@@ -182,61 +69,11 @@
                         
                                     </div>
                                 </div>
-                        
-                                </div>
-                                </div>   
-                                <div class="card mb-5" style="border-radius: 15px;">
-                                    <div class="card-body p-4">
-                                    <div class="row align-items-center">
-                                        <div class="col-md-8">
-                                                    <a th:href="@{/event}" href="/event" class="card-btn btn btn-primary mb-5" style="border-radius: 10px;">
-                                                        Dublin, Ireland
-                                                    </a>
-                                                    <p class="small mb-0"><i class="far fa-star fa-lg"></i> <span class="mx-2">|</span> Trip by
-                                                    <strong><span th:text="${user.username}">Pepe</span></h2></strong> on 11 April , 2021</p>
-                                                    <hr class="my-4">
-                                                    <div class="d-flex justify-content-start align-items-center">
-                                                    <p class="mb-0 text-uppercase"><i class="fas fa-cog me-2"></i> <span
-                                                        class="font-italic">Description</span></p>
-                                                        <span class="ms-3 me-4">|</span></p>
-                                                    <a th:href="@{/user/{id}(id=${user.id})}">
-                                                        <img  th:src="@{/user/{id}/pic(id=${user.id})}" 
-                                                        alt="avatar"
-                                                        class="img-fluid rounded-circle me-3" width="35"/>
-                                                    </a>
-                                            </div>
-                                        </div>
-                            
-                                        <div class="col-md-4 justify-content-center align-items-center">
-                            
-                                            <div class="row g-2">
-                                                <div class="col mb-2">
-                                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"
-                                                    alt="image 1" class="w-100 rounded-3">
-                                                </div>
-                                                <div class="col mb-2">
-                                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp"
-                                                    alt="image 1" class="w-100 rounded-3">
-                                                </div>
-                                                </div>
-                                                <div class="row g-2">
-                                                <div class="col">
-                                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(108).webp"
-                                                    alt="image 1" class="w-100 rounded-3">
-                                                </div>
-                                                <div class="col">
-                                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(114).webp"
-                                                    alt="image 1" class="w-100 rounded-3">
-                                                </div>
-                                                </div>
-                            
-                                        </div>
-                                    </div>
-                            
-                                    </div>
-                                    </div>   
+                            </div>
+                        </div>    
+                    </div>
                 </div>
-            -->
+            
             </div>
 
             <div class="col-md-4">
@@ -263,6 +100,55 @@
             <div class="col-md-4">
                 <!-- Open events/trips -->
                 <p class="lead fw-normal mb-1" style="text-align: center;">Open events/trips</p>
+                <div class="p-4" style="background-color: #f8f9fa;">
+                    <div class="event bg-white d-flex rounded overflow-hidden" th:each="event:${allEventsOpen}">
+                        <div class="card mb-5" style="border-radius: 15px;">
+                            <div class="card-body p-4">
+                                <div class="row align-items-center">
+                                    <div class="col-md-8">
+                                                <a th:text="${event.title}" href="/event/2" class="card-btn btn btn-primary mb-5" style="border-radius: 10px;">Title</a>
+                                                <p class="small mb-0"><i class="far fa-star fa-lg"></i> <span class="mx-2">|</span> Trip by
+                                                    <a class="text-decoration-none text-body" th:href="@{/user/{id}(id=${event.userOwner.id})}">
+                                                        <strong><span th:text="${event.userOwner.username}">Pepe</span></h2></strong>
+                                                    </a>
+                                                on  <a th:text="${event.initDate}">Date</a></p>
+                                                <hr class="my-4">
+                                                <div class="d-flex justify-content-start align-items-center">
+                                                <a th:text="${event.description}">Description</a>
+                                        </div>
+                                    </div>
+                        
+                                    <div class="col-md-4 justify-content-center align-items-center">
+                        
+                                        <div class="row g-2">
+                                            <div class="col mb-2">
+                                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"
+                                                alt="image 1" class="w-100 rounded-3">
+                                            </div>
+                                            <div class="col mb-2">
+                                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp"
+                                                alt="image 1" class="w-100 rounded-3">
+                                            </div>
+                                            </div>
+                                            <div class="row g-2">
+                                            <div class="col">
+                                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(108).webp"
+                                                alt="image 1" class="w-100 rounded-3">
+                                            </div>
+                                            <div class="col">
+                                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(114).webp"
+                                                alt="image 1" class="w-100 rounded-3">
+                                            </div>
+                                            </div>
+                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>    
+                    </div>
+                </div>
+
+                <!--
                 <div class="p-4" style="background-color: #f8f9fa;">
                     <div class="card mb-5" style="border-radius: 15px;">
                         <div class="card-body p-4">
@@ -324,7 +210,7 @@
                         </div>
                         
                   </div>
-               
+                -->
             </div>
           </div>
 
