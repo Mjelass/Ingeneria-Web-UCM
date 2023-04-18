@@ -237,7 +237,6 @@ public class UserController {
 		InputStream in = new BufferedInputStream(f.exists() ? new FileInputStream(f) : UserController.defaultPic());
 		return os -> FileCopyUtils.copy(in, os);
 	}
-
 	/**
 	 * Uploads a profile pic for a user id
 	 * 
