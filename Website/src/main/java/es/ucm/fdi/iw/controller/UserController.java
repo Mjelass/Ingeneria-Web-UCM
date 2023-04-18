@@ -141,6 +141,23 @@ public class UserController {
 		ArrayList<Event> ev = eventRepository
 				.getUserJoinedEventsStatus(u.getId(), Event.Status.FINISH.toString());
 
+		ArrayList<Event> evOpen = eventRepository
+				.getUserJoinedEventsStatus(u.getId(), Event.Status.OPEN.toString());
+
+		Page<Event> pageEventsFinish = pageImplement(ev);
+		Page<Event> pageEventsOpen = pageImplement(evOpen);
+
+		model.addAttribute("allEventsDone", pageEventsFinish.getContent());
+		model.addAttribute("allEventsOpen", pageEventsOpen.getContent());
+		model.addAttribute("user", target);
+		model.addAttribute("age", age);
+		model.addAttribute("idRequest", target.getId());
+		model.addAttribute("idUser", u != null ? u.getId() : -1);
+		model.addAttribute("isOwner", u != null && (target.getId() == u.getId()));
+		return "user";
+	}
+
+	public Page<Event> pageImplement(ArrayList<Event> ev) {
 		int total = ev.size();
 		int page = 0, size = 3;
 		int fromIndex = (page) * size;
@@ -150,15 +167,17 @@ public class UserController {
 		List<Event> pageList = ev.subList(fromIndex, toIndex);
 		PageRequest pageRequest = PageRequest.of(page, size);
 		pageEvents = new PageImpl<>(pageList, pageRequest, total);
-
-		model.addAttribute("allEventsDone", pageEvents.getContent());
-		model.addAttribute("user", target);
-		model.addAttribute("age", age);
-		model.addAttribute("idRequest", target.getId());
-		model.addAttribute("idUser", u != null ? u.getId() : -1);
-		model.addAttribute("isOwner", u != null && (target.getId() == u.getId()));
-		return "user";
+		return pageEvents;
 	}
+	// ToDo
+	// public void initUserView(Model model) {
+	// model.addAttribute("allEventsDone", pageEvents.getContent());
+	// model.addAttribute("user", target);
+	// model.addAttribute("age", age);
+	// model.addAttribute("idRequest", target.getId());
+	// model.addAttribute("idUser", u != null ? u.getId() : -1);
+	// model.addAttribute("isOwner", u != null && (target.getId() == u.getId()));
+	// }
 
 	/**
 	 * Alter or create a user
@@ -407,8 +426,8 @@ public class UserController {
 	// @PostMapping("/deleteUser/{id}")
 	@ResponseBody
 	@Transactional
-    public String deleteUser(@PathVariable long id){
-        // user.delete(id);
-        return "ok";
-    }
+	public String deleteUser(@PathVariable long id) {
+		// user.delete(id);
+		return "ok";
+	}
 }
