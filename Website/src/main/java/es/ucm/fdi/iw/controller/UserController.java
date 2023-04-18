@@ -128,7 +128,12 @@ public class UserController {
 	 * Landing page for a user profile
 	 */
 	@GetMapping("{id}")
-	public String index(@PathVariable long id, Model model, HttpSession session) {
+	public String index(@PathVariable long id, Model model, HttpSession session,
+			@RequestParam(name = "page", defaultValue = "0") int page,
+			@RequestParam(name = "size", defaultValue = "4") int size,
+			@RequestParam(name = "search", defaultValue = "") String search,
+			@RequestParam(name = "init", defaultValue = "") String init,
+			@RequestParam(name = "fin", defaultValue = "") String fin) {
 		User target = entityManager.find(User.class, id);
 		User u = (User) session.getAttribute("u");
 		int age;
@@ -149,6 +154,18 @@ public class UserController {
 
 		model.addAttribute("allEventsDone", pageEventsFinish.getContent());
 		model.addAttribute("allEventsOpen", pageEventsOpen.getContent());
+
+		// Page Event Finish
+		model.addAttribute("numpages", new int[pageEventsOpen.getTotalPages()]);
+		model.addAttribute("numResults", pageEventsOpen.getTotalPages() * size);
+		model.addAttribute("numFirstRes", (page * size) + 1);
+		model.addAttribute("size", size);
+		model.addAttribute("currentPage", page);
+		model.addAttribute("numPages", pageEventsOpen.getTotalPages());
+		model.addAttribute("search", search);
+		model.addAttribute("init", init);
+		model.addAttribute("fin", fin);
+
 		model.addAttribute("user", target);
 		model.addAttribute("age", age);
 		model.addAttribute("idRequest", target.getId());
