@@ -11,13 +11,24 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+
+import java.io.*;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Objects;
+import java.util.Random;
+
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 
 import es.ucm.fdi.iw.LocalData;
 import es.ucm.fdi.iw.Repositories.EventRepository;
@@ -156,4 +167,104 @@ public class EventController {
         return "redirect:/event/" + insertEvent.getId();
     }
 
+    /**
+     * Get a pic from event with name n
+     * @param id
+     * @param n
+     * @return
+     * @throws IOException
+     */
+	@GetMapping("{id}/pics/{n}")
+	public StreamingResponseBody getPic(@PathVariable long id, @PathVariable long n) throws IOException {
+		// File f = localData.getFile("event", ""+id);
+        // int total = f.listFiles().length;
+        File f = localData.getFile("event/" + id, "" + n + ".jpg");
+		InputStream in = new BufferedInputStream(f.exists() ? new FileInputStream(f) : EventController.defaultPic());
+		return os -> FileCopyUtils.copy(in, os);
+	}
+    /**
+     * 
+     * @param id
+     * @return
+     * @throws IOException
+     */
+    @GetMapping("{id}/pics")
+	public StreamingResponseBody getPics(@PathVariable long id) throws IOException {
+		// File f = localData.getFile("event", ""+id);
+        // int total = f.listFiles().length;
+        File dir = localData.getFile("event/" + id, "");
+        InputStream in = new BufferedInputStream(EventController.defaultPic());
+        // for(var f: dir.listFiles()){
+        //     in = new BufferedInputStream(f.exists() ? new FileInputStream(f) : EventController.defaultPic());
+        // }
+		return os -> FileCopyUtils.copy(in, os);
+	}
+
+	/**
+	 * Uploads a new pic
+	 * 
+	 * @param id
+	 * @return
+	 * @throws IOException
+	 * @throws NoSuchAlgorithmException
+	 */
+	@PostMapping("{id}/addPic")
+	@ResponseBody
+	public String addPic(@RequestParam("photo") MultipartFile photo, @PathVariable long id,
+			HttpServletResponse response, HttpSession session, Model model) throws IOException, NoSuchAlgorithmException {
+
+        // int n = new Random().nextInt(9999)+10000;
+		// User target = entityManager.find(User.class, id);
+		// model.addAttribute("user", target);
+
+		// log.info("Updating photo {} for event {}", n, id);
+		if (photo.isEmpty()) {
+			log.info("failed to addz photo: emtpy file?");
+		} else {
+            byte[] bytes = photo.getBytes();
+            MessageDigest m = MessageDigest.getInstance("MD5");
+            m.reset();
+            m.update(bytes);
+            byte[] digest = m.digest();
+            BigInteger bigInt = new BigInteger(1,digest);
+            String hashtext = bigInt.toString(16);
+            File f = localData.getFile("event/" + id, "" + hashtext + ".jpg");
+			try (BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(f))) {
+				
+				stream.write(bytes);
+				log.info("Uploaded photo for {} into {}!", id, f.getAbsolutePath());
+			} catch (Exception e) {
+				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+				log.warn("Error uploading " + id + " ", e);
+			}
+		}
+		return "{\"status\":\"photo uploaded correctly\"}";
+	}
+
+
+    @PostMapping("{id}/remPic/{n}")
+	@ResponseBody
+	public String removePic(@PathVariable long id, @PathVariable long n,
+			HttpServletResponse response, HttpSession session, Model model) throws IOException, NoSuchAlgorithmException {
+        File f = localData.getFile("event/" + id, "" + n + ".jpg");
+        if(f == null){
+            log.info("failed to remove photo: emtpy file?");
+        }
+        else {
+            f.delete();
+        }
+        return "{\"status\":\"photo uploaded correctly\"}";
+    }
+
+
+    /**
+	 * Returns the default profile pic
+	 * 
+	 * @return
+	 */
+	private static InputStream defaultPic() {
+		return new BufferedInputStream(Objects.requireNonNull(
+				UserController.class.getClassLoader().getResourceAsStream(
+						"static/img/default-pic.jpg")));
+	}
 }

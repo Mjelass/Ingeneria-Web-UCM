@@ -5,6 +5,8 @@
     <th:block th:replace="fragments/head :: header" />
     <title>IW: Perfil</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" th:href="@{/css/user.css}" href="css/user.css">
+    <script th:src="@{/js/user.js}" src="js/user.js"></script>
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -12,9 +14,16 @@
     <main class="flex-shrink-0">
 
         <section class="vh-50">
-            <div class="container-fluid d-flex align-items-end" th:style="'background:url('+ @{/img/default-pic.jpg} +'); background-size: cover; height: 300px; margin-bottom:80px'">
-                <div class="col-12 text-center">
-                    <img th:src="@{/user/{id}/pic(id=${user.id})}" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid white; margin-bottom: -60px;"/>
+            <div class="container-fluid d-flex align-items-end justify-content-center" th:style="'background:url('+ @{/img/default-pic.jpg} +'); background-size: cover; height: 300px; margin-bottom:80px'">
+                <div class="position-relative" style="width: fit-content; margin-bottom: -60px;">
+                    <img th:src="@{/user/{id}/pic(id=${user.id})}" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid white;"/>
+                    <th:block th:if="${isOwner}">
+                        <span class="position-absolute top-0 start-100 translate-middle p-2 rounded-circle bg-info" style="width: 40px; height: 40px;"
+                            onclick="togglePicForm()">
+                            ✏
+                            <span class="visually-hidden">unread messages</span>
+                        </span>
+                    </th:block>
                 </div>
             </div>
         </section>
@@ -179,12 +188,24 @@
                 </div>
                         
             </div>
-                
-        </div>
-    </div>
-        
-
+          </div>
     </main>
+    <th:block th:if="${isOwner}">
+        <div id="pic-form-cont" style="display: none">
+            <form action=""></form>
+            <form class="pic-form bg-white rounded" th:action="@{/user/{id}/pic(id=${user.id})}" method="post"
+                enctype="multipart/form-data">
+                <h3>Upload an image.</h3>
+                <label for="report-desc" class="form-label">Upload an image:</label>
+                <input class="form-control" type="file" id="formFile" name="photo">
+                <br>
+                <button type="submit" class="btn btn-primary">
+                    Send
+                </button>
+                <button type="button" class="btn btn-primary" onclick="togglePicForm()">Cancel</button>
+            </form>
+        </div>
+    </th:block>
     <th:block th:replace="fragments/footer.html :: footer" />
 
     <script th:src="@{/js/ajax-demo.js}"></script>

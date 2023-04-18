@@ -144,10 +144,10 @@ public class UserController {
 		}
 
 		ArrayList<Event> ev = eventRepository
-				.getUserJoinedEventsStatus(u.getId(), Event.Status.FINISH.toString());
+				.getUserJoinedEventsStatus(target.getId(), Event.Status.FINISH.toString());
 
 		ArrayList<Event> evOpen = eventRepository
-				.getUserJoinedEventsStatus(u.getId(), Event.Status.OPEN.toString());
+				.getUserJoinedEventsStatus(target.getId(), Event.Status.OPEN.toString());
 
 		Page<Event> pageEventsFinish = pageImplement(ev);
 		Page<Event> pageEventsOpen = pageImplement(evOpen);
@@ -273,7 +273,6 @@ public class UserController {
 		InputStream in = new BufferedInputStream(f.exists() ? new FileInputStream(f) : UserController.defaultPic());
 		return os -> FileCopyUtils.copy(in, os);
 	}
-
 	/**
 	 * Uploads a profile pic for a user id
 	 * 
