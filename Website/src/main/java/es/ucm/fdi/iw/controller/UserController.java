@@ -139,10 +139,10 @@ public class UserController {
 		}
 
 		ArrayList<Event> ev = eventRepository
-				.getUserJoinedEventsStatus(u.getId(), Event.Status.FINISH.toString());
+				.getUserJoinedEventsStatus(target.getId(), Event.Status.FINISH.toString());
 
 		ArrayList<Event> evOpen = eventRepository
-				.getUserJoinedEventsStatus(u.getId(), Event.Status.OPEN.toString());
+				.getUserJoinedEventsStatus(target.getId(), Event.Status.OPEN.toString());
 
 		Page<Event> pageEventsFinish = pageImplement(ev);
 		Page<Event> pageEventsOpen = pageImplement(evOpen);
