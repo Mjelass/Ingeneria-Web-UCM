@@ -53,7 +53,7 @@
         </div>
         <div class="results d-flex flex-column gap-3">
           <div class="event bg-white d-flex rounded overflow-hidden" th:each="event, iter:${allEvents}">
-            <img src="https://picsum.photos/200/250" alt="">
+            <img th:src="@{/event/{id}/firstPic(id=${event.id})}" alt="" width="200" style="object-fit: cover; flex-shrink: 0;">
             <div class="event-info p-4">
               <div class="event-header d-flex gap-2 align-items-center justify-content-between">
                 <div class="d-flex gap-2 align-items-center">

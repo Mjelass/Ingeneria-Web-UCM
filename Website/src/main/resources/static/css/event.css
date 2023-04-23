@@ -53,3 +53,42 @@
     width: 400px;
     padding: 20px;
 }
+
+
+#pic-form-cont {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(10px);
+    justify-content: center;
+    align-items: center;
+}
+
+#pic-form-cont > .pic-form {
+    box-shadow: 0px 0px 10px rgba(43, 42, 42, 0.221);
+    width: 400px;
+    padding: 20px;
+}
+
+
+#pic-show-cont {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(10px);
+    justify-content: center;
+    align-items: center;
+}
+
+#pic-show-cont > img {
+    /* box-shadow: 0px 0px 10px rgba(43, 42, 42, 0.221); */
+    filter: drop-shadow(0px 0px 10px rgba(43, 42, 42, 0.221));
+    width: calc(100% - 20px);
+    max-height: 600px;
+    /* max-height: calc(100% - 20px); */
+    object-fit: contain;
+}

@@ -20,6 +20,7 @@ import java.io.*;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
 
@@ -63,6 +64,9 @@ public class EventController {
     @GetMapping("{id}")
     public String index(@PathVariable long id, Model model, HttpSession session) {
         Event target = entityManager.find(Event.class, id);
+        if (target == null) { // TODO Error Msg
+            return "index";
+        }
         // Get UserEvent row from user logged and event id.
         User u = (User) session.getAttribute("u");
         UserEvent ue = null;
@@ -73,6 +77,16 @@ public class EventController {
             ue = entityManager.find(UserEvent.class, ueId);
         }
 
+        File files = localData.getFile("event", ""+id);
+        ArrayList<String> photosNames = new ArrayList<>();
+        for(var f: files.listFiles()){
+            String fileName = f.getName();
+            if (fileName.indexOf(".") > 0) {
+                fileName = fileName.substring(0, fileName.lastIndexOf("."));
+            }
+            photosNames.add(fileName);
+        }
+
         model.addAttribute("isLogged", u != null);
         model.addAttribute("fav", ue == null ? false : ue.getFav());
         model.addAttribute("joined", ue == null ? false : ue.getJoined());
@@ -80,6 +94,8 @@ public class EventController {
         model.addAttribute("numFavs", numFavs);
         int ownerRatings = 10;
         model.addAttribute("ownerRatings", ownerRatings);
+        model.addAttribute("photos", photosNames);
+        model.addAttribute("isOwner", u != null && (target.getUserOwner().getId() == u.getId()));
         model.addAttribute("event", target);
         return "event";
     }
@@ -174,12 +190,29 @@ public class EventController {
      * @return
      * @throws IOException
      */
-	@GetMapping("{id}/pics/{n}")
-	public StreamingResponseBody getPic(@PathVariable long id, @PathVariable long n) throws IOException {
+	@GetMapping("{id}/pic/{n}")
+	public StreamingResponseBody getPic(@PathVariable long id, @PathVariable String n) throws IOException {
 		// File f = localData.getFile("event", ""+id);
         // int total = f.listFiles().length;
         File f = localData.getFile("event/" + id, "" + n + ".jpg");
 		InputStream in = new BufferedInputStream(f.exists() ? new FileInputStream(f) : EventController.defaultPic());
+		return os -> FileCopyUtils.copy(in, os);
+	}
+    /**
+     * Get first pic from an event
+     * @param id
+     * @return
+     * @throws IOException
+     */
+    @GetMapping("{id}/firstPic")
+	public StreamingResponseBody getFirstPic(@PathVariable long id) throws IOException {
+        File fileDir = localData.getFile("event", "" + id);
+        if(fileDir == null) {
+            return os -> FileCopyUtils.copy(new BufferedInputStream(EventController.defaultPic()), os);
+        }
+        File[] files = fileDir.listFiles();
+		InputStream in = new BufferedInputStream(files != null && files.length != 0 && files[0].exists() ?
+            new FileInputStream(files[0]) : EventController.defaultPic());
 		return os -> FileCopyUtils.copy(in, os);
 	}
     /**
@@ -190,9 +223,11 @@ public class EventController {
      */
     @GetMapping("{id}/pics")
 	public StreamingResponseBody getPics(@PathVariable long id) throws IOException {
+        // TODO review use
 		// File f = localData.getFile("event", ""+id);
         // int total = f.listFiles().length;
-        File dir = localData.getFile("event/" + id, "");
+
+        // File dir = localData.getFile("event/" + id, "");
         InputStream in = new BufferedInputStream(EventController.defaultPic());
         // for(var f: dir.listFiles()){
         //     in = new BufferedInputStream(f.exists() ? new FileInputStream(f) : EventController.defaultPic());
@@ -219,7 +254,7 @@ public class EventController {
 
 		// log.info("Updating photo {} for event {}", n, id);
 		if (photo.isEmpty()) {
-			log.info("failed to addz photo: emtpy file?");
+			log.info("failed to add photo: emtpy file?");
 		} else {
             byte[] bytes = photo.getBytes();
             MessageDigest m = MessageDigest.getInstance("MD5");
@@ -242,9 +277,9 @@ public class EventController {
 	}
 
 
-    @PostMapping("{id}/remPic/{n}")
+    @PostMapping("{id}/rmPic/{n}")
 	@ResponseBody
-	public String removePic(@PathVariable long id, @PathVariable long n,
+	public String removePic(@PathVariable long id, @PathVariable String n,
 			HttpServletResponse response, HttpSession session, Model model) throws IOException, NoSuchAlgorithmException {
         File f = localData.getFile("event/" + id, "" + n + ".jpg");
         if(f == null){
@@ -253,18 +288,18 @@ public class EventController {
         else {
             f.delete();
         }
-        return "{\"status\":\"photo uploaded correctly\"}";
+        return "{\"status\":\"photo correctlyremoved\"}";
     }
 
 
     /**
-	 * Returns the default profile pic
+	 * Returns the default event pic
 	 * 
 	 * @return
 	 */
 	private static InputStream defaultPic() {
 		return new BufferedInputStream(Objects.requireNonNull(
 				UserController.class.getClassLoader().getResourceAsStream(
-						"static/img/default-pic.jpg")));
+						"static/img/default-event-pic.jpg")));
 	}
 }

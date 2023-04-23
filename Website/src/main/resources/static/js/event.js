@@ -70,3 +70,27 @@ function toggleReportForm(){
         document.getElementById('report-desc').value = '';
     }
 }
+
+
+function togglePicForm(){
+    let formCont = document.getElementById('pic-form-cont');
+    if(formCont.style.display == 'none'){
+        formCont.style.display = 'flex';
+    }
+    else {
+        formCont.style.display = 'none';
+        document.getElementById('report-desc').value = '';
+    }
+}
+
+function toggleShowPic(src = null){
+    let picCont = document.getElementById('pic-show-cont');
+    if(picCont.style.display == 'none'){
+        picCont.querySelector('img').src = src;
+        picCont.style.display = 'flex';
+    }
+    else {
+        picCont.style.display = 'none';
+        document.getElementById('report-desc').value = '';
+    }
+}

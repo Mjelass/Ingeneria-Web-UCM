@@ -13,11 +13,8 @@
     <header th:replace="fragments/nav.html :: nav"></header>
 
     <main class="flex-shrink-0">
-        <div id="images-header" class="d-flex flex-nowrap overflow-hidden">
-            <div class="flex-fill"><img src="https://picsum.photos/300/150" class="w-100" alt="..."></div>
-            <div class="flex-fill"><img src="https://picsum.photos/300/150" class="w-100" alt="..."></div>
-            <div class="flex-fill"><img src="https://picsum.photos/300/150" class="w-100" alt="..."></div>
-        </div>
+        <img id="images-header" class="w-100" th:src="@{/event/{id}/firstPic(id=${event.id})}" alt=""
+            style="object-fit: cover;" th:attr="onclick=|toggleShowPic('@{/event/{id}/firstPic(id=${event.id})}')|">
         <div id="event-header" class="border-bottom">
             <div class="d-flex px-4 py-2 justify-content-between align-items-center">
                 <div class="d-flex flex-fill justify-content-between align-items-center">
@@ -84,14 +81,48 @@
                         </div>
                     </div>
                     <div id="event-m-imgs" class="mb-5">
-                        <h2>Other images</h2>
-                        <div class="d-flex flex-wrap">
-                            <img src="https://picsum.photos/280/150" class="m-2" alt="">
-                            <img src="https://picsum.photos/280/150" class="m-2" alt="">
-                            <img src="https://picsum.photos/280/150" class="m-2" alt="">
-                            <img src="https://picsum.photos/280/150" class="m-2" alt="">
-                            <img src="https://picsum.photos/280/150" class="m-2" alt="">
+                        <h2>Images</h2>
+                        <th:block th:if="${photos.size() == 0}">
+                            <p>There are no images to show.</p>
+                        </th:block>
+                        <div class="d-flex flex-wrap gap-2 my-3">
+                            <th:block th:each="photo: ${photos}">
+                                <div class="position-relative">
+                                    <img th:src="@{/event/{id}/pic/{n}(id=${event.id},n=${photo})}" alt="" width="280" height="150"
+                                        style="object-fit: cover;" th:attr="onclick=|toggleShowPic('@{/event/{id}/pic/{n}(id=${event.id},n=${photo})}')|">
+                                    <th:block th:if="${isOwner}">
+                                        <form class="position-absolute" th:action="@{/event/{id}/rmPic/{n}(id=${event.id},n=${photo})}" method="post"
+                                            style="top: 5px; right: 5px;">
+                                            <button type="submit" class="p-0 rounded-circle btn btn-light" style="width: 30px; height: 30px;">
+                                                ❌
+                                                <span class="visually-hidden">Delete Image</span>
+                                            </button>
+                                        </form>
+                                    </th:block>
+                                </div>
+                            </th:block>
                         </div>
+
+                        <div id="pic-show-cont" style="display: none" onclick="toggleShowPic()">
+                            <img src="" alt="">
+                        </div>
+
+                        <th:block th:if="${isOwner}">
+                            <button type="button" class="btn btn-primary mb-1" onclick="togglePicForm()">Add Image</button>
+                            <div id="pic-form-cont" style="display: none">
+                                <form class="pic-form bg-white rounded" th:action="@{/event/{id}/addPic(id=${event.id})}" method="post"
+                                    enctype="multipart/form-data">
+                                    <h3>Upload an image.</h3>
+                                    <label for="report-desc" class="form-label">Upload an image:</label>
+                                    <input class="form-control" type="file" id="formFile" name="photo">
+                                    <br>
+                                    <button type="submit" class="btn btn-primary">
+                                        Send
+                                    </button>
+                                    <button type="button" class="btn btn-primary" onclick="togglePicForm()">Cancel</button>
+                                </form>
+                            </div>
+                        </th:block>
                     </div>
                 </div>
                 <div id="main-details" class="bg-white border my-2 p-4 pb-5 flex-fill align-self-start">

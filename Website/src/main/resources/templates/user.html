@@ -192,7 +192,6 @@
     </main>
     <th:block th:if="${isOwner}">
         <div id="pic-form-cont" style="display: none">
-            <form action=""></form>
             <form class="pic-form bg-white rounded" th:action="@{/user/{id}/pic(id=${user.id})}" method="post"
                 enctype="multipart/form-data">
                 <h3>Upload an image.</h3>
