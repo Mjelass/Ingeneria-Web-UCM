@@ -92,3 +92,12 @@
     /* max-height: calc(100% - 20px); */
     object-fit: contain;
 }
+
+.event-pic > form {
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.event-pic:hover > form {
+    opacity: 1;
+}

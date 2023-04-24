@@ -18,6 +18,10 @@ import org.apache.logging.log4j.LogManager;
 
 import java.io.*;
 import java.math.BigInteger;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -79,12 +83,14 @@ public class EventController {
 
         File files = localData.getFile("event", ""+id);
         ArrayList<String> photosNames = new ArrayList<>();
-        for(var f: files.listFiles()){
-            String fileName = f.getName();
-            if (fileName.indexOf(".") > 0) {
-                fileName = fileName.substring(0, fileName.lastIndexOf("."));
+        if (files.listFiles() != null){
+            for(var f: files.listFiles()){
+                String fileName = f.getName();
+                if (fileName.indexOf(".") > 0) {
+                    fileName = fileName.substring(0, fileName.lastIndexOf("."));
+                }
+                photosNames.add(fileName);
             }
-            photosNames.add(fileName);
         }
 
         model.addAttribute("isLogged", u != null);
@@ -183,6 +189,8 @@ public class EventController {
         return "redirect:/event/" + insertEvent.getId();
     }
 
+    // || IMAGES METHODS
+    // TODO check user
     /**
      * Get a pic from event with name n
      * @param id
@@ -215,25 +223,6 @@ public class EventController {
             new FileInputStream(files[0]) : EventController.defaultPic());
 		return os -> FileCopyUtils.copy(in, os);
 	}
-    /**
-     * 
-     * @param id
-     * @return
-     * @throws IOException
-     */
-    @GetMapping("{id}/pics")
-	public StreamingResponseBody getPics(@PathVariable long id) throws IOException {
-        // TODO review use
-		// File f = localData.getFile("event", ""+id);
-        // int total = f.listFiles().length;
-
-        // File dir = localData.getFile("event/" + id, "");
-        InputStream in = new BufferedInputStream(EventController.defaultPic());
-        // for(var f: dir.listFiles()){
-        //     in = new BufferedInputStream(f.exists() ? new FileInputStream(f) : EventController.defaultPic());
-        // }
-		return os -> FileCopyUtils.copy(in, os);
-	}
 
 	/**
 	 * Uploads a new pic
@@ -244,15 +233,9 @@ public class EventController {
 	 * @throws NoSuchAlgorithmException
 	 */
 	@PostMapping("{id}/addPic")
-	@ResponseBody
 	public String addPic(@RequestParam("photo") MultipartFile photo, @PathVariable long id,
 			HttpServletResponse response, HttpSession session, Model model) throws IOException, NoSuchAlgorithmException {
 
-        // int n = new Random().nextInt(9999)+10000;
-		// User target = entityManager.find(User.class, id);
-		// model.addAttribute("user", target);
-
-		// log.info("Updating photo {} for event {}", n, id);
 		if (photo.isEmpty()) {
 			log.info("failed to add photo: emtpy file?");
 		} else {
@@ -273,12 +256,11 @@ public class EventController {
 				log.warn("Error uploading " + id + " ", e);
 			}
 		}
-		return "{\"status\":\"photo uploaded correctly\"}";
+		return "redirect:/event/" + id;
 	}
 
 
     @PostMapping("{id}/rmPic/{n}")
-	@ResponseBody
 	public String removePic(@PathVariable long id, @PathVariable String n,
 			HttpServletResponse response, HttpSession session, Model model) throws IOException, NoSuchAlgorithmException {
         File f = localData.getFile("event/" + id, "" + n + ".jpg");
@@ -288,9 +270,47 @@ public class EventController {
         else {
             f.delete();
         }
-        return "{\"status\":\"photo correctlyremoved\"}";
+        return "redirect:/event/" + id;
     }
 
+    @PostMapping("{id}/coverPic/{n}")
+	public String setCoverPic(@PathVariable long id, @PathVariable String n,
+			HttpServletResponse response, HttpSession session, Model model) throws IOException, NoSuchAlgorithmException {
+        if (n.compareTo("cover") == 0) {
+            return "redirect:/event/" + id;
+        }
+        File f = localData.getFile("event/" + id, "" + n + ".jpg");
+        if(f == null){
+            log.info("failed to set event cover: emtpy file?");
+        }
+        else {
+            // Change actual cover.jpg to <hash>.jpg
+            File fCover = localData.getFile("event/" + id, "cover.jpg");
+            if (fCover.exists()){
+                byte[] bytes = Files.readAllBytes(fCover.toPath());
+                MessageDigest m = MessageDigest.getInstance("MD5");
+                m.reset();
+                m.update(bytes);
+                byte[] digest = m.digest();
+                BigInteger bigInt = new BigInteger(1,digest);
+                String hashtext = bigInt.toString(16);
+                Path source = Paths.get(fCover.getAbsolutePath());
+                Files.move(source, source.resolveSibling(hashtext + ".jpg"));
+            }
+            // Change name <hash n>.jpg to cover.jpg
+            Path source = Paths.get(f.getAbsolutePath());
+            Files.move(source, source.resolveSibling("cover.jpg"));
+        }
+        return "redirect:/event/" + id;
+    }
+
+    @GetMapping("{id}/coverPic")
+	public StreamingResponseBody getCoverPic(@PathVariable long id) throws IOException {
+        File file = localData.getFile("event/" + id, "cover.jpg");
+		InputStream in = new BufferedInputStream(file.exists()?
+            new FileInputStream(file) : EventController.defaultPic());
+		return os -> FileCopyUtils.copy(in, os);
+	}
 
     /**
 	 * Returns the default event pic

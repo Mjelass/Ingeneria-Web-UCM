@@ -13,8 +13,8 @@
     <header th:replace="fragments/nav.html :: nav"></header>
 
     <main class="flex-shrink-0">
-        <img id="images-header" class="w-100" th:src="@{/event/{id}/firstPic(id=${event.id})}" alt=""
-            style="object-fit: cover;" th:attr="onclick=|toggleShowPic('@{/event/{id}/firstPic(id=${event.id})}')|">
+        <img id="images-header" class="w-100" th:src="@{/event/{id}/coverPic(id=${event.id})}" alt=""
+            style="object-fit: cover;" th:attr="onclick=|toggleShowPic('@{/event/{id}/coverPic(id=${event.id})}')|">
         <div id="event-header" class="border-bottom">
             <div class="d-flex px-4 py-2 justify-content-between align-items-center">
                 <div class="d-flex flex-fill justify-content-between align-items-center">
@@ -87,7 +87,7 @@
                         </th:block>
                         <div class="d-flex flex-wrap gap-2 my-3">
                             <th:block th:each="photo: ${photos}">
-                                <div class="position-relative">
+                                <div class="event-pic position-relative">
                                     <img th:src="@{/event/{id}/pic/{n}(id=${event.id},n=${photo})}" alt="" width="280" height="150"
                                         style="object-fit: cover;" th:attr="onclick=|toggleShowPic('@{/event/{id}/pic/{n}(id=${event.id},n=${photo})}')|">
                                     <th:block th:if="${isOwner}">
@@ -96,6 +96,13 @@
                                             <button type="submit" class="p-0 rounded-circle btn btn-light" style="width: 30px; height: 30px;">
                                                 ❌
                                                 <span class="visually-hidden">Delete Image</span>
+                                            </button>
+                                        </form>
+                                        <form class="position-absolute" th:action="@{/event/{id}/coverPic/{n}(id=${event.id},n=${photo})}" method="post"
+                                            style="bottom: 5px; left: 5px;">
+                                            <button type="submit" class="btn btn-primary bt-sm">
+                                                Set As Cover
+                                                <span class="visually-hidden">Set As Cover</span>
                                             </button>
                                         </form>
                                     </th:block>
