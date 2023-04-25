@@ -31,7 +31,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NamedQueries({
     @NamedQuery(name = "Event.byTitle", query = "SELECT e FROM Event e "
-        + "WHERE e.title like :x AND e.initDate >= :y AND e.finishDate <= :z")
+        + "WHERE LOWER(e.title) LIKE LOWER(:x) AND e.initDate >= :y AND e.finishDate <= :z")
 // ,
 // @NamedQuery(name = "Event.byUser", query = "SELECT e FROM Event e " +
 // "JOIN e.userEvents ue " +

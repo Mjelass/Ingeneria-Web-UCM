@@ -143,17 +143,15 @@ public class UserController {
 			age = Year.now().getValue() - target.getBirthdate().getYear();
 		}
 
-		ArrayList<Event> ev = eventRepository
-				.getUserJoinedEventsStatus(target.getId(), Event.Status.FINISH.toString());
+		ArrayList<Event> evs = eventRepository.getUserEvents(target.getId());
 
-		ArrayList<Event> evOpen = eventRepository
-				.getUserJoinedEventsStatus(target.getId(), Event.Status.OPEN.toString());
+		ArrayList<Event> evJoined = eventRepository.getEventsJoined(target.getId());
 
-		Page<Event> pageEventsFinish = pageImplement(ev);
-		Page<Event> pageEventsOpen = pageImplement(evOpen);
+		Page<Event> pageEventsFinish = pageImplement(evs);
+		Page<Event> pageEventsOpen = pageImplement(evJoined);
 
-		model.addAttribute("allEventsDone", pageEventsFinish.getContent());
-		model.addAttribute("allEventsOpen", pageEventsOpen.getContent());
+		model.addAttribute("allMyEvents", pageEventsFinish.getContent());
+		model.addAttribute("allEventsJoined", pageEventsOpen.getContent());
 
 		// Page Event Finish
 		model.addAttribute("numpages", new int[pageEventsOpen.getTotalPages()]);
