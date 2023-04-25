@@ -43,12 +43,12 @@
                 </div>
                 <div class="d-flex flex-column align-items-center ms-2">
                     <input id="check-join" type="checkbox" th:attr="onclick=|toggleJoin(this, '${event.id}')|"
-                    th:disabled="${(!isLogged || !event.status.name().equals('OPEN')) && !joined}" th:checked="${joined}">
+                    th:disabled="${(!isLogged || !event.status.name().equals('OPEN')) && !joined || event.status.name().equals('FINISH')}" th:checked="${joined}">
                     <p id="text-join" class="text-center mb-0">Join</p>
                 </div>
                 <div id="acts-aft-join" class="ms-2" th:style="${joined}? 'display:flex; flex-direction: column;' : 'display: none;'">
                     <a class="btn btn-primary mb-1" th:href="@{/chat}" href="/chat">Chat</a>
-                    <a class="btn btn-primary" th:href="@{/form}" href="/form">Form</a>
+                    <a class="btn btn-primary" th:style="${event.status.toString().compareTo('FINISH')==0}? 'display:flex; ' : 'display: none;'" th:href="@{/form}" href="/form">Form</a>
                 </div>
             </div>
         </div>
@@ -133,7 +133,7 @@
                     </div>
                 </div>
                 <div id="main-details" class="bg-white border my-2 p-4 pb-5 flex-fill align-self-start">
-                    <h2 class="text-center">DETAILES</h2>
+                    <h2 class="text-center">DETAILS</h2>
                     <div class="event-dets-sec">
                         <p><span class="fs-5 fw-bold">Destination: </span> <span th:text="${event.destination}"></span> <span class="fs-5">🌍</span></p>
                     </div>
@@ -172,7 +172,8 @@
                     <h3 class="text-center">ORGANIZER</h3>
                     <div class="event-dets-sec d-flex align-items-center mb-3">
                         <a class="text-decoration-none text-body" th:href="@{/user/{id}(id=${event.userOwner.id})}">
-                            <img class="rounded-circle align-self-start" src="https://picsum.photos/100/100" alt="profile">
+                            <img class="rounded-circle align-self-start" th:src="@{/user/{id}/pic(id=${event.userOwner.id})}" alt="profile" 
+                                style="width: 100px; height: 100px; object-fit: cover;">
                         </a>
                         <div class="ms-4">
                             <h5><a class="text-decoration-none text-body" th:href="@{/user/{id}(id=${event.userOwner.id})}">

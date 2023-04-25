@@ -93,7 +93,7 @@
                     <p class="font-italic mb-1 b" style="font-weight: bold;">LastName :  <span th:text="${user.lastName}" style="font-weight: normal;"></span></p>
                     <p class="font-italic mb-0 b" style="font-weight: bold;">Location : <span th:text="${user.location}" style="font-weight: normal;"></span></p>
                     <p class="font-italic mb-0 b" style="font-weight: bold;">Languages : <span th:text="${user.languages}" style="font-weight: normal;"></span></p>
-                    <p class="font-italic mb-0 b" style="font-weight: bold;">Sex</p>
+                    <p class="font-italic mb-0 b" style="font-weight: bold;">Sex :</p>
                     <p class="font-italic mb-0 b" style="font-weight: bold;">Age : <span th:text="${age}" style="font-weight: normal;"></span></p>
                     <p class="font-italic mb-0 b" style="font-weight: bold;">Email : <span th:text="${user.email}" style="font-weight: normal;"></span></p>
                     <p class="font-italic mb-0 b">Evaluation</p>
@@ -109,54 +109,54 @@
             <div class="col-md-4">
                 <!-- Open events/trips -->
                 <p class="lead fw-normal mb-1" style="text-align: center;">Open events/trips</p>
-                <div class="p-4" style="background-color: #f8f9fa;">
-                    <div class="event bg-white d-flex rounded overflow-hidden" th:each="event:${allEventsOpen}">
+                <div class="d-flex p-4 gap-2 flex-column" style="background-color: #f8f9fa;">
+                    <div class="event d-flex rounded overflow-hidden" th:each="event:${allEventsOpen}">
+                        <div class="d-flex bg-white w-100 justify-content-between" >
+                            <div class="p-2">
+                                <a th:text="${event.title}" th:href="@{/event/{id}(id=${event.id})}" class="card-btn btn btn-primary mb-3" style="border-radius: 10px;">Title</a>                                        <p class="small mb-1"><i class="far fa-star fa-lg"></i>
+                                    <span th:text="${event.status}" class="badge me-2" style="border-radius: 10px; background-color: rgb(91, 189, 221);">Status</span>
+                                    <span th:text="${event.type}" class="badge me-2" style="border-radius: 10px; background-color: rgb(91, 189, 221);">Type</span>
+                                </p>
+                                <p class="small mb-1"><i class="far fa-star fa-lg"></i>Trip by
+                                    <a class="text-decoration-none text-body ms-2" th:href="@{/user/{id}(id=${event.userOwner.id})}">
+                                        <strong><span th:text="${event.userOwner.username}">Pepe</span></strong>
+                                    </a>
+                                </p>
+                                <p class="small mb-0"><i class="far fa-star fa-lg"></i><a th:text="${event.initDate}">Date</a></p>
+                           
+                            </div>
+                            <img th:src="@{/event/{id}/coverPic(id=${event.id})}" width="200" height="150"
+                                                 alt="image 1" class="rounded-3" style="object-fit: cover;">
+                        </div>
+                        <!--
                         <div class="card mb-5" style="border-radius: 15px;">
                             <div class="card-body p-4">
                                 <div class="row align-items-center">
-                                    <div class="col-md-8">
-                                                <a th:text="${event.title}" th:href="@{/event/{id}(id=${event.id})}" class="card-btn btn btn-primary mb-5" style="border-radius: 10px;">Title</a>
-                                                <p class="small mb-0"><i class="far fa-star fa-lg"></i> <span class="mx-2">|</span> Trip by
-                                                    <a class="text-decoration-none text-body" th:href="@{/user/{id}(id=${event.userOwner.id})}">
-                                                        <strong><span th:text="${event.userOwner.username}">Pepe</span></h2></strong>
-                                                    </a>
-                                                on  <a th:text="${event.initDate}">Date</a></p>
-                                                <hr class="my-4">
-                                                <div class="d-flex justify-content-start align-items-center">
-                                                <a th:text="${event.description}">Description</a>
-                                        </div>
+                                    <div class="col-md-6 d-flex flex-column justify-content-center align-items-center">
+                                        <a th:text="${event.title}" th:href="@{/event/{id}(id=${event.id})}" class="card-btn btn btn-primary mb-3" style="border-radius: 10px;">Title</a>                                        <p class="small mb-1"><i class="far fa-star fa-lg"></i>
+                                            <span th:text="${event.status}" class="badge me-2" style="border-radius: 10px; background-color: rgb(91, 189, 221);">Status</span>
+                                            <span th:text="${event.type}" class="badge me-2" style="border-radius: 10px; background-color: rgb(91, 189, 221);">Type</span>
+                                        </p>
+                                        <p class="small mb-1"><i class="far fa-star fa-lg"></i>Trip by
+                                            <a class="text-decoration-none text-body ms-2" th:href="@{/user/{id}(id=${event.userOwner.id})}">
+                                                <strong><span th:text="${event.userOwner.username}">Pepe</span></strong>
+                                            </a>
+                                        </p>
+                                        <p class="small mb-0"><i class="far fa-star fa-lg"></i><a th:text="${event.initDate}">Date</a></p>
                                     </div>
-                        
-                                    <div class="col-md-4 justify-content-center align-items-center">
-                        
-                                        <div class="row g-2">
-                                            <div class="col mb-2">
-                                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"
-                                                alt="image 1" class="w-100 rounded-3">
-                                            </div>
-                                            <div class="col mb-2">
-                                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp"
-                                                alt="image 1" class="w-100 rounded-3">
-                                            </div>
-                                            </div>
-                                            <div class="row g-2">
-                                            <div class="col">
-                                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(108).webp"
-                                                alt="image 1" class="w-100 rounded-3">
-                                            </div>
-                                            <div class="col">
-                                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(114).webp"
-                                                alt="image 1" class="w-100 rounded-3">
-                                            </div>
-                                            </div>
-                        
-                                    </div>
+                                    <div class="col-md-6 justify-content-center align-items-center">
+                                        <div class="col mb-2">
+                                            <img th:src="@{/event/{id}/coverPic(id=${event.id})}"
+                                                 alt="image 1" class="w-100 rounded-3" style="object-fit: cover;">
+                                        </div>                
+                                    </div>       
                                 </div>
                             </div>
-                        </div>    
+                        </div>  
+                    -->  
                     </div> 
                 
-                <!-- Página de eventos abiertos -->
+                <!-- Página de eventos abiertos 
                 <div class="pagination-panel mt-4 d-flex justify-content-center">
                     <nav aria-label="Page navigation example">
                         <ul class="pagination">
@@ -175,7 +175,7 @@
                             </li>
                         </ul>
                     </nav>
-                </div>
+                </div> -->
 
                 
                 </div>

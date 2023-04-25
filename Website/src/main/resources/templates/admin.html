@@ -42,7 +42,7 @@
          
             <div class="results d-flex flex-column gap-3" >
           <div class="event bg-white d-flex rounded overflow-hidden" th:each="user : ${allUser}">
-            <img src="https://bootdey.com/img/Content/avatar/avatar5.png" alt="">
+            <img th:src="@{/user/{id}/pic(id=${user.id})}" alt="">
             <div class="event-info p-4">
               <div class="event-header d-flex gap-2 align-items-center justify-content-between">
                 <div class="d-flex gap-2 align-items-center ">
@@ -80,13 +80,12 @@
           </div>
           
         
-
         <div id="triplist">
           <!-- Trips list -->
 
            <div class="results d-flex flex-column gap-3">
           <div class="event bg-white d-flex rounded overflow-hidden" th:each="event, iter:${allEvents}">
-            <img src="https://picsum.photos/200/250" alt="">
+            <img th:src="@{/event/{id}/coverPic(id=${event.id})}" alt="">
             <div class="event-info p-4">
               <div class="event-header d-flex gap-2 align-items-center justify-content-between">
                 <div class="d-flex gap-2 align-items-center">
@@ -123,10 +122,12 @@
        
         
         </div>
+
+
         <div id="blacklist">
          <div class="results d-flex flex-column gap-3" >
           <div class="event bg-white d-flex rounded overflow-hidden" th:each="user : ${blackListUser}">
-            <img src="https://bootdey.com/img/Content/avatar/avatar5.png" alt="">
+            <img th:src="@{/user/{id}/pic(id=${user.id})}" alt="">
             <div class="event-info p-4">
               <div class="event-header d-flex gap-2 align-items-center justify-content-between">
                 <div class="d-flex gap-2 align-items-center ">
