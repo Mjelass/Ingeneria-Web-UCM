@@ -53,7 +53,7 @@ public class MessageController {
 	@GetMapping("")
     public String index(Model model, HttpSession session) {
         User u = (User) session.getAttribute("u");
-        ArrayList<Event> events = eventRepository.getUserJoinedEvents(u.getId());
+        ArrayList<Event> events = eventRepository.getEventsJoined(u.getId());
         HashMap<Long, ArrayList<Message>> chats = new HashMap<>();
         for (Event e: events) {
             chats.put(e.getId(), messageRepository.getMsgFromChat(e.getId()));
