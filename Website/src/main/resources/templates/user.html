@@ -14,20 +14,20 @@
     <main class="flex-shrink-0">
 
         <section class="vh-50">
-            <div class="container-fluid d-flex align-items-end justify-content-center" th:style="'background:url('+ @{/img/default-pic.jpg} +'); background-size: cover; height: 300px; margin-bottom:80px'">
+            <div class="container-fluid d-flex align-items-end justify-content-center" 
+                th:style="'background:url('+ @{/user/{id}/pic(id=${user.id})} +'); background-size: cover; height: 300px; margin-bottom:80px; background-position: center;'">
                 <div class="position-relative" style="width: fit-content; margin-bottom: -60px;">
                     <img th:src="@{/user/{id}/pic(id=${user.id})}" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid white;"/>
                     <th:block th:if="${isOwner}">
-                        <span class="position-absolute top-0 start-100 translate-middle p-2 rounded-circle bg-info" style="width: 40px; height: 40px;"
+                        <button class="position-absolute p-2 rounded-circle btn btn-info" style="width: 40px; height: 40px; top: 0px; right: 0px;"
                             onclick="togglePicForm()">
                             ✏
                             <span class="visually-hidden">unread messages</span>
-                        </span>
+                        </button>
                     </th:block>
                 </div>
             </div>
         </section>
-          
 
 
         <div class="row">

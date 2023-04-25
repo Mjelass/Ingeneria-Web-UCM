@@ -281,7 +281,6 @@ public class UserController {
 	 * @throws IOException
 	 */
 	@PostMapping("{id}/pic")
-	@ResponseBody
 	public String setPic(@RequestParam("photo") MultipartFile photo, @PathVariable long id,
 			HttpServletResponse response, HttpSession session, Model model) throws IOException {
 
@@ -309,7 +308,7 @@ public class UserController {
 				log.warn("Error uploading " + id + " ", e);
 			}
 		}
-		return "{\"status\":\"photo uploaded correctly\"}";
+		return "redirect:/user/" + id;
 	}
 
 	/**
