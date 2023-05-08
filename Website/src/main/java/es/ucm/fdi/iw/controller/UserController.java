@@ -434,8 +434,9 @@ public class UserController {
 		entityManager.persist(InsertUser);
 		entityManager.flush();
 		model.addAttribute("User", InsertUser);
-		return "ok";
+		 return "redirect:/";
 	}
+
 
 	@PostMapping("{id}/deleteUser")
 	// @PostMapping("/deleteUser/{id}")
