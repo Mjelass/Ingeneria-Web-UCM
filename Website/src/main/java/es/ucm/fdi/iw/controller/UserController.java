@@ -437,11 +437,24 @@ public class UserController {
 		 return "redirect:/";
 	}
 
+	@Transactional
+	@PostMapping("/{id}/blacklistUser")
+	public String blacklistUser(@PathVariable long id){
+		User user = entityManager.find(User.class, id);
+		if(getStatus.equals(BLACK_LISTED)) user.setStatus(Status.ACTIVE);
+		else user.setStatus(Status.BLACK_LISTED);
+		entityManager.persist(user);
+		return "admin"
+
+	}
+
 	// delete User to the dataBase
+	@Transactional
 	@GetMapping("{id}/deleteUser")
 	public String deleteUser(@PathVariable long id) {
-		User dUser = entityManager.find(User.class, id);
-		entityManager.remove(dUser);
+		User user = entityManager.find(User.class, id);
+		user.setEnabled(!user.getEnabled());
+		// entityManager.remove(user);
 		return "admin";
 	}
 }
