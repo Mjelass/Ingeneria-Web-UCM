@@ -440,11 +440,11 @@ public class UserController {
 	@Transactional
 	@PostMapping("/{id}/blacklistUser")
 	public String blacklistUser(@PathVariable long id){
-		User user = entityManager.find(User.class, id);
-		if(getStatus.equals(BLACK_LISTED)) user.setStatus(Status.ACTIVE);
-		else user.setStatus(Status.BLACK_LISTED);
-		entityManager.persist(user);
-		return "admin"
+		// User user = entityManager.find(User.class, id);
+		// if(getStatus.equals(BLACK_LISTED)) user.setStatus(Status.ACTIVE);
+		// else user.setStatus(Status.BLACK_LISTED);
+		// entityManager.persist(user);
+		return "admin";
 
 	}
 
@@ -452,8 +452,8 @@ public class UserController {
 	@Transactional
 	@GetMapping("{id}/deleteUser")
 	public String deleteUser(@PathVariable long id) {
-		User user = entityManager.find(User.class, id);
-		user.setEnabled(!user.getEnabled());
+		// User user = entityManager.find(User.class, id);
+		// user.setEnabled(!user.getEnabled());
 		// entityManager.remove(user);
 		return "admin";
 	}
