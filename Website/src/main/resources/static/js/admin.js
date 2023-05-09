@@ -1,8 +1,24 @@
-// $(".dropdown-menu li a").click(function(){
-  
-//     $(".btn:first-child").html($(this).text()+'<span class="dropdownBtnName"></span>');
-    
-//   });
+function changeName(){
+  let el = document.getElementById("dropdownMenuButton1"); 
+  let name = window.location.href.split('/');
+  name = name[name.length-1].split('?')[0];
+  switch (name) {
+    case "allEvents":
+      name = "Trips";
+      break;
+    case "blackListUser":
+      name = "Blacklist";
+      break;
+    case "allReports":
+      name = "Reports";
+      break;
+    case "allUsers":
+    default:
+      name = "All users";
+      break;
+  }
+  el.innerHTML = name;
+}
 
 function deleteForm(){
   let formCont = document.getElementById('delete-form-cont');
