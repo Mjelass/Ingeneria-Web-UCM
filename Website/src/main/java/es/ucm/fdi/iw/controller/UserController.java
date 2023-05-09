@@ -437,13 +437,11 @@ public class UserController {
 		 return "redirect:/";
 	}
 
-
-	@PostMapping("{id}/deleteUser")
-	// @PostMapping("/deleteUser/{id}")
-	@ResponseBody
-	@Transactional
+	// delete User to the dataBase
+	@GetMapping("{id}/deleteUser")
 	public String deleteUser(@PathVariable long id) {
-		// user.delete(id);
-		return "ok";
+		User dUser = entityManager.find(User.class, id);
+		entityManager.remove(dUser);
+		return "admin";
 	}
 }

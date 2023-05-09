@@ -69,11 +69,10 @@
                  <button type="button" class="btn btn-secondary btn-sm my-2" style="width: 7em;">
                     📝 Blacklist
                   </button>
-                  <!-- th:href="@{/user/{id}(id=${user.id})}"  -->
-                  <a type="button" class="btn btn-secondary btn-sm" style="width: 7em;" onclick="deleteForm()" >
+                  <!-- <a type="button" class="btn btn-secondary btn-sm" style="width: 7em;" href="#" th:onclick='deleteForm()'> -->
+                    <a type="button" class="btn btn-secondary btn-sm" style="width: 7em;" th:href="@{/user/{id}/deleteUser(id=${user.id})}" >
                     🗑️ Delete
                   </a>
-
                 </div>
               </div>
             </div>
@@ -115,7 +114,7 @@
                 </div>
                 <div class=" col-1">
                             <!-- Botones -->
-                            <div class="row"><button type="button" class="btn btn-secondary btn-sm mt-2"> 🗑️ Delete</button></div>
+                            <div class="row"><button type="button" class="btn btn-secondary btn-sm mt-2" th:onclick='deleteForm("${event.id}")'> 🗑️ Delete</button></div>
                         </div>
               </div>
             </div>
@@ -222,18 +221,16 @@
         </div>
       </div>
     </main>
-
-    <div id="delete-form-cont" style="display: none">
+    <!-- <div id="delete-form-cont" style="display: none">
       <div class="delete-form bg-white rounded">
-          <h3>Are you sure you want to delete ?</h3> <!-- <span th:text="${user.firstName} + ' ' + ${user.lastName}"></span> -->
+          <h3>Are you sure you want to delete ?</h3>
           <br>
-          <!-- '${user.id}' -->
-          <a href="" class="btn btn-primary" id ="delRef" th:attr="onclick=|deleteUser('3')|">  
+          <a href="" class="btn btn-primary" id ="delRef" th:href="@{/user/{id}/deleteUser(id=${user.id})}">  
               Yes
           </a>
           <button type="button" class="btn btn-primary" onclick="deleteForm()">No</button>
       </div>
-    </div>
+    </div> -->
 
     <th:block th:replace="fragments/footer.html :: footer" />
     

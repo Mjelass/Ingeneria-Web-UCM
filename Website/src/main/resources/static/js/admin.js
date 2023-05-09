@@ -31,11 +31,12 @@ function deleteForm(){
   }
 }
 
-function deleteUser(id){
-  go(`/user/${id}/deleteUser`, "POST", false)
-  .then(d => {console.log(d);
-    deleteForm();})
-  .catch(e => {console.log(e)
-      alert("Something went wrong.");
-      });
-}
+// function deleteUser(id){
+//   alert("User id: " + id);
+//   go(`/user/${id}/deleteUser`, "POST", false)
+//   .then(d => {console.log(d);
+//     deleteForm();})
+//   .catch(e => {console.log(e)
+//       alert("Something went wrong.");
+//       });
+// }
