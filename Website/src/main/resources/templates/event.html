@@ -48,7 +48,15 @@
                 </div>
                 <div id="acts-aft-join" class="ms-2" th:style="${joined}? 'display:flex; flex-direction: column;' : 'display: none;'">
                     <a class="btn btn-primary mb-1" th:href="@{/chat}" href="/chat">Chat</a>
-                    <a class="btn btn-primary" th:style="${event.status.toString().compareTo('FINISH')==0}? 'display:flex; ' : 'display: none;'" th:href="@{/form}" href="/form">Form</a>
+                    <!-- Comprobar que esté acabado y que el usuario logeado esté unido al evento-->
+                    <div id="acts-aft-join" class="ms-2" th:style="${canRate}? 'display:flex; flex-direction: column;' : 'display: none;'">
+                        <a class="btn btn-primary" 
+                        th:href="@{/formRateEvent}" 
+                        href="/formRateEvent">
+                        Form
+                        </a>
+                    </div>
+                    
                 </div>
             </div>
         </div>

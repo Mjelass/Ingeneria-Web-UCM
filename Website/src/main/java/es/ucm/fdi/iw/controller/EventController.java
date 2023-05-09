@@ -97,6 +97,12 @@ public class EventController {
         model.addAttribute("fav", ue == null ? false : ue.getFav());
         model.addAttribute("joined", ue == null ? false : ue.getJoined());
         int numFavs = eventRepository.getNumFavsEvent(id);
+
+        // Check if user is already in event
+        boolean isEventFinished = target.getStatus().equals(Event.Status.FINISH);
+        boolean canRate = isEventFinished && ue.getJoined();
+        model.addAttribute("canRate", canRate);
+
         model.addAttribute("numFavs", numFavs);
         int ownerRatings = 10;
         model.addAttribute("ownerRatings", ownerRatings);
