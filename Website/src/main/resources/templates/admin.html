@@ -66,7 +66,7 @@
                 </div>
                 <div style="width: 13em;"></div>
                 <div >
-                 <a type="button" class="btn btn-secondary btn-sm my-2" style="width: 7em;" th:href="@{/user/{id}//blacklistUser(id=${user.id})}">
+                 <a type="button" class="btn btn-secondary btn-sm my-2" style="width: 7em;" th:href="@{/user/{id}/blacklistUser(id=${user.id})}">
                     📝 Blacklist
                  </a>
                   <!-- <a type="button" class="btn btn-secondary btn-sm" style="width: 7em;" href="#" th:onclick='deleteForm()'> -->
@@ -150,11 +150,11 @@
                                 <div style="width: 13em;"></div>
 
                 <div >
-                 <button type="button" class="btn btn-secondary btn-sm my-2" style="width: 7em;">
+                 <button type="button" class="btn btn-secondary btn-sm my-2" style="width: 7em;" th:href="@{/user/{id}/blacklistUser(id=${user.id})}">
                     📝 Blacklist
                   </button>
                  
-                  <button type="button" class="btn btn-secondary btn-sm" style="width: 7em;" onclick="deleteForm()">
+                  <button type="button" class="btn btn-secondary btn-sm" style="width: 7em;" onclick="deleteForm()" th:href="@{/user/{id}/deleteUser(id=${user.id})}">
                     🗑️ Delete
                   </button>
                 </div>
@@ -192,11 +192,11 @@
               <div class="col-1">
                 <div class="event-body d-flex gap-3">
                   <div>
-                  <button type="button" class="btn btn-secondary btn-sm my-2" style="width: 5em;">
+                  <button type="button" class="btn btn-secondary btn-sm my-2" style="width: 5em;" th:href="@{/user/{id}/blacklistUser(id=${user.id})}">
                       📝 Blacklist
                     </button>
                   
-                    <button type="button" class="btn btn-secondary btn-sm" style="width: 5em;">
+                    <button type="button" class="btn btn-secondary btn-sm" style="width: 5em;" th:href="@{/user/{id}/deleteUser(id=${user.id})}">
                       🗑️ Delete
                     </button>
                   </div>

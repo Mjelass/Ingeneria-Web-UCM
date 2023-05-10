@@ -440,13 +440,16 @@ public class UserController {
 		 return "redirect:/";
 	}
 
+	// add or erase user from blacklist
 	@Transactional
-	@PostMapping("/{id}/blacklistUser")
+	@GetMapping("{id}/blacklistUser")
 	public String blacklistUser(@PathVariable long id, Model model){
 		User user = entityManager.find(User.class, id);
-		// if(user.getStatus().equals(Status.BLACK_LISTED)) user.setStatus(Status.ACTIVE);
-		// else user.setStatus(Status.BLACK_LISTED);
-		// userRepository.save(user);
+		if(user != null) {
+			if(user.getStatus().equals(Status.BLACK_LISTED)) user.setStatus(Status.ACTIVE);
+			else user.setStatus(Status.BLACK_LISTED);
+			userRepository.save(user);
+		}
 		return "admin";
 
 	}
