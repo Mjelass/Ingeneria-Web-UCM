@@ -87,6 +87,9 @@ public class UserController {
 	@Autowired
 	private EventRepository eventRepository;
 
+	@Autowired
+	private UserRepository userRepository;
+
 	/**
 	 * Exception to use when denying access to unauthorized users.
 	 * 
@@ -439,11 +442,11 @@ public class UserController {
 
 	@Transactional
 	@PostMapping("/{id}/blacklistUser")
-	public String blacklistUser(@PathVariable long id){
-		// User user = entityManager.find(User.class, id);
-		// if(getStatus.equals(BLACK_LISTED)) user.setStatus(Status.ACTIVE);
+	public String blacklistUser(@PathVariable long id, Model model){
+		User user = entityManager.find(User.class, id);
+		// if(user.getStatus().equals(Status.BLACK_LISTED)) user.setStatus(Status.ACTIVE);
 		// else user.setStatus(Status.BLACK_LISTED);
-		// entityManager.persist(user);
+		// userRepository.save(user);
 		return "admin";
 
 	}
@@ -451,10 +454,10 @@ public class UserController {
 	// delete User to the dataBase
 	@Transactional
 	@GetMapping("{id}/deleteUser")
-	public String deleteUser(@PathVariable long id) {
-		// User user = entityManager.find(User.class, id);
-		// user.setEnabled(!user.getEnabled());
-		// entityManager.remove(user);
+	public String deleteUser(@PathVariable long id, Model model) {
+		User user = entityManager.find(User.class, id);
+		user.setEnabled(false);
+		userRepository.save(user);
 		return "admin";
 	}
 }
