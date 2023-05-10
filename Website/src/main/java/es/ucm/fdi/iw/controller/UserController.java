@@ -463,4 +463,16 @@ public class UserController {
 		userRepository.save(user);
 		return "admin";
 	}
+
+	// count user reportings
+	@GetMapping("{id}/reportings")
+	@ResponseBody
+	public int reportings(@PathVariable long id, Model model, HttpSession session) {
+		User user = entityManager.find(User.class, id);
+		int nReportings = entityManager.createNamedQuery("Report.countReportings", int.class)
+				.setParameter("userId", id)
+				.getSingleResult();
+			// session.setAttribute("nReportings", nReportings);
+		return nReportings;
+	}
 }

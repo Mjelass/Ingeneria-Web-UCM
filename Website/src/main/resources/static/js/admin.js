@@ -31,6 +31,13 @@ function deleteForm(){
   }
 }
 
+function getReportings(id){
+  // description = document.getElementById('report-desc').value;
+  
+  // return go(`/user/${id}/report`, "GET", false)
+  document.getElementById("reportSpan").textContent="1";
+}
+
 // function deleteUser(id){
 //   alert("User id: " + id);
 //   go(`/user/${id}/deleteUser`, "POST", false)
