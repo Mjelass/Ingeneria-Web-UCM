@@ -67,7 +67,7 @@ function toggleReportForm(){
     }
     else {
         formCont.style.display = 'none';
-        document.getElementById('report-desc').value = '';
+        document.querySelector('#report-form-cont>.report-form').reset();
     }
 }
 
@@ -79,7 +79,7 @@ function togglePicForm(){
     }
     else {
         formCont.style.display = 'none';
-        document.getElementById('report-desc').value = '';
+        document.getElementById('form-file').value = '';
     }
 }
 
@@ -91,6 +91,6 @@ function toggleShowPic(src = null){
     }
     else {
         picCont.style.display = 'none';
-        document.getElementById('report-desc').value = '';
+        // document.getElementById('report-desc').value = '';
     }
 }

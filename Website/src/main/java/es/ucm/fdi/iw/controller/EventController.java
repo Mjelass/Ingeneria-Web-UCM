@@ -100,7 +100,7 @@ public class EventController {
 
         // Check if user is already in event
         boolean isEventFinished = target.getStatus().equals(Event.Status.FINISH);
-        boolean canRate = isEventFinished && ue.getJoined();
+        boolean canRate = (ue != null) && isEventFinished && ue.getJoined();
         model.addAttribute("canRate", canRate);
 
         model.addAttribute("numFavs", numFavs);
@@ -110,6 +110,19 @@ public class EventController {
         model.addAttribute("isOwner", u != null && (target.getUserOwner().getId() == u.getId()));
         model.addAttribute("event", target);
         return "event";
+    }
+
+    // Used to modify an existent event.
+    @PostMapping("{id}/change")
+	public String changeEvent(@PathVariable long id, HttpServletResponse response, 
+        HttpSession session, Model model, @RequestParam(required = false) Event.Status status, 
+        @RequestParam(required = false) String description){
+        // 
+        Event e = entityManager.find(Event.class, id);
+        e.setStatus(status == null ? e.getStatus(): status);
+        e.setDescription(description == null ? e.getDescription(): description);
+        eventRepository.save(e);
+        return "redirect:/event/" + id;
     }
 
     // Update userEvent table

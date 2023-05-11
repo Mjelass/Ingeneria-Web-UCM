@@ -4,8 +4,10 @@
 <head>
     <th:block th:replace="fragments/head :: header" />
     <title>DreamTrip</title>
+    <script th:src="@{/js/modal.js}" src="js/modal.js"></script>
     <script th:src="@{/js/event.js}" src="js/event.js"></script>
     <script th:src="@{/js/report.js}" src="js/report.js"></script>
+    <link rel="stylesheet" th:href="@{/css/modal.css}" href="css/modal.css">
     <link rel="stylesheet" th:href="@{/css/event.css}" href="css/event.css">
 </head>
 
@@ -21,7 +23,28 @@
                     <div>
                         <span class="badge bg-primary fs-6">Event</span>
                         <h1><span th:text="${event.title}">TITLE</span></h1>
-                        <span class="badge bg-primary" th:text="${event.status}">Open</span>
+                        <div>
+                            <span class="badge bg-primary" th:text="${event.status}">Open</span>
+                            <th:block th:if="${isOwner}">
+                                <button type="button" class="badge bg-primary btn" onclick="toggleModalForm('status-form-cont')">✏</button>
+                                <div id="status-form-cont" class="modal-form-cont">
+                                    <form class="modal-form bg-white rounded" th:action="@{/event/{id}/change(id=${event.id})}" method="post">
+                                        <h3>Change Status</h3>
+                                        <label for="report-desc" class="form-label">Select new status:</label><br>
+                                        <select class="form-select" name="status">
+                                            <option value="OPEN" th:selected="${event.status.name().equals('OPEN')}">OPEN</option>
+                                            <option value="CLOSED" th:selected="${event.status.name().equals('CLOSED')}">CLOSED</option>
+                                            <option value="FINISH" th:selected="${event.status.name().equals('FINISH')}">FINISH</option>
+                                        </select>
+                                        <br>
+                                        <button type="submit" class="btn btn-primary">
+                                            Send
+                                        </button>
+                                        <button type="button" class="btn btn-primary" onclick="toggleModalForm('status-form-cont')">Cancel</button>
+                                    </form>
+                                </div>
+                            </th:block>
+                        </div>
                     </div>
                     <div class="d-flex flex-column align-items-center">
                         <button type="button" id="fav-i" class="border-0 bg-white fs-2 mb-0" th:attr="onclick=|toggleFav(this, '${event.id}')|"
@@ -65,9 +88,23 @@
                 <div id="more-details" class="bg-white border my-2 me-2 p-4 flex-fill">
                     <div id="event-description" class="mb-5">
                         <h2>DESCRIPTION</h2>
-                        <span th:text="${event.description}"></span> 
-                        <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque recusandae voluptatibus quae ad? Quaerat accusantium et omnis itaque. Harum temporibus aliquid nemo odio dolor velit optio repudiandae, praesentium fugiat sunt!</p>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque recusandae voluptatibus quae ad? Quaerat accusantium et omnis itaque. Harum temporibus aliquid nemo odio dolor velit optio repudiandae, praesentium fugiat sunt!</p> -->
+                        <p class="m-0" th:text="${event.description}"></p>
+                        <th:block th:if="${isOwner}">
+                            <button type="button" class="badge bg-primary btn" onclick="toggleModalForm('description-form-cont')">✏</button>
+                            <div id="description-form-cont" class="modal-form-cont">
+                                <form class="modal-form bg-white rounded" th:action="@{/event/{id}/change(id=${event.id})}" method="post">
+                                    <h3>Change Status</h3>
+                                    <label for="report-desc" class="form-label">Select new status:</label><br>
+                                    <textarea class="form-control" name="description"
+                                        style="height: 150px; width: 100%" th:text="${event.description}"></textarea>
+                                    <br>
+                                    <button type="submit" class="btn btn-primary">
+                                        Send
+                                    </button>
+                                    <button type="button" class="btn btn-primary" onclick="toggleModalForm('description-form-cont')">Cancel</button>
+                                </form>
+                            </div>
+                        </th:block>
                     </div>
                     <div id="event-notes" class="mb-5">
                         <h2>NOTES</h2>
@@ -123,18 +160,18 @@
                         </div>
 
                         <th:block th:if="${isOwner}">
-                            <button type="button" class="btn btn-primary mb-1" onclick="togglePicForm()">Add Image</button>
-                            <div id="pic-form-cont" style="display: none">
-                                <form class="pic-form bg-white rounded" th:action="@{/event/{id}/addPic(id=${event.id})}" method="post"
+                            <button type="button" class="btn btn-primary mb-1" onclick="toggleModalForm('pic-form-cont')">Add Image</button>
+                            <div id="pic-form-cont" class="modal-form-cont">
+                                <form class="modal-form bg-white rounded" th:action="@{/event/{id}/addPic(id=${event.id})}" method="post"
                                     enctype="multipart/form-data">
                                     <h3>Upload an image.</h3>
                                     <label for="report-desc" class="form-label">Upload an image:</label>
-                                    <input class="form-control" type="file" id="formFile" name="photo">
+                                    <input class="form-control" type="file" id="form-file" name="photo">
                                     <br>
                                     <button type="submit" class="btn btn-primary">
                                         Send
                                     </button>
-                                    <button type="button" class="btn btn-primary" onclick="togglePicForm()">Cancel</button>
+                                    <button type="button" class="btn btn-primary" onclick="toggleModalForm('pic-form-cont')">Cancel</button>
                                 </form>
                             </div>
                         </th:block>
@@ -193,24 +230,25 @@
                             <p class="mb-0"><span>⭐⭐⭐⭐⭐</span><span th:text="${ownerRatings}"></span> ratings</p>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-danger" th:disabled="!${isLogged}" onclick="toggleReportForm()">Report</button>
-                    <!-- th:attr="onclick=|reportUser('${event.userOwner.id}')|" -->
+                    <th:block th:if="${isOwner}">
+                        <button type="button" class="btn btn-danger" th:disabled="!${isLogged}" onclick="toggleModalForm('report-form-cont')">Report</button>
+                        <div id="report-form-cont" class="modal-form-cont">
+                            <form class="modal-form bg-white rounded">
+                                <h3>Report <span th:text="${event.userOwner.firstName} + ' ' + ${event.userOwner.lastName}"></span> .</h3>
+                                <label for="report-desc" class="form-label">Reason of the report:</label>
+                                <textarea class="form-control" id="report-desc" name="report-desc" placeholder="Leave a comment here" style="height: 150px; width: 100%"></textarea>
+                                <br>
+                                <button type="button" class="btn btn-primary" th:attr="onclick=|reportUser('${event.userOwner.id}')|">
+                                    Send
+                                </button>
+                                <button type="button" class="btn btn-primary" onclick="toggleModalForm('report-form-cont')">Cancel</button>
+                            </form>
+                        </div>
+                    </th:block>
                 </div>
             </div>
         </div>
     </main>
-    <div id="report-form-cont" style="display: none">
-        <div class="report-form bg-white rounded">
-            <h3>Report <span th:text="${event.userOwner.firstName} + ' ' + ${event.userOwner.lastName}"></span> .</h3>
-            <label for="report-desc" class="form-label">Reason of the report:</label>
-            <textarea class="form-control" id="report-desc" name="report-desc" placeholder="Leave a comment here" style="height: 150px; width: 100%"></textarea>
-            <br>
-            <button type="submit" class="btn btn-primary" th:attr="onclick=|reportUser('${event.userOwner.id}')|">
-                Send
-            </button>
-            <button type="button" class="btn btn-primary" onclick="toggleReportForm()">Cancel</button>
-        </div>
-    </div>
     <th:block th:replace="fragments/footer.html :: footer" />
 </body>
 
