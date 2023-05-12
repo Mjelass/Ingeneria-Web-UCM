@@ -61,18 +61,24 @@
                 </div>
                 <!-- Lista de mensajes -->
                 <div class="chat-msgs card-body d-flex flex-column gap-2 overflow-auto" style="max-height: 100%;">
+                    <div th:if="${chats.get(event.id).size() >= maxMsgPage}" class="load-msgs-cont d-flex justify-content-center">
+                        <input th:id="${'chat-' + event.id + '-page'}" type="hidden" value="0">
+                        <input th:id="${'chat-' + event.id + '-date'}" type="hidden"
+                            th:value="${chats.get(event.id).get(0).dateSent}">
+                        <button type="button" class="btn" style="background-color: var(--bs-gray-200);"
+                            th:attr="onclick=|loadMoreMsgs(${event.id}, ${userId})|">Load more messages...</button>
+                    </div>
                     <th:block th:each="chat: ${chats.get(event.id)}">
-                        <div th:class="${(chat.sender.id == userId)? 'msg-container w-100 d-flex justify-content-end':'msg-container w-100 d-flex'}">
-                            <div th:class="${(chat.sender.id == userId)? 'card': 'card bg-light'}"
-                                th:style="${(chat.sender.id == userId)? 'width: fit-content;background-color: var(--bs-gray-200)': 'width: fit-content;'}">
+                        <div th:class="'msg-container w-100 d-flex' + ${(chat.sender.id == userId)? ' local-msg':''}">
+                            <div class="card">
                                 <div class="card-body p-2">
-                                    <p th:if="${chat.sender.id != userId}" class="card-title mb-0 text-primary" style="font-weight: 500"
+                                    <p th:if="${chat.sender.id != userId}" class="card-title mb-0 text-primary"
                                         th:text="${chat.sender.username}">Nombre del emisor</p>
                                     <p class="card-text mb-1" th:text="${chat.text}">This is some text within a card body.</p>
                                     <div class="d-flex justify-content-between gap-3">
-                                        <p class="card-subtitle text-muted" style="font-size: 0.8em"
+                                        <p class="card-subtitle text-muted"
                                             th:text="${#temporals.format(chat.dateSent,'dd-MM-yyyy HH:mm')}">19:00</p>
-                                        <p th:if="${chat.sender.id == userId}" class="card-subtitle" style="font-size: 0.8em">✅</p>
+                                        <p th:if="${chat.sender.id == userId}" class="card-subtitle">✅</p>
                                     </div>
                                 </div>
                             </div>

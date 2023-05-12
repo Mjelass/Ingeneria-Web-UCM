@@ -284,6 +284,95 @@ function setChat(chatId) {
     console.log("Setting Current Chat Id: " + chatId);
 }
 
+function formatDate(date) {
+    return `${('00' + date.getDate()).slice(-2)}-${('00' + (date.getMonth() + 1)).slice(-2)}-${date.getFullYear()}` +
+    ` ${('00' + date.getHours()).slice(-2)}:${('00' + date.getMinutes()).slice(-2)}`;
+}
+
+function loadMoreMsgs(chatId, userId){
+    let inputNPNum = document.getElementById('chat-' + chatId + '-page');
+    let nextPageNum = Number(inputNPNum.value);
+    let inputFMDate = document.getElementById('chat-' + chatId + '-date');
+    let firstMsgDate = inputFMDate.value;
+
+    go(`/chat/${chatId}/loadMsgs/${firstMsgDate}`, "POST", {}, false)
+    .then(async d => {
+        let resJSON = await d.json();
+        if (resJSON['page-items'] > 0){
+            let chatContent = document.querySelector('#chat-' + chatId + '>.chat-msgs');
+            let scrollHBefore = chatContent.scrollHeight;
+            let auxFMDate = inputFMDate.value;
+            resJSON['msgs'].forEach(msg => {
+                let refElem = document.querySelector('#chat-' + chatId + 
+                    '>.chat-msgs>.msg-container');
+                let msgCont = document.createElement('div');
+                msgCont.classList.add(...['msg-container', 'w-100', 'd-flex']);
+                if(userId == msg['senderId'])
+                    msgCont.classList.add('justify-content-end');
+                
+                let msgCard = document.createElement('div');
+                msgCard.classList.add(...userId == msg['senderId']? ['card']: 
+                    ['card', 'bg-light']);
+                msgCard.style.width = 'fit-content';
+                if(userId == msg['senderId'])
+                    msgCard.style.backgroundColor = 'var(--bs-gray-200)';
+
+                let msgCBody = document.createElement('div');
+                msgCBody.classList.add(...['card-body', 'p-2']);
+
+                if(userId != msg['senderId']) {
+                    let msgCSender = document.createElement('p');
+                    msgCSender.classList.add(...['card-title', 'mb-0', 'text-primary']);
+                    msgCSender.innerText = msg['sender'];
+                    msgCBody.appendChild(msgCSender);
+                }
+
+                let msgCText = document.createElement('p');
+                msgCText.classList.add(...['card-text', 'mb-1']);
+                msgCText.innerText = msg['text'];
+
+                let msgCDet = document.createElement('div');
+                msgCDet.classList.add(...['d-flex', 'justify-content-between', 'gap-3']);
+
+                let msgCDate = document.createElement('p');
+                msgCDate.classList.add(...['card-subtitle', 'text-muted']);
+                let msgDate = new Date(msg['dateSent']);
+                // console.log(msgDate);
+                msgCDate.innerText = formatDate(msgDate);
+                
+                msgCDet.appendChild(msgCDate);
+                if(userId == msg['senderId']) {
+                    let readedCDate = document.createElement('p');
+                    readedCDate.classList.add('card-subtitle');
+                    readedCDate.innerText = '✅';
+                    msgCDet.appendChild(readedCDate);
+                }
+
+                msgCBody.appendChild(msgCText);
+                msgCBody.appendChild(msgCDet);
+
+                msgCard.appendChild(msgCBody);
+                msgCont.appendChild(msgCard);
+
+                refElem.before(msgCont);
+                // console.log(msg['text']);
+                auxFMDate = msg['dateSent'];
+            });
+            inputFMDate.value = auxFMDate;
+            chatContent.scrollTop = chatContent.scrollHeight - scrollHBefore;
+            // inputNPNum.value = (nextPageNum + 1);
+        }
+        else{
+            document.querySelector('#chat-' + chatId + 
+            '>.chat-msgs>.load-msgs-cont').remove();
+        }
+        console.log(resJSON);
+        // console.log(await d.json());
+        })
+    .catch(e => {console.log(e);
+        alert("Something went wrong.")});
+}
+
 
 /**
  * Actions to perform once the page is fully loaded
