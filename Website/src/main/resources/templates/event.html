@@ -74,8 +74,8 @@
                     <!-- Comprobar que esté acabado y que el usuario logeado esté unido al evento-->
                     <div id="acts-aft-join" class="ms-2" th:style="${canRate}? 'display:flex; flex-direction: column;' : 'display: none;'">
                         <a class="btn btn-primary" 
-                        th:href="@{/formRateEvent}" 
-                        href="/formRateEvent">
+                        th:href="@{{id}/saveRating/(id=${event.id})}" 
+                        href="/saveRating">
                         Form
                         </a>
                     </div>

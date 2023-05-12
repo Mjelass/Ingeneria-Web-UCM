@@ -1,6 +1,9 @@
 package es.ucm.fdi.iw.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +30,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletResponse;
@@ -38,7 +42,9 @@ import org.springframework.util.FileCopyUtils;
 import es.ucm.fdi.iw.LocalData;
 import es.ucm.fdi.iw.Repositories.EventRepository;
 import es.ucm.fdi.iw.Repositories.UserEventRepository;
+import es.ucm.fdi.iw.Repositories.UserRepository;
 import es.ucm.fdi.iw.model.Event;
+import es.ucm.fdi.iw.model.Rating;
 import es.ucm.fdi.iw.model.User;
 import es.ucm.fdi.iw.model.UserEvent;
 import es.ucm.fdi.iw.model.UserEventId;
@@ -63,6 +69,9 @@ public class EventController {
 
     @Autowired
     private UserEventRepository userEventRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     // Return event/{id} page
     @GetMapping("{id}")
@@ -207,7 +216,60 @@ public class EventController {
          */
         return "redirect:/event/" + insertEvent.getId();
     }
+    
 
+
+    // Method to process user joined list to rating users
+    @GetMapping("{id}/saveRating")
+    public String saveRating(@PathVariable long id, Model model, HttpSession session) {
+        Event event = entityManager.find(Event.class, id);
+        User ratingUser = (User) session.getAttribute("u");
+
+        if (event == null || ratingUser == null || event.getStatus() != Event.Status.FINISH) {
+            return "redirect:/event/" + event.getId();
+        }
+
+        // Get a list of all UserEvent rows associated with this event, with joined == true
+        ArrayList<User> joinedUsers = userRepository.getJoinedUsers(event.getId());
+        // Page<User> pageJoinedUser = pageImplement(joinedUsers);
+        if (!joinedUsers.isEmpty()) {
+            model.addAttribute("joinedUser", joinedUsers);
+        }else{
+            return "redirect:/event/" + event.getId();
+        }
+        
+        return "event";
+    }
+
+
+    @PostMapping("{id}/saveRating")
+    @Transactional
+    public String submitRatings(@PathVariable long id, HttpSession session) {
+        Event event = entityManager.find(Event.class, id);
+        User ratingUser = (User) session.getAttribute("u");
+    
+        if (event == null || ratingUser == null || event.getStatus() != Event.Status.FINISH) {
+            return "redirect:/event/" + id;
+        }
+    
+        // for (Map.Entry<String, String> entry : form.entrySet()) {
+        //     String userId = entry.getKey();
+        //     String ratingValue = entry.getValue();
+    
+        //     User ratedUser = entityManager.find(User.class, Long.parseLong(userId));
+        //     int rating = Integer.parseInt(ratingValue);
+    
+        //     Rating ratingObj = new Rating();
+        //     ratingObj.setEvent(event);
+        //     ratingObj.setRatingUser(ratingUser);
+        //     ratingObj.setRatedUser(ratedUser);
+        //     ratingObj.setRating(rating);
+        //     ratingRepository.save(ratingObj);
+        // }
+    
+        return "redirect:/event/" + id;
+    }
+    
     // || IMAGES METHODS
     // TODO check user
     /**
