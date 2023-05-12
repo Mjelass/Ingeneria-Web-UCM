@@ -49,6 +49,7 @@ INSERT INTO USER_EVENT (user_id, event_id, joined, fav, rol) VALUES (3, 11, TRUE
 INSERT INTO USER_EVENT (user_id, event_id, joined, fav, rol) VALUES (3, 7, TRUE, TRUE, 'AAAAA');
 INSERT INTO USER_EVENT (user_id, event_id, joined, fav, rol) VALUES (3, 12, TRUE, TRUE, 'AAAAA');
 INSERT INTO USER_EVENT (user_id, event_id, joined, fav, rol) VALUES (3, 13, TRUE, TRUE, 'AAAAA');
+INSERT INTO USER_EVENT (user_id, event_id, joined, fav, rol) VALUES (4, 2, TRUE, FALSE, 'AAAAA');
 
 -- insert report:
 insert into REPORT (id, user_source, user_target, description) values (1, 12, 11, 'porttitor lacus at turpis donec posuere metus vitae ipsum aliquam non mauris morbi non lectus');

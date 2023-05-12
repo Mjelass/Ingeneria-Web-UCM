@@ -6,8 +6,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import es.ucm.fdi.iw.model.Event;
+
 import es.ucm.fdi.iw.model.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
+    // List of user joined
+    @Query(value = "SELECT * FROM User_Event ue " +
+    "INNER JOIN IWUser u ON ue.user_id = u.id " +
+    "WHERE ue.event_id = :eventId AND ue.joined = TRUE", nativeQuery = true)  
+    ArrayList<User> getJoinedUsers(@Param("eventId") long eventId);
+
 }

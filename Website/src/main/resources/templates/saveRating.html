@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html class="h-100" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="fragments/head :: header" />
+    <title>DreamTrip</title>
+</head>
+
+<body class="d-flex flex-column h-100">
+    <header th:replace="fragments/nav.html :: nav"></header>
+    <main class="flex-shrink-0">
+        <div class="container">
+            <h1 class="mt-5"> Rate your trip! </h1>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <ul class="list-unstyled mb-0">
+
+
+                               <!-- <form method="POST" th:action="@{/event/{id}/saveRating(id=${event.id})}">
+                                    <table>
+                                      <thead>
+                                        <tr>
+                                          <th>User</th>
+                                          <th>Rating</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr th:each="user : ${joinedUsers}">
+                                          <td th:text="${user.name}"></td>
+                                          <td>
+                                            <input type="hidden" name="userId" th:value="${user.id}">
+                                            <input type="number" name="ratingValue" min="1" max="5" required>
+                                          </td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                    <button type="submit">Save ratings</button>
+                                </form> -->
+                                  
+
+
+
+
+                            </ul>
+                        </div>
+                              
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <li class="bg-white mb-3">
+                        <div class="form-outline">
+                            <textarea class="form-control" id="textAreaExample2" rows="20"></textarea>
+                        </div>
+                    </li>
+                    <button type="button" class="btn btn-info btn-rounded float-end">Enviar</button>
+                </div>
+                <div class="col-md-4 justify-content-center align-items-center">
+                    <div class="row g-2">
+                        <div class="col mb-2">
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"
+                            alt="image 1" class="w-100 rounded-3">
+                        </div>
+                        <div class="col mb-2">
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp"
+                            alt="image 1" class="w-100 rounded-3">
+                        </div>
+                        </div>
+                        <div class="row g-2">
+                        <div class="col">
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(108).webp"
+                            alt="image 1" class="w-100 rounded-3">
+                        </div>
+                        <div class="col">
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(114).webp"
+                            alt="image 1" class="w-100 rounded-3">
+                        </div>
+                        </div>
+                        <div style="width: 100%; text-align: right;">
+                            <a th:href="@{/form}" href="/form">
+                                <img th:src="@{/img/add.png}" alt="Add Trip" width="60" height="60">
+                            </a>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <th:block th:replace="fragments/footer.html :: footer" />
+</body>
+
+</html>
