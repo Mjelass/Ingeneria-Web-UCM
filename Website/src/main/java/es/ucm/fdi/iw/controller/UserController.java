@@ -144,10 +144,12 @@ public class UserController {
 
 		ArrayList<Event> evJoined = eventRepository.getEventsJoined(target.getId());
 
-		List<Report> userReports =entityManager.createNamedQuery("Report.numReports")
-							.setParameter("id", id)
-							.getResultList();
-		int numReports = userReports.size();
+		ArrayList<Report> userReports = reportRepository.findReportsByUserId(target.getId());
+	
+		int numReports = 0;
+		if (!userReports.isEmpty()) {
+			numReports = userReports.size();
+		}
 		// try {
 		// 	userReports = entityManager.createNamedQuery("Report.numReports")
 		// 					.setParameter("id", id)

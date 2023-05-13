@@ -230,7 +230,7 @@ public class EventController {
         }
 
         // Get a list of all UserEvent rows associated with this event, with joined == true
-        ArrayList<User> joinedUsers = userRepository.getJoinedUsers(event.getId());
+        ArrayList<User> joinedUsers = userRepository.getJoinedUsers(event.getId(), ratingUser.getId());
         // Page<User> pageJoinedUser = pageImplement(joinedUsers);
         if (!joinedUsers.isEmpty()) {
             model.addAttribute("joinedUser", joinedUsers);
@@ -238,7 +238,7 @@ public class EventController {
             return "redirect:/event/" + event.getId();
         }
         
-        return "event";
+        return "saveRating";
     }
 
 
@@ -267,7 +267,7 @@ public class EventController {
         //     ratingRepository.save(ratingObj);
         // }
     
-        return "redirect:/event/" + id;
+        return "redirect:/event/" + event.getId();
     }
     
     // || IMAGES METHODS
