@@ -437,20 +437,22 @@ public class UserController {
 		entityManager.persist(InsertUser);
 		entityManager.flush();
 		model.addAttribute("User", InsertUser);
-		 return "redirect:/";
+		return "redirect:/";
 	}
 
 	// add or erase user from blacklist
 	@Transactional
 	@GetMapping("{id}/blacklistUser")
-	public String blacklistUser(@PathVariable long id, Model model){
+	public String blacklistUser(@PathVariable long id, Model model) {
 		User user = entityManager.find(User.class, id);
-		if(user != null) {
-			if(user.getStatus().equals(Status.BLACK_LISTED)) user.setStatus(Status.ACTIVE);
-			else user.setStatus(Status.BLACK_LISTED);
+		if (user != null) {
+			if (user.getStatus().equals(Status.BLACK_LISTED))
+				user.setStatus(Status.ACTIVE);
+			else
+				user.setStatus(Status.BLACK_LISTED);
 			userRepository.save(user);
 		}
-		return "admin";
+		return "redirect:/admin/blackListUser";
 
 	}
 
@@ -472,7 +474,7 @@ public class UserController {
 		int nReportings = entityManager.createNamedQuery("Report.countReportings", int.class)
 				.setParameter("userId", id)
 				.getSingleResult();
-			// session.setAttribute("nReportings", nReportings);
+		// session.setAttribute("nReportings", nReportings);
 		return nReportings;
 	}
 }

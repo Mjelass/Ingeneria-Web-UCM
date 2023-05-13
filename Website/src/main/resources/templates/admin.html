@@ -55,7 +55,7 @@
               <div class="event-body d-flex gap-3">
                 <div class="w-75 overflow-hidden d-flex flex-column gap-2">
                   <div class="main-info d-flex flex-wrap">
-                    <p class="m-0 "><strong>Age: </strong><span>20</span></p>
+                    <p class="m-0 "><strong>Age: </strong><span th:onload="computeAge(${user.birthdate})">20</span></p>
                     <p class="m-0  " ><strong class="mr">Level: </strong><span th:text="${user.level}"></span></p>
                     <p class="m-0 "><strong class="mr">Email: </strong><span th:text="${user.email}"></span></p>
                     <p class="m-0 "><strong class="mr">Languages: </strong><span th:text="${user.languages}"></span></p>
@@ -150,9 +150,9 @@
                                 <div style="width: 13em;"></div>
 
                 <div >
-                 <button type="button" class="btn btn-secondary btn-sm my-2" style="width: 7em;" th:href="@{/user/{id}/blacklistUser(id=${user.id})}">
-                    📝 Blacklist
-                  </button>
+                 <a type="button" class="btn btn-secondary btn-sm my-2" style="width: 7em;" th:href="@{/user/{id}/blacklistUser(id=${user.id})}">
+                    📝 Remove
+                 </a>
                  
                   <button type="button" class="btn btn-secondary btn-sm" style="width: 7em;" onclick="deleteForm()" th:href="@{/user/{id}/deleteUser(id=${user.id})}">
                     🗑️ Delete

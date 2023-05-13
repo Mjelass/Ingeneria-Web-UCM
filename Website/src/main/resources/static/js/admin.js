@@ -38,6 +38,15 @@ function getReportings(id){
   document.getElementById("reportSpan").textContent="1";
 }
 
+
+function computeAge(e, birthdate){
+  let date = new Date(birthdate);
+  let diff = Date.now() - date.getTime();
+  let age = new Date(diff).getUTCFullYear();
+  console.log(e);
+  return 'sette';
+}
+
 // function deleteUser(id){
 //   alert("User id: " + id);
 //   go(`/user/${id}/deleteUser`, "POST", false)
