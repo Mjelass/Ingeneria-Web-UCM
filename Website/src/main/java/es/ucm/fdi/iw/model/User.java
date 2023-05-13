@@ -2,6 +2,7 @@
 package es.ucm.fdi.iw.model;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -140,6 +141,11 @@ public class User implements Transferable<User.Transfer> {
     public boolean hasRole(Role role) {
         String roleName = role.name();
         return Arrays.asList(roles.split(",")).contains(roleName);
+    }
+
+    public int getAge(){
+        LocalDate now = LocalDate.now();
+        return Period.between(birthdate, now).getYears();
     }
 
     @Getter

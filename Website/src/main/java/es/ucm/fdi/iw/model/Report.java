@@ -24,9 +24,9 @@ import lombok.NoArgsConstructor;
        
         @NamedQuery(name="Reports.allReports",
                 query="SELECT r FROM Report  r"),
-        @NamedQuery(name="Report.countReportings",
-            query="SELECT COUNT(r) FROM Report r "
-                    + "WHERE r.userTarget = :userId")
+        @NamedQuery(name="Report.numReports",
+            query="SELECT r FROM Report r "
+            + "WHERE r.userTarget = :id")
         
 })
 public class Report {

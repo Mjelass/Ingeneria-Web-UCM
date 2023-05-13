@@ -139,16 +139,23 @@ public class UserController {
 			@RequestParam(name = "fin", defaultValue = "") String fin) {
 		User target = entityManager.find(User.class, id);
 		User u = (User) session.getAttribute("u");
-		int age;
-		if (target.getBirthdate() == null) {
-			age = -1;
-		} else {
-			age = Year.now().getValue() - target.getBirthdate().getYear();
-		}
 
 		ArrayList<Event> evs = eventRepository.getUserEvents(target.getId());
 
 		ArrayList<Event> evJoined = eventRepository.getEventsJoined(target.getId());
+
+		List<Report> userReports =entityManager.createNamedQuery("Report.numReports")
+							.setParameter("id", id)
+							.getResultList();
+		int numReports = userReports.size();
+		// try {
+		// 	userReports = entityManager.createNamedQuery("Report.numReports")
+		// 					.setParameter("id", id)
+		// 					.getResultList();
+        // 	numReports = userReports.size();
+		// } catch (Exception e) {
+
+		// }
 
 		Page<Event> pageEventsFinish = pageImplement(evs);
 		Page<Event> pageEventsOpen = pageImplement(evJoined);
@@ -168,10 +175,10 @@ public class UserController {
 		model.addAttribute("fin", fin);
 
 		model.addAttribute("user", target);
-		model.addAttribute("age", age);
 		model.addAttribute("idRequest", target.getId());
 		model.addAttribute("idUser", u != null ? u.getId() : -1);
 		model.addAttribute("isOwner", u != null && (target.getId() == u.getId()));
+		model.addAttribute("numReports", numReports);
 		return "user";
 	}
 
@@ -463,18 +470,21 @@ public class UserController {
 		User user = entityManager.find(User.class, id);
 		user.setEnabled(false);
 		userRepository.save(user);
-		return "admin";
+		return "/admin/allUsers";
 	}
 
 	// count user reportings
-	@GetMapping("{id}/reportings")
-	@ResponseBody
-	public int reportings(@PathVariable long id, Model model, HttpSession session) {
-		User user = entityManager.find(User.class, id);
-		int nReportings = entityManager.createNamedQuery("Report.countReportings", int.class)
-				.setParameter("userId", id)
-				.getSingleResult();
-		// session.setAttribute("nReportings", nReportings);
-		return nReportings;
-	}
+	// @GetMapping("{id}/reportings")
+	// @ResponseBody
+	// public int reportings(@PathVariable long id, Model model, HttpSession session) {
+	// 	// User user = entityManager.find(User.class, id);
+	// 	List<Report> userReports =entityManager.createNamedQuery("Report.numReports")
+	// 						.setParameter("id", id)
+	// 						.getResultList();
+	// 	int numReports = userReports.size();
+
+	// 	//int reportCount = reportRepository.countByUser(user);
+	// 	// model.addAttribute("nReportings", nReportings);
+	// 	return numReports;
+	// }
 }

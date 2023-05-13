@@ -39,13 +39,13 @@ function getReportings(id){
 }
 
 
-function computeAge(e, birthdate){
-  let date = new Date(birthdate);
-  let diff = Date.now() - date.getTime();
-  let age = new Date(diff).getUTCFullYear();
-  console.log(e);
-  return 'sette';
-}
+// function computeAge(e, birthdate){
+//   let date = new Date(birthdate);
+//   let diff = Date.now() - date.getTime();
+//   let age = new Date(diff).getUTCFullYear();
+//   console.log(e);
+//   return 'sette';
+// }
 
 // function deleteUser(id){
 //   alert("User id: " + id);
