@@ -46,7 +46,7 @@ import lombok.NoArgsConstructor;
                         + "WHERE u.username = :username"),
         @NamedQuery(name="User.allUsers",
                 query="SELECT u FROM User u "
-                        + "WHERE u.status = 'ACTIVE'"),
+                        + "WHERE u.status != 'null'"),
         @NamedQuery(name="User.blackList",
                 query="SELECT u FROM User u "
                         + "WHERE u.status = 'BLACK_LISTED'"),
