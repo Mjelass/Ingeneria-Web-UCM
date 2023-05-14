@@ -37,6 +37,8 @@ import es.ucm.fdi.iw.Repositories.MessageRepository;
 import es.ucm.fdi.iw.model.Event;
 import es.ucm.fdi.iw.model.Message;
 import es.ucm.fdi.iw.model.User;
+import es.ucm.fdi.iw.model.UserEvent;
+import es.ucm.fdi.iw.model.UserEventId;
 
 @Controller
 @RequestMapping("chat")
@@ -79,6 +81,14 @@ public class MessageController {
     @PostMapping("{id}/loadMsgs/{date}")
     public ResponseEntity<?> loadMsgs(@PathVariable long id, @PathVariable String date, Model model, HttpSession session) {
         LocalDateTime beforeDate = LocalDateTime.parse(date);
+        User u = (User) session.getAttribute("u");
+        UserEventId ueId = new UserEventId();
+        ueId.setEvent(id);
+        ueId.setUser(u.getId());
+        UserEvent ue = entityManager.find(UserEvent.class, ueId);
+        if (ue == null){
+            return ResponseEntity.ok("Invalid Request");
+        }
         return ResponseEntity.ok(convertToResponse(messageRepository.getMsgFromChatBefore(id, beforeDate, PageRequest.of(0, MSG_PAGE))));
     }
 
@@ -90,7 +100,13 @@ public class MessageController {
             @RequestBody Message msg) throws JsonProcessingException {
         User u = (User) session.getAttribute("u");
         Event e = (Event) entityManager.find(Event.class, id);
-        if (u == null || e == null) {
+        // Search if user logged is in event with id=id.
+        UserEventId ueId = new UserEventId();
+        ueId.setEvent(id);
+        ueId.setUser(u.getId());
+        UserEvent ue = entityManager.find(UserEvent.class, ueId);
+        
+        if (u == null || e == null || ue == null) {
             throw new IllegalArgumentException();
         }
         msg.setSender(u);

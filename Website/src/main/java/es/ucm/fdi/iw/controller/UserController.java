@@ -315,6 +315,7 @@ public class UserController {
 
 	/**
 	 * Returns JSON with all received messages
+	 * TODO Remove or change
 	 */
 	@GetMapping(path = "received", produces = "application/json")
 	@Transactional // para no recibir resultados inconsistentes
@@ -329,6 +330,7 @@ public class UserController {
 
 	/**
 	 * Returns JSON with count of unread messages
+	 * TODO remove or change
 	 */
 	@GetMapping(path = "unread", produces = "application/json")
 	@ResponseBody
@@ -348,6 +350,7 @@ public class UserController {
 	 * @param o  JSON-ized message, similar to {"message": "text goes here"}
 	 * @throws JsonProcessingException
 	 */
+	// TODO Remove or change
 	@PostMapping("/{id}/msg")
 	@ResponseBody
 	@Transactional
@@ -405,11 +408,6 @@ public class UserController {
 		return "ok";
 	}
 
-	@GetMapping("chat")
-	public String login(Model model) {
-		return "chat";
-	}
-
 	// ADD User to the dataBase when you fill the form
 	// Falta redirigirlo a la pagina errorSignUp si hay error
 	@Transactional
@@ -444,6 +442,7 @@ public class UserController {
 	@Transactional
 	@GetMapping("{id}/blacklistUser")
 	public String blacklistUser(@PathVariable long id, Model model){
+		// TODO check if session user is admin
 		User user = entityManager.find(User.class, id);
 		if(user != null) {
 			if(user.getStatus().equals(Status.BLACK_LISTED)) user.setStatus(Status.ACTIVE);
@@ -458,6 +457,7 @@ public class UserController {
 	@Transactional
 	@GetMapping("{id}/deleteUser")
 	public String deleteUser(@PathVariable long id, Model model) {
+		// TODO check if session user is admin
 		User user = entityManager.find(User.class, id);
 		user.setEnabled(false);
 		userRepository.save(user);

@@ -1,5 +1,3 @@
-// import "iw.js"
-
 function updateElementsJoin(display, text, addition){
     document.getElementById("acts-aft-join").style.display = display;
     document.getElementById("acts-aft-join").style.flexDirection = "column";
@@ -59,28 +57,14 @@ function toggleFav(elem, eventId){
     }
 }
 
-
-function toggleReportForm(){
-    let formCont = document.getElementById('report-form-cont');
-    if(formCont.style.display == 'none'){
-        formCont.style.display = 'flex';
-    }
-    else {
-        formCont.style.display = 'none';
-        document.querySelector('#report-form-cont>.report-form').reset();
-    }
-}
-
-
-function togglePicForm(){
-    let formCont = document.getElementById('pic-form-cont');
-    if(formCont.style.display == 'none'){
-        formCont.style.display = 'flex';
-    }
-    else {
-        formCont.style.display = 'none';
-        document.getElementById('form-file').value = '';
-    }
+function reportUser(userTarget, description = ""){
+    description = document.getElementById('report-desc').value;
+    go(`/user/${userTarget}/report`, "POST", {description}, false)
+        .then(d => {console.log(d);
+            toggleModalForm('report-form-cont');})
+        .catch(e => {console.log(e)
+            alert("Something went wrong.");
+            });
 }
 
 function toggleShowPic(src = null){
@@ -94,3 +78,26 @@ function toggleShowPic(src = null){
         // document.getElementById('report-desc').value = '';
     }
 }
+
+// TODO Check use and remove.
+function toggleReportForm(){
+    let formCont = document.getElementById('report-form-cont');
+    if(formCont.style.display == 'none'){
+        formCont.style.display = 'flex';
+    }
+    else {
+        formCont.style.display = 'none';
+        document.querySelector('#report-form-cont>.report-form').reset();
+    }
+}
+function togglePicForm(){
+    let formCont = document.getElementById('pic-form-cont');
+    if(formCont.style.display == 'none'){
+        formCont.style.display = 'flex';
+    }
+    else {
+        formCont.style.display = 'none';
+        document.getElementById('form-file').value = '';
+    }
+}
+

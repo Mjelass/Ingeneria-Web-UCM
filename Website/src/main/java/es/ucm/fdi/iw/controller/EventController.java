@@ -126,11 +126,14 @@ public class EventController {
 	public String changeEvent(@PathVariable long id, HttpServletResponse response, 
         HttpSession session, Model model, @RequestParam(required = false) Event.Status status, 
         @RequestParam(required = false) String description){
-        // 
+        User u = (User) session.getAttribute("u");
         Event e = entityManager.find(Event.class, id);
-        e.setStatus(status == null ? e.getStatus(): status);
-        e.setDescription(description == null ? e.getDescription(): description);
-        eventRepository.save(e);
+        if (u != null && u.getId() == e.getUserOwner().getId()) {
+            // TODO check values make sense: OPEN and don't has vacancies.
+            e.setStatus(status == null ? e.getStatus(): status);
+            e.setDescription(description == null ? e.getDescription(): description);
+            eventRepository.save(e);
+        }
         return "redirect:/event/" + id;
     }
 
@@ -144,6 +147,7 @@ public class EventController {
         Boolean joined;
         String rol;
         int additionJoin = 0;
+        // TODO check event status
         // Search UserEvent row with event=id and user=u.getId()
         User u = (User) session.getAttribute("u");
         Event e = entityManager.find(Event.class, id);

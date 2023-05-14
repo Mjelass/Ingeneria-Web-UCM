@@ -11,19 +11,21 @@ const wsChat = {
     /**
      * Default action when message is received. 
      */
-    receive: (text) => {
-        console.log(text['text']);
-        console.log(text['senderId']);
-        if (document.getElementById('userId').innerText != text['senderId']){
-            updateChat(false, {'sender': text['sender'], 'chatId': text['event'],
-                'text': text['text'], 'dateSent': text['dateSent']});
+    receive: (msg) => {
+        // Process only messages sent by a third user.
+        if (document.getElementById('userId').innerText != msg['senderId']){
+            // Check if scrollbar is full scrolled down
+            let chatContent = document.querySelector('#chat-' + msg['event'] + '>.chat-msgs');
+            console.log("top: " + chatContent.scrollTop + " . CH: " + chatContent.clientHeight + " . SH: " + chatContent.scrollHeight);
+            let scroll = (chatContent.scrollTop + chatContent.clientHeight ) >= (chatContent.scrollHeight - 10);
             
-            if(currentChatId != 'ini'){
+            addNewMsgBottom(false, msg);
+
+            if(currentChatId != 'ini' && scroll){
                 scrollDownChat();
             }
-
-            updateChatList(false, {'sender': text['sender'], 'chatId': text['event'],
-                'text': text['text'], 'dateSent': text['dateSent']});
+            // TODO corregir
+            updateChatList(false, msg);
         }
     },
 
@@ -65,38 +67,6 @@ const wsChat = {
     }
 }
 
-// TODO remove
-function go(url, method, data = {}, json = true, headers = false) {
-    let params = {
-        method: method, // POST, GET, POST, PUT, DELETE, etc.
-        headers: headers === false ? {
-            "Content-Type": "application/json; charset=utf-8",
-        } : headers,
-        body: data instanceof FormData ? data : JSON.stringify(data)
-    };
-    if (method === "GET") {
-        // GET requests cannot have body; I could URL-encode, but it would not be used here
-        delete params.body;
-    } else {
-        params.headers["X-CSRF-TOKEN"] = config.csrf.value;
-    }
-    console.log("sending", url, params)
-    return fetch(url, params)
-        .then(response => {
-            const r = response;
-            if (r.ok) {
-                return json? r.json().then(json => Promise.resolve(json)): r;
-            } else {
-                return r.text().then(text => Promise.reject({
-                    url,
-                    data: JSON.stringify(data),
-                    status: r.status,
-                    text
-                }));
-            }
-        });
-}
-
 function formatDate(date){
     let d = date.getDate().toString().padStart(2, '0');
     let m = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -112,74 +82,83 @@ function scrollDownChat() {
     chatContent.scrollTop = chatContent.scrollHeight;
 }
 
-function updateChat(local, values) { // Actualiza la lista de mensaje del chat
-    // local indica si el mensaje es del este usuario (true) o de un tercero.
-    // values es un diccionario con los datos necesarios para actualizar.
+function createMessage(local, msg) {
+    // local: if the msg was sent by a third person (false) or not (true).
     let msgCont = document.createElement('div');
-    msgCont.classList.add('msg-container', 'w-100', 'd-flex');
-    if(local) {
+    msgCont.classList.add(...['msg-container', 'w-100', 'd-flex']);
+    if(local){
         msgCont.classList.add('justify-content-end');
     }
-
+    
     let msgCard = document.createElement('div');
-    msgCard.classList.add('card');
-    if(!local) {
-        msgCard.classList.add('bg-light');
-    }
-    else {
+    msgCard.classList.add(...local? ['card']: ['card', 'bg-light']);
+    msgCard.style.width = 'fit-content';
+    if(local){
         msgCard.style.backgroundColor = 'var(--bs-gray-200)';
     }
-    msgCard.style.width = 'fit-content';
 
-    let msgCardBody = document.createElement('div');
-    msgCardBody.classList.add('card-body', 'p-2');
+    let msgCBody = document.createElement('div');
+    msgCBody.classList.add(...['card-body', 'p-2']);
 
-    if(!local){
-        let pTitle = document.createElement('p');
-        pTitle.classList.add('card-title', 'mb-0', 'text-primary');
-        pTitle.style.fontWeight = '500';
-        pTitle.textContent = values['sender'];
-
-        msgCardBody.appendChild(pTitle);
+    if(!local) {
+        let msgCSender = document.createElement('p');
+        msgCSender.classList.add(...['card-title', 'mb-0', 'text-primary']);
+        msgCSender.innerText = msg['sender'];
+        msgCBody.appendChild(msgCSender);
     }
 
-    let pText = document.createElement('p');
-    pText.classList.add('card-text', 'mb-1');
-    pText.textContent = values['text'];
+    let msgCText = document.createElement('p');
+    msgCText.classList.add(...['card-text', 'mb-1']);
+    msgCText.innerText = msg['text'];
 
-    let divDate = document.createElement('div');
-    divDate.classList.add('d-flex', 'justify-content-between', 'gap-3');
-    let pDate = document.createElement('p');
-    pDate.classList.add('card-subtitle', 'text-muted');
-    pDate.style.fontSize = '0.8em';
-    pDate.textContent = local? formatDate(new Date()):
-        formatDate(new Date(Date.parse(values['dateSent'])));
-    divDate.appendChild(pDate);
+    let msgCDet = document.createElement('div');
+    msgCDet.classList.add(...['d-flex', 'justify-content-between', 'gap-3']);
+
+    let msgCDate = document.createElement('p');
+    msgCDate.classList.add(...['card-subtitle', 'text-muted']);
+    let msgDate = new Date(msg['dateSent']);
+
+    msgCDate.innerText = formatDate(msgDate);
+    
+    msgCDet.appendChild(msgCDate);
     if(local) {
-        let pReaded = document.createElement('p');
-        pReaded.classList.add('card-subtitle');
-        pReaded.style.fontSize = '0.8em';
-        pReaded.textContent = '✅';
-        divDate.appendChild(pReaded);
+        let readedCDate = document.createElement('p');
+        readedCDate.classList.add('card-subtitle');
+        readedCDate.innerText = '✅';
+        msgCDet.appendChild(readedCDate);
     }
 
-    msgCardBody.appendChild(pText);
-    msgCardBody.appendChild(divDate);
-    msgCard.appendChild(msgCardBody);
+    msgCBody.appendChild(msgCText);
+    msgCBody.appendChild(msgCDet);
+
+    msgCard.appendChild(msgCBody);
     msgCont.appendChild(msgCard);
-    let chat = document.querySelector('#chat-' + values['chatId'] + '>.chat-msgs');
-    chat.appendChild(msgCont);    
+
+    return msgCont;
 }
 
-function updateChatList(local, values){
-    let chatB = document.getElementById('chat-b-' + values['chatId']);
+function addNewMsgTop(local, msg){
+    let msgElem = createMessage(local, msg);
+    let topMsg = document.querySelector('#chat-' + msg['event'] + 
+        '>.chat-msgs>.msg-container');
+    topMsg.before(msgElem);
+}
+
+function addNewMsgBottom(local, msg) {
+    let msgElem = createMessage(local, msg);
+    let bottomMsg = document.querySelector('#chat-' + msg['event'] + '>.chat-msgs');
+    bottomMsg.appendChild(msgElem);
+}
+
+function updateChatList(local, msg){
+    let chatB = document.getElementById('chat-b-' + msg['event']);
     if(!chatB.querySelector('.card-text>strong')) {
-        // Se debe crear de cero las secciones.
+        // Create from zero.
         let cardT = chatB.querySelector('.card-text');
         cardT.classList.add('text-nowrap', 'text-truncate');
         cardT.innerHTML = local? `<strong>Tú: </strong>`:
-            `<strong>${values['sender']}: </strong>`;
-        cardT.innerHTML += `<span>${values['text']}</span>`;
+            `<strong>${msg['sender']}: </strong>`;
+        cardT.innerHTML += `<span>${msg['text']}</span>`;
 
         let divDate = document.createElement('div');
         divDate.classList.add('date-cont', 'd-flex', 'justify-content-between', 'gap-3');
@@ -187,7 +166,7 @@ function updateChatList(local, values){
         pDate.classList.add('date-sent', 'card-subtitle', 'text-muted');
         pDate.style.fontSize = '0.8em';
         pDate.textContent = local? formatDate(new Date()):
-            formatDate(new Date(Date.parse(values['dateSent'])));
+            formatDate(new Date(Date.parse(msg['dateSent'])));
         divDate.appendChild(pDate);
         if(local) {
             let pReaded = document.createElement('p');
@@ -198,20 +177,22 @@ function updateChatList(local, values){
         }
         chatB.querySelector('.card-body').appendChild(divDate);
     }
-    else { // Se actualiza.
+    else { // Update data.
         chatB.querySelector('.card-text>strong').textContent = local? 
-        'Tú: ': values['sender'] + ': ';
-        chatB.querySelector('.card-text>span').textContent = values['text'];
+        'Tú: ': msg['sender'] + ': ';
+        chatB.querySelector('.card-text>span').textContent = msg['text'];
         chatB.querySelector('.date-sent').textContent = local?
-            formatDate(new Date()): formatDate(new Date(Date.parse(values['dateSent'])));
+            formatDate(new Date()): formatDate(new Date(Date.parse(msg['dateSent'])));
         if(!local) {
-            chatB.querySelector('.date-cont').removeChild(chatB.querySelector('.read-icon'));
+            if (chatB.querySelector('.read-icon')){
+                chatB.querySelector('.date-cont').removeChild(chatB.querySelector('.read-icon'));
+            }
         }
         else if ((chatB.querySelector('.read-icon'))) {
-            // Existe el elemento p que almacena el icono.
-
+            // TODO para funcionalidad de lectura de mensajes.
+            
         }
-        else { // Se debe crear el elemento
+        else { // Create read icon element.
             let pReaded = document.createElement('p');
             pReaded.classList.add('read-icon', 'card-subtitle');
             pReaded.style.fontSize = '0.8em';
@@ -221,55 +202,21 @@ function updateChatList(local, values){
     }
 }
 
-function addLocalMsg(text){
-    let msgCont = document.createElement('div');
-    msgCont.classList.add('msg-container', 'w-100', 'd-flex', 'justify-content-end');
-
-    let msgCard = document.createElement('div');
-    msgCard.classList.add('card');
-    msgCard.style.width = 'fit-content';
-    msgCard.style.backgroundColor = 'var(--bs-gray-200)';
-
-    let msgCardBody = document.createElement('div');
-    msgCardBody.classList.add('card-body', 'p-2');
-
-    let pText = document.createElement('p');
-    pText.classList.add('card-text', 'mb-1');
-    pText.textContent = text;
-
-    let divDate = document.createElement('div');
-    divDate.classList.add('d-flex', 'justify-content-between', 'gap-3');
-    let pDate = document.createElement('p');
-    pDate.classList.add('card-subtitle', 'text-muted');
-    pDate.style.fontSize = '0.8em';
-    pDate.textContent = formatDate(new Date());
-    let pReaded = document.createElement('p');
-    pReaded.classList.add('card-subtitle');
-    pReaded.style.fontSize = '0.8em';
-    pReaded.textContent = '✅';
-    divDate.appendChild(pDate);
-    divDate.appendChild(pReaded);
-
-    msgCardBody.appendChild(pText);
-    msgCardBody.appendChild(divDate);
-    msgCard.appendChild(msgCardBody);
-    msgCont.appendChild(msgCard);
-    let chat = document.querySelector('#chat-' + currentChatId + '>.chat-msgs');
-    chat.appendChild(msgCont);
-}
-
 let currentChatId = 'ini';
 function sendMsg(){
     let event = currentChatId;
     let text = document.getElementById('input-msg-' + currentChatId).value;
     document.getElementById('input-msg-' + currentChatId).value = '';
     go(`/chat/${event}/sendMsg`, "POST", {text}, false)
-        .then(d => {console.log(d);
-            updateChat(true, {'text': text, 'chatId': event});
-            // addLocalMsg(text);
+        .then(d => {
+            console.log(d);
+
+            addNewMsgBottom(true, {'text': text, 'event': event,
+                'dateSent': (new Date()).toISOString()})
+
             scrollDownChat();
 
-            updateChatList(true, {'text': text, 'chatId': event});
+            updateChatList(true, {'text': text, 'event': event});
         })
         .catch(e => {console.log(e)
             alert("Something went wrong.");
@@ -281,93 +228,35 @@ function setChat(chatId) {
     document.getElementById('chat-' + chatId).style.display = 'flex';
     currentChatId = chatId;
     scrollDownChat();
-    console.log("Setting Current Chat Id: " + chatId);
-}
-
-function formatDate(date) {
-    return `${('00' + date.getDate()).slice(-2)}-${('00' + (date.getMonth() + 1)).slice(-2)}-${date.getFullYear()}` +
-    ` ${('00' + date.getHours()).slice(-2)}:${('00' + date.getMinutes()).slice(-2)}`;
 }
 
 function loadMoreMsgs(chatId, userId){
-    let inputNPNum = document.getElementById('chat-' + chatId + '-page');
-    let nextPageNum = Number(inputNPNum.value);
     let inputFMDate = document.getElementById('chat-' + chatId + '-date');
     let firstMsgDate = inputFMDate.value;
 
     go(`/chat/${chatId}/loadMsgs/${firstMsgDate}`, "POST", {}, false)
     .then(async d => {
-        let resJSON = await d.json();
-        if (resJSON['page-items'] > 0){
+        let resJSON = await d.json(); // Convert body reponse to JSON
+        if (resJSON['page-items'] > 0){ // There are still message to load.
             let chatContent = document.querySelector('#chat-' + chatId + '>.chat-msgs');
             let scrollHBefore = chatContent.scrollHeight;
+            
             let auxFMDate = inputFMDate.value;
             resJSON['msgs'].forEach(msg => {
-                let refElem = document.querySelector('#chat-' + chatId + 
-                    '>.chat-msgs>.msg-container');
-                let msgCont = document.createElement('div');
-                msgCont.classList.add(...['msg-container', 'w-100', 'd-flex']);
-                if(userId == msg['senderId'])
-                    msgCont.classList.add('justify-content-end');
-                
-                let msgCard = document.createElement('div');
-                msgCard.classList.add(...userId == msg['senderId']? ['card']: 
-                    ['card', 'bg-light']);
-                msgCard.style.width = 'fit-content';
-                if(userId == msg['senderId'])
-                    msgCard.style.backgroundColor = 'var(--bs-gray-200)';
+                addNewMsgTop(userId == msg['senderId'], msg);
 
-                let msgCBody = document.createElement('div');
-                msgCBody.classList.add(...['card-body', 'p-2']);
-
-                if(userId != msg['senderId']) {
-                    let msgCSender = document.createElement('p');
-                    msgCSender.classList.add(...['card-title', 'mb-0', 'text-primary']);
-                    msgCSender.innerText = msg['sender'];
-                    msgCBody.appendChild(msgCSender);
-                }
-
-                let msgCText = document.createElement('p');
-                msgCText.classList.add(...['card-text', 'mb-1']);
-                msgCText.innerText = msg['text'];
-
-                let msgCDet = document.createElement('div');
-                msgCDet.classList.add(...['d-flex', 'justify-content-between', 'gap-3']);
-
-                let msgCDate = document.createElement('p');
-                msgCDate.classList.add(...['card-subtitle', 'text-muted']);
-                let msgDate = new Date(msg['dateSent']);
-                // console.log(msgDate);
-                msgCDate.innerText = formatDate(msgDate);
-                
-                msgCDet.appendChild(msgCDate);
-                if(userId == msg['senderId']) {
-                    let readedCDate = document.createElement('p');
-                    readedCDate.classList.add('card-subtitle');
-                    readedCDate.innerText = '✅';
-                    msgCDet.appendChild(readedCDate);
-                }
-
-                msgCBody.appendChild(msgCText);
-                msgCBody.appendChild(msgCDet);
-
-                msgCard.appendChild(msgCBody);
-                msgCont.appendChild(msgCard);
-
-                refElem.before(msgCont);
-                // console.log(msg['text']);
                 auxFMDate = msg['dateSent'];
             });
+            // Update first message date.
             inputFMDate.value = auxFMDate;
+            // scroll down to first new message added.
             chatContent.scrollTop = chatContent.scrollHeight - scrollHBefore;
-            // inputNPNum.value = (nextPageNum + 1);
         }
         else{
             document.querySelector('#chat-' + chatId + 
             '>.chat-msgs>.load-msgs-cont').remove();
         }
         console.log(resJSON);
-        // console.log(await d.json());
         })
     .catch(e => {console.log(e);
         alert("Something went wrong.")});
@@ -387,11 +276,6 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log(subs);
         // let subs = ["/sendMsg/chat/1"];
         wsChat.initialize(config.socketUrl, subs);
-
-        // let p = document.querySelector("#nav-unread");
-        // if (p) {
-        //     go(`${config.rootUrl}/user/unread`, "GET").then(d => p.textContent = d.unread);
-        // }
     } else {
         console.log("Not opening websocket: missing config", config)
     }

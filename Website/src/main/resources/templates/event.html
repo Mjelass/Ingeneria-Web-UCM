@@ -6,7 +6,6 @@
     <title>DreamTrip</title>
     <script th:src="@{/js/modal.js}" src="js/modal.js"></script>
     <script th:src="@{/js/event.js}" src="js/event.js"></script>
-    <script th:src="@{/js/report.js}" src="js/report.js"></script>
     <link rel="stylesheet" th:href="@{/css/modal.css}" href="css/modal.css">
     <link rel="stylesheet" th:href="@{/css/event.css}" href="css/event.css">
 </head>
@@ -230,8 +229,8 @@
                             <p class="mb-0"><span>⭐⭐⭐⭐⭐</span><span th:text="${ownerRatings}"></span> ratings</p>
                         </div>
                     </div>
-                    <th:block th:if="${isOwner}">
-                        <button type="button" class="btn btn-danger" th:disabled="!${isLogged}" onclick="toggleModalForm('report-form-cont')">Report</button>
+                    <th:block th:if="${isLogged}">
+                        <button type="button" class="btn btn-danger" onclick="toggleModalForm('report-form-cont')">Report</button>
                         <div id="report-form-cont" class="modal-form-cont">
                             <form class="modal-form bg-white rounded">
                                 <h3>Report <span th:text="${event.userOwner.firstName} + ' ' + ${event.userOwner.lastName}"></span> .</h3>
