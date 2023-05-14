@@ -17,32 +17,36 @@
                         <div class="card-body">
 
                             <ul class="list-unstyled mb-0">
-                                <div class="event d-flex rounded overflow-hidden" th:each="user:${joinedUser}">
+                                <!-- <div class="event d-flex rounded overflow-hidden" th:each="user:${joinedUser}">
                                     <a th:text="${user.username}" th:href="@{/user/{id}(id=${user.id})}" class="card-btn btn btn-primary mb-1" style="border-radius: 10px;">User</a>  
-                                </div>
+                                </div> -->
 
-<!--
                                 <form method="POST" th:action="@{/event/{id}/saveRating(id=${event.id})}">
                                     <table>
-                                      <thead>
-                                        <tr>
-                                          <th>User</th>
-                                          <th>Rating</th>
-                                        </tr>
-                                      </thead>
-                                      <tbody>
-                                        <tr th:each="user : ${joinedUsers}">
-                                          <td th:text="${user.name}"></td>
-                                          <td>
-                                            <input type="hidden" name="userId" th:value="${user.id}">
-                                            <input type="number" name="ratingValue" min="1" max="5" required>
-                                          </td>
-                                        </tr>
-                                      </tbody>
+                                        <thead>
+                                            <tr>
+                                                <th>User</th>
+                                                <th>Rating</th>
+                                                <th>Valoration</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="user:${joinedUser}">
+                                                <td th:text="${user.username}"></td>
+                                                <td>
+                                                    <input type="hidden" name="userId" th:value="${user.id}">
+                                                    <input type="number" name="ratingValue" min="1" max="5" required>
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="valoration">
+                                                </td>
+                                            </tr>
+                                        </tbody>
                                     </table>
                                     <button type="submit">Save ratings</button>
-                                </form> 
--->
+                                </form>
+                                
+
 
                             </ul>
                         </div>
