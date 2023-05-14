@@ -234,7 +234,7 @@ public class EventController {
         }
 
         // Get a list of all UserEvent rows associated with this event, with joined == true
-        ArrayList<User> joinedUsers = userRepository.getJoinedUsers(event.getId());
+        ArrayList<User> joinedUsers = userRepository.getJoinedUsers(event.getId(), ratingUser.getId());
         // Page<User> pageJoinedUser = pageImplement(joinedUsers);
         if (!joinedUsers.isEmpty()) {
             model.addAttribute("joinedUser", joinedUsers);
@@ -242,13 +242,18 @@ public class EventController {
             return "redirect:/event/" + event.getId();
         }
         
-        return "event";
+        model.addAttribute("event", event);
+        return "saveRating";
     }
 
 
     @PostMapping("{id}/saveRating")
     @Transactional
-    public String submitRatings(@PathVariable long id, HttpSession session) {
+    public String submitRatings(@PathVariable long id,
+    @RequestParam("userId") long[] userIds,
+    @RequestParam("ratingValue") int[] ratingValues,
+    @RequestParam("valoration") String[] valoration,
+    HttpSession session) {
         Event event = entityManager.find(Event.class, id);
         User ratingUser = (User) session.getAttribute("u");
     
@@ -256,23 +261,28 @@ public class EventController {
             return "redirect:/event/" + id;
         }
     
-        // for (Map.Entry<String, String> entry : form.entrySet()) {
-        //     String userId = entry.getKey();
-        //     String ratingValue = entry.getValue();
-    
-        //     User ratedUser = entityManager.find(User.class, Long.parseLong(userId));
-        //     int rating = Integer.parseInt(ratingValue);
-    
-        //     Rating ratingObj = new Rating();
-        //     ratingObj.setEvent(event);
-        //     ratingObj.setRatingUser(ratingUser);
-        //     ratingObj.setRatedUser(ratedUser);
-        //     ratingObj.setRating(rating);
-        //     ratingRepository.save(ratingObj);
-        // }
-    
-        return "redirect:/event/" + id;
+        for (int i = 0; i < userIds.length; i++) {
+            long userId = userIds[i];
+            int rating = ratingValues[i];
+            String val = valoration[i];
+            
+            User ratedUser = entityManager.find(User.class, userId);
+            //ID  	DESCRIPTION  	RATING  	EVENT_ID  	USER_SRC_ID  	USER_TARG_ID  
+
+            Rating ratingObj = new Rating();
+            ratingObj.setEvent(event);
+            ratingObj.setRating(rating);
+            ratingObj.setDescription(val);
+            ratingObj.setUserTarget(ratedUser);
+            ratingObj.setUserSource(ratingUser);
+
+            entityManager.persist(ratingObj);
+		    entityManager.flush();
+        }
+        
+        return "redirect:/event/" + event.getId();
     }
+
     
     // || IMAGES METHODS
     // TODO check user
