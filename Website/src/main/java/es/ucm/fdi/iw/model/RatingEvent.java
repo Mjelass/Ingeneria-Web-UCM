@@ -6,7 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,21 +16,22 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="RatingUser")
-public class Rating {
+public class RatingEvent {
+
     @Id
     @GeneratedValue
     private Long id;
+
     @ManyToOne
     @JoinColumn(name = "event_id", referencedColumnName = "id")
     private Event event;
+
     @ManyToOne
     @JoinColumn(name = "user_src_id", referencedColumnName = "id")
     private User userSource;
-    @ManyToOne
-    @JoinColumn(name = "user_targ_id", referencedColumnName = "id")
-    private User userTarget;
+
     private int rating;
+    
     @Column(columnDefinition = "TEXT")
     private String description;
 }

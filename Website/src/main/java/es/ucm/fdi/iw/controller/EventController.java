@@ -45,6 +45,7 @@ import es.ucm.fdi.iw.Repositories.UserEventRepository;
 import es.ucm.fdi.iw.Repositories.UserRepository;
 import es.ucm.fdi.iw.model.Event;
 import es.ucm.fdi.iw.model.Rating;
+import es.ucm.fdi.iw.model.RatingEvent;
 import es.ucm.fdi.iw.model.User;
 import es.ucm.fdi.iw.model.UserEvent;
 import es.ucm.fdi.iw.model.UserEventId;
@@ -251,6 +252,8 @@ public class EventController {
     @RequestParam("userId") long[] userIds,
     @RequestParam("ratingValue") int[] ratingValues,
     @RequestParam("valoration") String[] valoration,
+    @RequestParam("eventValoration") String eventValoration,
+    @RequestParam("ratingEventValue") int ratingEventValue,
     HttpSession session) {
         Event event = entityManager.find(Event.class, id);
         User ratingUser = (User) session.getAttribute("u");
@@ -277,6 +280,15 @@ public class EventController {
             entityManager.persist(ratingObj);
 		    entityManager.flush();
         }
+
+        RatingEvent ratingEventObj = new RatingEvent();
+        ratingEventObj.setDescription(eventValoration);
+        ratingEventObj.setEvent(event);
+        ratingEventObj.setRating(ratingEventValue);
+        ratingEventObj.setUserSource(ratingUser);
+
+        entityManager.persist(ratingEventObj);
+        entityManager.flush();
         
         return "redirect:/event/" + event.getId();
     }
