@@ -56,8 +56,6 @@ import es.ucm.fdi.iw.model.Event.Type;
 public class EventController {
     private static final Logger log = LogManager.getLogger(EventController.class);
 
-    private static final String List = null;
-
     @Autowired
     private EntityManager entityManager;
 

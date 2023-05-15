@@ -466,7 +466,7 @@ public class UserController {
 
 	// delete User to the dataBase
 	@Transactional
-	@GetMapping("{id}/deleteUser")
+	@GetMapping("{id}/deleteUser") // TODO change to POST
 	public String deleteUser(@PathVariable long id, Model model) {
 		// TODO check if session user is admin
 		User user = entityManager.find(User.class, id);
