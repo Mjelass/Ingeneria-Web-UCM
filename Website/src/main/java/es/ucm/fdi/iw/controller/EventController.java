@@ -234,7 +234,8 @@ public class EventController {
 
         // Get a list of all UserEvent rows associated with this event, with joined == true
         ArrayList<User> joinedUsers = userRepository.getJoinedUsers(event.getId(), ratingUser.getId());
-        // Page<User> pageJoinedUser = pageImplement(joinedUsers);
+
+        // If there is at least 1 person joined
         if (!joinedUsers.isEmpty()) {
             model.addAttribute("joinedUser", joinedUsers);
         }else{
@@ -245,7 +246,7 @@ public class EventController {
         return "saveRating";
     }
 
-
+    // Method to process the rating form
     @PostMapping("{id}/saveRating")
     @Transactional
     public String submitRatings(@PathVariable long id,
@@ -253,22 +254,24 @@ public class EventController {
     @RequestParam("ratingValue") int[] ratingValues,
     @RequestParam("valoration") String[] valoration,
     @RequestParam("eventValoration") String eventValoration,
-    @RequestParam("ratingEventValue") int ratingEventValue,
+    @RequestParam("ratingEventValue") String ratingEventValue,
     HttpSession session) {
         Event event = entityManager.find(Event.class, id);
         User ratingUser = (User) session.getAttribute("u");
+        int ratEventVal = Integer.parseInt(ratingEventValue);
     
         if (event == null || ratingUser == null || event.getStatus() != Event.Status.FINISH) {
             return "redirect:/event/" + id;
         }
-    
+        
+        // Processing all user ratings who joined to the event
         for (int i = 0; i < userIds.length; i++) {
             long userId = userIds[i];
             int rating = ratingValues[i];
+            
             String val = valoration[i];
             
             User ratedUser = entityManager.find(User.class, userId);
-            //ID  	DESCRIPTION  	RATING  	EVENT_ID  	USER_SRC_ID  	USER_TARG_ID  
 
             Rating ratingObj = new Rating();
             ratingObj.setEvent(event);
@@ -284,7 +287,7 @@ public class EventController {
         RatingEvent ratingEventObj = new RatingEvent();
         ratingEventObj.setDescription(eventValoration);
         ratingEventObj.setEvent(event);
-        ratingEventObj.setRating(ratingEventValue);
+        ratingEventObj.setRating(ratEventVal);
         ratingEventObj.setUserSource(ratingUser);
 
         entityManager.persist(ratingEventObj);
