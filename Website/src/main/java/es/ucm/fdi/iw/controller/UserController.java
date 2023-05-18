@@ -421,7 +421,10 @@ public class UserController {
 	// Falta redirigirlo a la pagina errorSignUp si hay error
 	@Transactional
 	@PostMapping("/saveUser")
-	public String saveUser(@ModelAttribute User user, Model model) {
+	public String saveUser(@ModelAttribute User user, Model model, HttpSession session) {
+		User u = (User) session.getAttribute("u");	
+
+		
 
 		User InsertUser = new User();
 		InsertUser.setFirstName(user.getFirstName());
@@ -444,7 +447,13 @@ public class UserController {
 		entityManager.persist(InsertUser);
 		entityManager.flush();
 		model.addAttribute("User", InsertUser);
+
+		if(u.hasRole(Role.ADMIN)){
+			return "redirect:/admin/";	
+		}
+		
 		return "redirect:/";
+
 	}
 
 	// add or erase user from blacklist

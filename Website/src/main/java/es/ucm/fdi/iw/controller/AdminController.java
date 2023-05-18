@@ -43,6 +43,7 @@ public class AdminController {
     
         return "redirect:/admin/allUsers";
     }
+
     @GetMapping("/allUsers")
     public String allUsers(Model model,
         @RequestParam(name="page",defaultValue="0")int page,
@@ -119,4 +120,37 @@ public class AdminController {
         model.addAttribute("nbr", "allReports");
         return "admin";
     }
+
+    @GetMapping("/addUser")
+    public String addUser(Model model){
+        model.addAttribute("User", new User());
+        return "addUser";
+    }
+
+    // @PostMapping("/addUser")
+    // public String addUser(@ModelAttribute User user, Model model){
+    //     User InsertUser = new User();
+	// 	InsertUser.setFirstName(user.getFirstName());
+	// 	InsertUser.setLastName(user.getLastName());
+	// 	InsertUser.setPassword(encodePassword(user.getPassword()));
+	// 	InsertUser.setUsername(user.getUsername());
+	// 	InsertUser.setLocation(user.getLocation());
+	// 	InsertUser.setDescription(user.getDescription());
+	// 	InsertUser.setLanguages(user.getLanguages());
+	// 	InsertUser.setEmail(user.getEmail());
+	// 	InsertUser.setBirthdate(user.getBirthdate());
+	// 	InsertUser.setRating(0F);
+	// 	InsertUser.setStatus(Status.ACTIVE);
+	// 	InsertUser.setRoles(Role.USER.name());
+	// 	InsertUser.setEnabled(true);
+	// 	InsertUser.setUserEvent(null);
+	// 	InsertUser.setSent(null);
+	// 	InsertUser.setLevel(Level.BRONZE);
+	// 	InsertUser.setReceived(null);
+	// 	entityManager.persist(InsertUser);
+	// 	entityManager.flush();
+	// 	model.addAttribute("User", InsertUser);
+	// 	return "admin";
+    // }
+    
 }
