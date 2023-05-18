@@ -110,7 +110,7 @@
                             </div>
                         </th:block>
                     </div>
-                    <div id="event-notes" class="mb-5">
+                    <div th:if="${event.notes.length > 0}" id="event-notes" class="mb-5">
                         <h2>NOTES</h2>
                         <div class="d-flex flex-wrap" th:each="note: ${event.notes.split(',')}">
                             <th:block th:switch="${note}">
@@ -121,10 +121,10 @@
                                     <p class="flex-fill"><span class="fs-4">🐾❌</span> Pets are not allowed</p>
                                 </th:block>
                                 <th:block th:case="'KIDS'">
-                                    <p class="flex-fill"><span class="fs-4">👶</span> Babies are allowed</p>
+                                    <p class="flex-fill"><span class="fs-4">👶✅</span> Babies are allowed</p>
                                 </th:block>
                                 <th:block th:case="'ANIMALS'">
-                                    <p class="flex-fill"><span class="fs-4">🐾</span> Pets allowed</p>
+                                    <p class="flex-fill"><span class="fs-4">🐾✅</span> Pets allowed</p>
                                 </th:block>
                             </th:block>
                         </div>
