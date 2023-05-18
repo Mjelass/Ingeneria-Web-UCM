@@ -107,6 +107,8 @@ public class User implements Transferable<User.Transfer> {
     @Column(unique = true)
     private String email;
 
+    private int numReports;
+
      /*
     //Eventos en los que ha participado antes(estan en estado finish)
     @OneToMany

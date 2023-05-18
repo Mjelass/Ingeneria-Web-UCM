@@ -444,6 +444,7 @@ public class UserController {
 		InsertUser.setSent(null);
 		InsertUser.setLevel(Level.BRONZE);
 		InsertUser.setReceived(null);
+		InsertUser.setNumReports(0);
 		entityManager.persist(InsertUser);
 		entityManager.flush();
 		model.addAttribute("User", InsertUser);
@@ -484,7 +485,6 @@ public class UserController {
 		return "/admin/allUsers";
 	}
 
-	// count user reportings
 	// @GetMapping("{id}/reportings")
 	// @ResponseBody
 	// public int reportings(@PathVariable long id, Model model, HttpSession session) {

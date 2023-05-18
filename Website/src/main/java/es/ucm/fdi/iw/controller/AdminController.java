@@ -50,12 +50,14 @@ public class AdminController {
         @RequestParam(name="size",defaultValue="3")int size) {
         List<User> allUser = entityManager.createNamedQuery("User.allUsers").getResultList();
         int total = allUser.size();
-            int fromIndex = (page) * size;
-            int toIndex = Math.min(fromIndex + size, total);
+        int fromIndex = (page) * size;
+        int toIndex = Math.min(fromIndex + size, total);
 
-            List<User> pageList = allUser.subList(fromIndex, toIndex);
-            PageRequest pageRequest = PageRequest.of(page, size);
-            Page<User>PageUsers = new PageImpl<>(pageList, pageRequest, total);
+        List<User> pageList = allUser.subList(fromIndex, toIndex);
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Page<User>PageUsers = new PageImpl<>(pageList, pageRequest, total);
+
+
         model.addAttribute("allUser", PageUsers.getContent());
         model.addAttribute("size", size);
         model.addAttribute("currentPage", page);
@@ -64,6 +66,8 @@ public class AdminController {
         model.addAttribute("nbr", "allUsers");
         return "admin";
     }
+
+
      @GetMapping("/allEvents")
     public String allEvents(Model model,
         @RequestParam(name="page",defaultValue="0")int page,
@@ -121,11 +125,11 @@ public class AdminController {
         return "admin";
     }
 
-    @GetMapping("/addUser")
-    public String addUser(Model model){
-        model.addAttribute("User", new User());
-        return "addUser";
-    }
+    // @GetMapping("/addUser")
+    // public String addUser(Model model){
+    //     model.addAttribute("User", new User());
+    //     return "addUser";
+    // }
 
     // @PostMapping("/addUser")
     // public String addUser(@ModelAttribute User user, Model model){
