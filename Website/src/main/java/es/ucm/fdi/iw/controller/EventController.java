@@ -41,6 +41,7 @@ import org.springframework.util.FileCopyUtils;
 
 import es.ucm.fdi.iw.LocalData;
 import es.ucm.fdi.iw.Repositories.EventRepository;
+import es.ucm.fdi.iw.Repositories.RatingEventRepository;
 import es.ucm.fdi.iw.Repositories.UserEventRepository;
 import es.ucm.fdi.iw.Repositories.UserRepository;
 import es.ucm.fdi.iw.model.Event;
@@ -71,6 +72,9 @@ public class EventController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private RatingEventRepository ratingEventRepository;
 
     // Return event/{id} page
     @GetMapping("{id}")
@@ -104,14 +108,23 @@ public class EventController {
         model.addAttribute("isLogged", u != null);
         model.addAttribute("fav", ue == null ? false : ue.getFav());
         model.addAttribute("joined", ue == null ? false : ue.getJoined());
-        int numFavs = eventRepository.getNumFavsEvent(id);
+        
 
         // Check if user is already in event
         boolean isEventFinished = target.getStatus().equals(Event.Status.FINISH);
         boolean canRate = (ue != null) && isEventFinished && ue.getJoined();
         model.addAttribute("canRate", canRate);
 
+        // Disable if the event is already rated
+        if (canRate) {
+            // Returns 1 if event is already rated with user, then disable form post rating
+            int numEventRating = ratingEventRepository.getNumRatingEvent(target.getId(), u.getId());
+            model.addAttribute("numEventRating", numEventRating);
+        }
+        
+        int numFavs = eventRepository.getNumFavsEvent(id);
         model.addAttribute("numFavs", numFavs);
+
         int ownerRatings = 10;
         model.addAttribute("ownerRatings", ownerRatings);
         model.addAttribute("photos", photosNames);

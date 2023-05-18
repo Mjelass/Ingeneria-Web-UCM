@@ -71,13 +71,18 @@
                 <div id="acts-aft-join" class="ms-2" th:style="${joined}? 'display:flex; flex-direction: column;' : 'display: none;'">
                     <a class="btn btn-primary mb-1" th:href="@{/chat}" href="/chat">Chat</a>
                     <!-- Comprobar que esté acabado y que el usuario logeado esté unido al evento-->
-                    <div id="acts-aft-join" class="ms-2" th:style="${canRate}? 'display:flex; flex-direction: column;' : 'display: none;'">
-                        <a class="btn btn-primary" 
-                        th:href="@{{id}/saveRating/(id=${event.id})}" 
-                        href="/saveRating">
-                        Form
-                        </a>
+                    <div id="acts-aft-join" class="ms-2" th:style="${canRate} ? 'display:flex; flex-direction: column;' : 'display: none;'">
+                        
+                        <th:block th:if="${numEventRating >= 1}">
+                            <button type="submit" class="btn btn-primary" disabled="disabled">
+                                Form Done</button>       
+                             </div> 
+                        </th:block>
+                        <th:block th:if="${numEventRating == 0}">
+                            <a class="btn btn-primary" th:href="@{{id}/saveRating/(id=${event.id})}" href="/saveRating">Form</a>
+                        </th:block>
                     </div>
+                               
                     
                 </div>
             </div>
