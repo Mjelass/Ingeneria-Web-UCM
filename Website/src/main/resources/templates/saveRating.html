@@ -5,6 +5,12 @@
     <th:block th:replace="fragments/head :: header" />
     <title>DreamTrip</title>
     <link rel="stylesheet" th:href="@{/css/saveRating.css}" href="css/saveRating.css">
+
+    <script th:src="@{/js/modal.js}" src="js/modal.js"></script>
+    <script th:src="@{/js/event.js}" src="js/event.js"></script>
+    <link rel="stylesheet" th:href="@{/css/modal.css}" href="css/modal.css">
+    <link rel="stylesheet" th:href="@{/css/event.css}" href="css/event.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 </head>
 
@@ -47,13 +53,15 @@
                                         </thead>
                                         <tbody>
                                             <tr th:each="user:${joinedUser}">
-                                                <td><img th:src="@{/user/{id}/pic(id=${user.id})}" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 3px solid white;"/></td>
+                                                <td><img th:src="@{/user/{id}/pic(id=${user.id})}"
+                                                        style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 3px solid white;" />
+                                                </td>
                                                 <td th:text="${user.username}"></td>
                                                 <td>
                                                     <input type="hidden" name="userId" th:value="${user.id}"
                                                         class="form-control">
                                                     <!-- Rating Users -->
-                                                    
+
                                                     <input type="number" name="ratingValue" min="1" max="5" required>
 
                                                     <!-- <div th:id="'userRating' + ${user.id}" class="stars">
@@ -64,7 +72,7 @@
                                                         <span class="fa fa-star" data-rating="5" th:onclick="'setRating(5, \'userRating' + ${user.id} + '\');'"></span>
                                                         <input type="hidden" name="ratingValue" th:id="'userRatingValue' + ${user.id}">
                                                     </div> -->
-                                                                                           
+
 
                                                 </td>
                                                 <td>
@@ -83,31 +91,51 @@
 
                 <!-- Second Column - Images -->
                 <div class="col-lg-6 mt-5">
-                    <div class="row g-2">
-                        <div class="col-6 mb-2">
-                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"
-                                alt="image 1" class="w-100 rounded-3">
-                        </div>
-                        <div class="col-6 mb-2">
-                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp"
-                                alt="image 2" class="w-100 rounded-3">
-                        </div>
+                    <div class="d-flex flex-wrap gap-2 my-3">
+                        <th:block th:each="photo: ${photos}">
+                            <div class="event-pic position-relative">
+                                <img th:src="@{/event/{id}/pic/{n}(id=${event.id},n=${photo})}" alt="" width="280" height="150"
+                                    style="object-fit: cover;" th:attr="onclick=|toggleShowPic('@{/event/{id}/pic/{n}(id=${event.id},n=${photo})}')|">
+                                <th:block th:if="${isOwner}">
+                                    <form class="position-absolute" th:action="@{/event/{id}/rmPic/{n}(id=${event.id},n=${photo})}" method="post"
+                                        style="top: 5px; right: 5px;">
+                                        <button type="submit" class="p-0 rounded-circle btn btn-light" style="width: 30px; height: 30px;">
+                                            ❌
+                                            <span class="visually-hidden">Delete Image</span>
+                                        </button>
+                                    </form>
+                                    
+                                </th:block>
+                            </div>
+                        </th:block>
                     </div>
-                    <div class="row g-2">
-                        <div class="col-6">
-                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(108).webp"
-                                alt="image 3" class="w-100 rounded-3">
-                        </div>
-                        <div class="col-6">
-                            <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(114).webp"
-                                alt="image 4" class="w-100 rounded-3">
-                        </div>
-                        <div style="width: 100%; text-align: right;">
-                            <a th:href="@{/form}" href="/form">
-                                <img th:src="@{/img/add.png}" alt="Add Trip" width="60" height="60">
-                            </a>
-                        </div>
+
+                    <div id="pic-show-cont" style="display: none" onclick="toggleShowPic()">
+                        <img src="" alt="">
                     </div>
+                    
+                
+                    <button type="button" class="btn btn-primary mb-1" onclick="toggleModalForm('pic-form-cont')">Add
+                        Image</button>
+                    <div id="pic-form-cont" class="modal-form-cont">
+                        <form class="modal-form bg-white rounded" method="POST" th:action="@{/event/{id}/addPic(id=${event.id})}"  enctype="multipart/form-data">
+                            <h3>Upload an image.</h3>
+                            <input type="hidden" name="saveRatingValue" value="true">
+
+                            <label for="report-desc" class="form-label">Upload an image:</label>
+                            <input class="form-control" type="file" id="form-file" name="photo">
+                            <br>
+                            <button type="submit" class="btn btn-primary">
+                                Send
+                            </button>
+                            <button type="button" class="btn btn-primary"
+                                onclick="toggleModalForm('pic-form-cont')">Cancel</button>
+                        </form>
+                    </div>
+                    
+
+
+
                 </div>
             </div>
         </div>
@@ -128,7 +156,7 @@
                 stars[i].classList.add("checked");
             }
 
-            ratingInput.value =  parseInt(rating);
+            ratingInput.value = parseInt(rating);
         }
 
     </script>

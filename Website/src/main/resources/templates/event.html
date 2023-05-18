@@ -169,6 +169,7 @@
                                 <form class="modal-form bg-white rounded" th:action="@{/event/{id}/addPic(id=${event.id})}" method="post"
                                     enctype="multipart/form-data">
                                     <h3>Upload an image.</h3>
+                                    <input type="hidden" name="saveRatingValue" value="false">
                                     <label for="report-desc" class="form-label">Upload an image:</label>
                                     <input class="form-control" type="file" id="form-file" name="photo">
                                     <br>

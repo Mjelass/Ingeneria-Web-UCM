@@ -248,6 +248,21 @@ public class EventController {
         // Get a list of all UserEvent rows associated with this event, with joined == true
         ArrayList<User> joinedUsers = userRepository.getJoinedUsers(event.getId(), ratingUser.getId());
 
+        File files = localData.getFile("event", ""+id);
+        ArrayList<String> photosNames = new ArrayList<>();
+        if (files.listFiles() != null){
+            for(var f: files.listFiles()){
+                String fileName = f.getName();
+                if (fileName.indexOf(".") > 0) {
+                    fileName = fileName.substring(0, fileName.lastIndexOf("."));
+                }
+                photosNames.add(fileName);
+            }
+        }
+
+        model.addAttribute("photos", photosNames);
+
+
         // If there is at least 1 person joined
         if (!joinedUsers.isEmpty()) {
             model.addAttribute("joinedUser", joinedUsers);
@@ -308,7 +323,6 @@ public class EventController {
         
         return "redirect:/event/" + event.getId();
     }
-
     
     // || IMAGES METHODS
     // TODO check user
@@ -354,7 +368,9 @@ public class EventController {
 	 * @throws NoSuchAlgorithmException
 	 */
 	@PostMapping("{id}/addPic")
-	public String addPic(@RequestParam("photo") MultipartFile photo, @PathVariable long id,
+	public String addPic(@RequestParam("photo") MultipartFile photo,
+    @RequestParam("saveRatingValue") Boolean saveRatingValue,
+    @PathVariable long id,
 			HttpServletResponse response, HttpSession session, Model model) throws IOException, NoSuchAlgorithmException {
 
 		if (photo.isEmpty()) {
@@ -377,7 +393,12 @@ public class EventController {
 				log.warn("Error uploading " + id + " ", e);
 			}
 		}
-		return "redirect:/event/" + id;
+        if (saveRatingValue) {
+            return "redirect:/event/" + id + "/saveRating";
+        }else{
+            return "redirect:/event/" + id;
+        }
+		
 	}
 
 
