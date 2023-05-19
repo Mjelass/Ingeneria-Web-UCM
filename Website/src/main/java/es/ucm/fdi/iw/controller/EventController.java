@@ -42,6 +42,7 @@ import org.springframework.util.FileCopyUtils;
 import es.ucm.fdi.iw.LocalData;
 import es.ucm.fdi.iw.Repositories.EventRepository;
 import es.ucm.fdi.iw.Repositories.RatingEventRepository;
+import es.ucm.fdi.iw.Repositories.RatingUserRepository;
 import es.ucm.fdi.iw.Repositories.UserEventRepository;
 import es.ucm.fdi.iw.Repositories.UserRepository;
 import es.ucm.fdi.iw.model.Event;
@@ -51,7 +52,7 @@ import es.ucm.fdi.iw.model.User;
 import es.ucm.fdi.iw.model.UserEvent;
 import es.ucm.fdi.iw.model.UserEventId;
 import es.ucm.fdi.iw.model.Event.Status;
-import es.ucm.fdi.iw.model.Event.Type;
+
 
 @Controller()
 @RequestMapping("event")
@@ -76,12 +77,15 @@ public class EventController {
     @Autowired
     private RatingEventRepository ratingEventRepository;
 
+    @Autowired
+    private RatingUserRepository ratingUserRepository;
+
     // Return event/{id} page
     @GetMapping("{id}")
     public String index(@PathVariable long id, Model model, HttpSession session) {
         Event target = entityManager.find(Event.class, id);
-        if (target == null) { // TODO Error Msg
-            return "index";
+        if (target == null) { 
+            return "redirect:/";
         }
         // Get UserEvent row from user logged and event id.
         User u = (User) session.getAttribute("u");
@@ -125,8 +129,11 @@ public class EventController {
         int numFavs = eventRepository.getNumFavsEvent(id);
         model.addAttribute("numFavs", numFavs);
 
-        int ownerRatings = 10;
+        // Average rating of owner
+        float ownerRatings = ratingUserRepository.getAverageRating(target.getUserOwner().getId());
         model.addAttribute("ownerRatings", ownerRatings);
+
+
         model.addAttribute("photos", photosNames);
         model.addAttribute("isOwner", u != null && (target.getUserOwner().getId() == u.getId()));
         model.addAttribute("event", target);
@@ -142,6 +149,17 @@ public class EventController {
         Event e = entityManager.find(Event.class, id);
         if (u != null && u.getId() == e.getUserOwner().getId()) {
             // TODO check values make sense: OPEN and don't has vacancies.
+
+/*
+Juan: No estoy seguro de lo que quieres hacer aquí pero creo que sería esto, lo comento por si acaso
+*/
+            // if (e.getStatus() == Event.Status.OPEN && e.getCapacity() == 0) { 
+            //     e.setStatus(status == null ? e.getStatus(): status);
+            //     e.setDescription(description == null ? e.getDescription(): description);
+            //     eventRepository.save(e);
+            // }
+
+
             e.setStatus(status == null ? e.getStatus(): status);
             e.setDescription(description == null ? e.getDescription(): description);
             eventRepository.save(e);
@@ -160,6 +178,12 @@ public class EventController {
         String rol;
         int additionJoin = 0;
         // TODO check event status
+        /*
+         * Juan: No he entendido la comprobación del estatus
+         */
+
+
+
         // Search UserEvent row with event=id and user=u.getId()
         User u = (User) session.getAttribute("u");
         Event e = entityManager.find(Event.class, id);
@@ -326,6 +350,12 @@ public class EventController {
     
     // || IMAGES METHODS
     // TODO check user
+    /*
+     * Juan: No estoy seguro de qué hay que comprobar:
+     * - Si el usuario logeado pertenezca al evento o sea el dueño del evento o cómo, si
+     * este es el caso también los usuarios no logeado y que no pertenezcan al evento
+     * podrán ver las imagenes y tal, no? (No entiendo bien)
+     */
     /**
      * Get a pic from event with name n
      * @param id

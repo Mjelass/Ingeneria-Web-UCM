@@ -196,15 +196,6 @@ public class UserController {
 		pageEvents = new PageImpl<>(pageList, pageRequest, total);
 		return pageEvents;
 	}
-	// ToDo
-	// public void initUserView(Model model) {
-	// model.addAttribute("allEventsDone", pageEvents.getContent());
-	// model.addAttribute("user", target);
-	// model.addAttribute("age", age);
-	// model.addAttribute("idRequest", target.getId());
-	// model.addAttribute("idUser", u != null ? u.getId() : -1);
-	// model.addAttribute("isOwner", u != null && (target.getId() == u.getId()));
-	// }
 
 	/**
 	 * Alter or create a user
@@ -459,43 +450,37 @@ public class UserController {
 	// add or erase user from blacklist
 	@Transactional
 	@GetMapping("{id}/blacklistUser")
-	public String blacklistUser(@PathVariable long id, Model model){
-		// TODO check if session user is admin
+	public String blacklistUser(@PathVariable long id, Model model, HttpSession session){
 		User user = entityManager.find(User.class, id);
+		User u = (User) session.getAttribute("u");	
+
 		if (user != null) {
-			if (user.getStatus().equals(Status.BLACK_LISTED))
-				user.setStatus(Status.ACTIVE);
-			else
-				user.setStatus(Status.BLACK_LISTED);
-			userRepository.save(user);
+			if (u.hasRole(Role.ADMIN)) {
+				if (user.getStatus().equals(Status.BLACK_LISTED))
+					user.setStatus(Status.ACTIVE);
+				else
+					user.setStatus(Status.BLACK_LISTED);
+
+				userRepository.save(user);
+				return "redirect:/admin/blackListUser";
+			}
 		}
-		return "redirect:/admin/blackListUser";
-
+		return "redirect:/";
 	}
 
-	// delete User to the dataBase
 	@Transactional
-	@GetMapping("{id}/deleteUser") // TODO change to POST
-	public String deleteUser(@PathVariable long id, Model model) {
-		// TODO check if session user is admin
-		User user = entityManager.find(User.class, id);
-		user.setEnabled(false);
-		userRepository.save(user);
-		return "/admin/allUsers";
+	@PostMapping("{id}/deleteUser")
+	public String deleteUser(@PathVariable long id, Model model, HttpSession session) {
+		User u = (User) session.getAttribute("u");	
+
+		if (u.hasRole(Role.ADMIN)) {
+			User user = entityManager.find(User.class, id);
+			user.setEnabled(false);
+			userRepository.save(user);
+			return "redirect:/admin/allUsers";
+		}
+		return "redirect:/";
 	}
 
-	// count user reportings
-	// @GetMapping("{id}/reportings")
-	// @ResponseBody
-	// public int reportings(@PathVariable long id, Model model, HttpSession session) {
-	// 	// User user = entityManager.find(User.class, id);
-	// 	List<Report> userReports =entityManager.createNamedQuery("Report.numReports")
-	// 						.setParameter("id", id)
-	// 						.getResultList();
-	// 	int numReports = userReports.size();
 
-	// 	//int reportCount = reportRepository.countByUser(user);
-	// 	// model.addAttribute("nReportings", nReportings);
-	// 	return numReports;
-	// }
 }

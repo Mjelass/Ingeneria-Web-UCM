@@ -232,7 +232,15 @@
                             <h5><a class="text-decoration-none text-body" th:href="@{/user/{id}(id=${event.userOwner.id})}">
                                 <span th:text="${event.userOwner.lastName}">Surname</span>
                             </a></h5>
-                            <p class="mb-0"><span>⭐⭐⭐⭐⭐</span><span th:text="${ownerRatings}"></span> ratings</p>
+                            <p class="mb-0">
+                                <span th:if="${ownerRatings > 0}">
+                                  <span th:each="rating : ${#numbers.sequence(1, ownerRatings)}">⭐</span>
+                                  <span th:if="${ownerRatings % 1 != 0}">★</span>
+                                </span>
+                                <span th:unless="${ownerRatings > 0}">No ratings</span>
+                            </p>
+                              
+                              
                         </div>
                     </div>
                     <th:block th:if="${isLogged}">
