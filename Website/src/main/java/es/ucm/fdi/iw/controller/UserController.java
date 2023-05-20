@@ -500,10 +500,9 @@ public class UserController {
 			if(user!=null){
 				user.setNumReports(user.getNumReports() - 1);
 			}
-			// entityManager.remove(report);
 			reportRepository.delete(report);
 		}
 		
-		return "redirect:/admin/allUsers";
+		return "redirect:/admin/allReports";
 	}
 }
