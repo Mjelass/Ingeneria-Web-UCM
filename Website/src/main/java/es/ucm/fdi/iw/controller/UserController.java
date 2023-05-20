@@ -488,8 +488,8 @@ public class UserController {
 		return "redirect:/";
 	}
 
-	@GetMapping("{id}/deleteReport")
-	@ResponseBody
+	@PostMapping("{id}/deleteReport")
+	@Transactional
 	public String deleteReport(@PathVariable long id, Model model, HttpSession session) {
 		User u = (User) session.getAttribute("u");
 		Report report = entityManager.find(Report.class, id);
