@@ -66,8 +66,6 @@
                   <p class="description m-0" th:text="${user.description}">desc</p>
                   <p class="m-0">
                     <p class="mx-2"><strong>⚠ reportings: </strong><span th:text="${user.numReports}"></span></p>
-                    <!-- <p class="mx-2"><strong>⚠ reportings: </strong><span></span></p> -->
-
                 </div>
                 <div style="width: 13em;"></div>
                 <div >
@@ -150,9 +148,9 @@
                   </div>
                   <p class="description m-0" th:text="${user.description}">desc</p>
                   <p class="m-0">
-                    <p class="mx-2"><strong>⚠ reportings: </strong>0</p>
+                    <p class="mx-2"><strong>⚠ reportings: </strong><span th:text="${user.numReports}"></span></p>
                 </div>
-                                <div style="width: 13em;"></div>
+                <div style="width: 13em;"></div>
 
                 <div >
                  <a type="button" class="btn btn-secondary btn-sm my-2" style="width: 7em;" th:href="@{/user/{id}/blacklistUser(id=${user.id})}">
@@ -197,11 +195,11 @@
               <div class="col-1">
                 <div class="event-body d-flex gap-3">
                   <div>
-                  <button type="button" class="btn btn-secondary btn-sm my-2" style="width: 5em;">
+                  <button type="button" class="btn btn-secondary btn-sm my-2" style="width: 5em;" th:href="@{/user/{id}/blacklistUser(id=${report.userTarget.id})}">
                       📝 Blacklist
                     </button>
                   
-                    <button type="button" class="btn btn-secondary btn-sm" style="width: 5em;">
+                    <button type="button" class="btn btn-secondary btn-sm" style="width: 5em;" th:href="@{/user/{id}/deleteReport(id=${report.id})}">
                       🗑️ Delete
                     </button>
                   </div>

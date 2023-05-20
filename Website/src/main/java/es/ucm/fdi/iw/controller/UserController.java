@@ -414,6 +414,9 @@ public class UserController {
 		report.setUserSource(userSource);
 		report.setUserTarget(userTarget);
 		reportRepository.save(report);
+
+		userTarget.setNumReports(userTarget.getNumReports() + 1);
+
 		return "ok";
 	}
 
@@ -480,22 +483,27 @@ public class UserController {
 	public String deleteUser(@PathVariable long id, Model model) {
 		// TODO check if session user is admin
 		User user = entityManager.find(User.class, id);
-		user.setEnabled(false);
-		userRepository.save(user);
-		return "/admin/allUsers";
+		if (user != null) {
+			user.setEnabled(false);
+			userRepository.save(user);
+		}
+		
+		return "redirect:/admin/";
 	}
 
-	// @GetMapping("{id}/reportings")
-	// @ResponseBody
-	// public int reportings(@PathVariable long id, Model model, HttpSession session) {
-	// 	// User user = entityManager.find(User.class, id);
-	// 	List<Report> userReports =entityManager.createNamedQuery("Report.numReports")
-	// 						.setParameter("id", id)
-	// 						.getResultList();
-	// 	int numReports = userReports.size();
-
-	// 	//int reportCount = reportRepository.countByUser(user);
-	// 	// model.addAttribute("nReportings", nReportings);
-	// 	return numReports;
-	// }
+	@GetMapping("{id}/deleteReport")
+	@ResponseBody
+	public String deleteReport(@PathVariable long id, Model model, HttpSession session) {
+		
+		Report report = entityManager.find(Report.class, id);
+		if (report != null) {
+			// User user = entityManager.find(User.class, report.userTarget.getId());
+			// if(user!=null){
+			// 	user.setNumReports(user.getNumReports() - 1);
+			// }
+			// TODO Eliminar report
+		}
+		
+		return "redirect:/admin/allReports";
+	}
 }
