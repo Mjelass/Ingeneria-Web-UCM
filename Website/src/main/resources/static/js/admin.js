@@ -12,6 +12,9 @@ function changeName(){
     case "allReports":
       name = "Reports";
       break;
+      case "disabledUsers":
+      name = "Disabled Users";
+      break;
     case "allUsers":
     default:
       name = "All users";

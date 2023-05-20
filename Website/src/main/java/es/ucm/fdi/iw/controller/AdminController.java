@@ -125,36 +125,27 @@ public class AdminController {
         return "admin";
     }
 
-    // @GetMapping("/addUser")
-    // public String addUser(Model model){
-    //     model.addAttribute("User", new User());
-    //     return "addUser";
-    // }
+    @GetMapping("/disabledUsers")
+    public String disabledUsers(Model model,
+        @RequestParam(name="page",defaultValue="0")int page,
+        @RequestParam(name="size",defaultValue="10")int size) {
+        List<User> disabledUsers = entityManager.createNamedQuery("User.disabledUsers").getResultList();
+        int total = disabledUsers.size();
+        int fromIndex = (page) * size;
+        int toIndex = Math.min(fromIndex + size, total);
 
-    // @PostMapping("/addUser")
-    // public String addUser(@ModelAttribute User user, Model model){
-    //     User InsertUser = new User();
-	// 	InsertUser.setFirstName(user.getFirstName());
-	// 	InsertUser.setLastName(user.getLastName());
-	// 	InsertUser.setPassword(encodePassword(user.getPassword()));
-	// 	InsertUser.setUsername(user.getUsername());
-	// 	InsertUser.setLocation(user.getLocation());
-	// 	InsertUser.setDescription(user.getDescription());
-	// 	InsertUser.setLanguages(user.getLanguages());
-	// 	InsertUser.setEmail(user.getEmail());
-	// 	InsertUser.setBirthdate(user.getBirthdate());
-	// 	InsertUser.setRating(0F);
-	// 	InsertUser.setStatus(Status.ACTIVE);
-	// 	InsertUser.setRoles(Role.USER.name());
-	// 	InsertUser.setEnabled(true);
-	// 	InsertUser.setUserEvent(null);
-	// 	InsertUser.setSent(null);
-	// 	InsertUser.setLevel(Level.BRONZE);
-	// 	InsertUser.setReceived(null);
-	// 	entityManager.persist(InsertUser);
-	// 	entityManager.flush();
-	// 	model.addAttribute("User", InsertUser);
-	// 	return "admin";
-    // }
+        List<User> pageList = disabledUsers.subList(fromIndex, toIndex);
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Page<User>PageUsers = new PageImpl<>(pageList, pageRequest, total);
+
+
+        model.addAttribute("disabledUsers", PageUsers.getContent());
+        model.addAttribute("size", size);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("numPages", PageUsers.getTotalPages());
+        model.addAttribute("numpages", new int[PageUsers.getTotalPages()]);
+        model.addAttribute("nbr", "disabledUsers");
+        return "admin";
+    }
     
 }

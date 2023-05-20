@@ -51,9 +51,9 @@ import lombok.NoArgsConstructor;
         @NamedQuery(name="User.blackList",
                 query="SELECT u FROM User u "
                         + "WHERE u.status = 'BLACK_LISTED'"),
-        @NamedQuery(name="User.delete",
+        @NamedQuery(name="User.disabledUsers",
                 query="SELECT u FROM User u "
-                        + "WHERE u.id = :id")
+                        + "WHERE u.enabled = FALSE")
         
 })
 @Table(name="IWUser")
@@ -149,6 +149,7 @@ public class User implements Transferable<User.Transfer> {
         LocalDate now = LocalDate.now();
         return Period.between(birthdate, now).getYears();
     }
+ 
 
     @Getter
     @AllArgsConstructor

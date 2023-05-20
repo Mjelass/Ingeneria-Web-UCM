@@ -39,6 +39,10 @@
     display:block;
 }
 
+#disabledlist{
+    display:block;
+}
+
 .cityimg img{
     display:block;
     margin:0 auto;

@@ -154,14 +154,6 @@ public class UserController {
 		if (!userReports.isEmpty()) {
 			numReports = userReports.size();
 		}
-		// try {
-		// 	userReports = entityManager.createNamedQuery("Report.numReports")
-		// 					.setParameter("id", id)
-		// 					.getResultList();
-        // 	numReports = userReports.size();
-		// } catch (Exception e) {
-
-		// }
 
 		Page<Event> pageEventsFinish = pageImplement(evs);
 		Page<Event> pageEventsOpen = pageImplement(evJoined);
@@ -483,7 +475,11 @@ public class UserController {
 
 		if (u.hasRole(Role.ADMIN)) {
 			User user = entityManager.find(User.class, id);
-			user.setEnabled(false);
+			if(user.getEnabled())
+				user.setEnabled(false);
+			else 
+				user.setEnabled(true);
+
 			userRepository.save(user);
 			return "redirect:/admin/allUsers";
 		}

@@ -30,6 +30,7 @@
                     <li><a class="dropdown-item"  th:href="@{/admin/allEvents}">Trips</a></li>
                     <li><a class="dropdown-item" th:href="@{/admin/blackListUser}" >Blacklist</a></li>
                     <li><a class="dropdown-item" th:href="@{/admin/allReports}">Reports</a></li>
+                    <li><a class="dropdown-item" th:href="@{/admin/disabledUsers}">Disabled Users</a></li>
                     </ul>
                 </div> 
           <div class="searchbar">
@@ -75,7 +76,7 @@
                   <!-- <a type="button" class="btn btn-secondary btn-sm" style="width: 7em;" href="#" th:onclick='deleteForm()'> -->
                     <form th:action="@{/user/{id}/deleteUser(id=${user.id})}" method="post">
                       <button type="submit" class="btn btn-secondary btn-sm" style="width: 7em;">
-                          🗑️ Delete
+                          🗑️ Disable
                       </button>
                    </form>
                   
@@ -120,7 +121,7 @@
                 </div>
                 <div class=" col-1">
                             <!-- Botones -->
-                            <div class="row"><button type="button" class="btn btn-secondary btn-sm mt-2" th:onclick='deleteForm("${event.id}")'> 🗑️ Delete</button></div>
+                            <div class="row"><button type="button" class="btn btn-secondary btn-sm mt-2" th:onclick='deleteForm("${event.id}")'> 🗑️ Disable</button></div>
                         </div>
               </div>
             </div>
@@ -161,7 +162,7 @@
                  </a>
                  <form th:action="@{/user/{id}/deleteUser(id=${user.id})}" method="post">
                   <button type="button" class="btn btn-secondary btn-sm" style="width: 7em;" onclick="deleteForm()">
-                    🗑️ Delete
+                    🗑️ Disable
                   </button>
                   </form>
               
@@ -214,6 +215,47 @@
             </div>
           </div>
         </div>
+        </div>
+        
+        <!-- DISABLED USERS -->
+        <div id="disabledlist">
+         
+          <div class="results d-flex flex-column gap-3" >
+        <div class="event bg-white d-flex rounded overflow-hidden" th:each="user : ${disabledUsers}">
+          <img th:src="@{/user/{id}/pic(id=${user.id})}" alt="">
+          <div class="event-info p-4">
+            <div class="event-header d-flex gap-2 align-items-center justify-content-between">
+              <div class="d-flex gap-2 align-items-center ">
+                <h2 class="title "><a th:text="${user.firstName} + ' ' + ${user.lastName}" th:href="@{/user/{id}(id=${user.id})}" >Nombre</a></h2>
+              </div>
+             
+            </div>
+            <div class="event-body d-flex gap-3">
+              <div class="w-75 overflow-hidden d-flex flex-column gap-2">
+                <div class="main-info d-flex flex-wrap">
+                  <p class="m-0 "><strong>Age: </strong><span th:text="${user.age}"></span></p>
+                  <p class="m-0  " ><strong class="mr">Level: </strong><span th:text="${user.level}"></span></p>
+                  <p class="m-0 "><strong class="mr">Email: </strong><span th:text="${user.email}"></span></p>
+                  <p class="m-0 "><strong class="mr">Languages: </strong><span th:text="${user.languages}"></span></p>
+                </div>
+                <p class="description m-0" th:text="${user.description}">desc</p>
+                <p class="m-0">
+                  <p class="mx-2"><strong>⚠ reportings: </strong><span th:text="${user.numReports}"></span></p>
+              </div>
+              <div style="width: 13em;"></div>
+              <div >
+                <!-- <a type="button" class="btn btn-secondary btn-sm" style="width: 7em;" href="#" th:onclick='deleteForm()'> -->
+                  <form th:action="@{/user/{id}/deleteUser(id=${user.id})}" method="post">
+                    <button type="submit" class="btn btn-secondary btn-sm" style="width: 7em;">
+                      ↩ Enable
+                    </button>
+                 </form>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
         </div>
 
         <!--PAgination-->
