@@ -91,7 +91,7 @@
         <div id="triplist">
           <!-- Trips list -->
 
-           <div class="results d-flex flex-column gap-3">
+          <div class="results d-flex flex-column gap-3">
           <div class="event bg-white d-flex rounded overflow-hidden" th:each="event, iter:${allEvents}">
             <img th:src="@{/event/{id}/coverPic(id=${event.id})}" alt="">
             <div class="event-info p-4">
@@ -105,12 +105,30 @@
               <div class="event-body d-flex gap-3">
                 <div class="w-75 overflow-hidden d-flex flex-column gap-2">
                   <div class="main-info d-flex flex-wrap">
-                    <p class="m-0"><strong>Price: </strong><span th:text="${#numbers.formatDecimal(event.price,1,2)}"></span><span>/persona</span></p>
-                    <p class="m-0"><strong>Vacancies: </strong><span id="taken-vacs"><span th:text="${event.occupied}"></span></span>/<span th:text="${event.capacity}"></span></p>
-                    <p class="m-0"><strong>Destination: </strong><span th:text="${event.destination}">destino</span></p>
+                    <p class="m-2"><strong>Price: </strong><span th:text="${#numbers.formatDecimal(event.price,1,2)}"></span><span>/persona</span></p>
+                    <p class="m-2"><strong>Vacancies: </strong>
+                      <span class="rounded-pill overflow-hidden ms-2" style="display: inline-block;width: 40px;background-color: darkgray;">
+                        <span class="bg-primary"
+                          th:style="'display:inline-block;width:' + ${((event.occupied + 0.0)/ event.capacity)*40} + 'px'">
+                          <span>
+                            <span th:text="${event.occupied}"></span>/<span th:text="${event.capacity}"></span>
+                          </span>
+                        </span>
+                      </span>
+                    </p>
+                    <p class="m-2"><strong>Destination: </strong><span th:text="${event.destination}">destino</span></p>
                   </div>
                   <p class="description m-0">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta optio fuga esse? Voluptatum quam, soluta cumque illum asperiores, veniam placeat debitis alias, ut obcaecati enim cum exercitationem aliquid ratione eligendi.</p>
-                  <p class="m-0"><strong>Notes: </strong><span th:text="${event.notes}"></span> </p>
+                  <p th:if="${event.notes.length > 0}" class="m-0"><strong>Notes: </strong>
+                    <th:block th:each="note: ${event.notes.split(',')}">
+                      <th:block th:switch="${note}">
+                        <span th:case="'NO_KIDS'">👶❌ </span>
+                        <span th:case="'NO_ANIMALS'">🐾❌ </span>
+                        <span th:case="'KIDS'">👶✅ </span>
+                        <span th:case="'ANIMALS'">🐾✅ </span>
+                      </th:block>
+                    </th:block>
+                  </p>
                 </div>
                 <div class="">
                   <p class="m-0"><strong>📅 From: </strong><span th:text="${event.initDate}">Fecha Inicio</span></p>
@@ -121,7 +139,9 @@
                 </div>
                 <div class=" col-1">
                             <!-- Botones -->
-                            <div class="row"><button type="button" class="btn btn-secondary btn-sm mt-2" th:onclick='deleteForm("${event.id}")'> 🗑️ Disable</button></div>
+                        <div class="row">
+                          
+                          <button type="button" class="btn btn-secondary btn-sm mt-2"> 🗑️ Delete</button></div>
                         </div>
               </div>
             </div>
@@ -205,8 +225,8 @@
                   <button type="button" class="btn btn-secondary btn-sm my-2" style="width: 5em;" th:href="@{/user/{id}/blacklistUser(id=${report.userTarget.id})}">
                       📝 Blacklist
                     </button>
-                  
-                    <button type="button" class="btn btn-secondary btn-sm" style="width: 5em;" th:href="@{/user/{id}/deleteReport(id=${report.id})}">
+                    <form th:action="@{/user/{id}/deleteReport(id=${report.id})}" method="post"></form>
+                    <button type="button" class="btn btn-secondary btn-sm" style="width: 5em;">
                       🗑️ Delete
                     </button>
                   </div>
