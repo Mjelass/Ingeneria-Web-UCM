@@ -181,12 +181,11 @@
                     📝 Remove
                  </a>
                  <form th:action="@{/user/{id}/deleteUser(id=${user.id})}" method="post">
-                  <button type="button" class="btn btn-secondary btn-sm" style="width: 7em;" onclick="deleteForm()">
+                  <button type="button" class="btn btn-secondary btn-sm" style="width: 7em;">
                     🗑️ Disable
                   </button>
                   </form>
               
-                 
                 </div>
               </div>
             </div>
@@ -225,10 +224,11 @@
                   <button type="button" class="btn btn-secondary btn-sm my-2" style="width: 5em;" th:href="@{/user/{id}/blacklistUser(id=${report.userTarget.id})}">
                       📝 Blacklist
                     </button>
-                    <form th:action="@{/user/{id}/deleteReport(id=${report.id})}" method="post"></form>
-                    <button type="button" class="btn btn-secondary btn-sm" style="width: 5em;">
+                    <form th:action="@{/user/{id}/deleteReport(id=${report.id})}" method="post">
+                    <button type="submit" class="btn btn-secondary btn-sm" style="width: 5em;">
                       🗑️ Delete
                     </button>
+                  </form>
                   </div>
                 </div>
               </div>  

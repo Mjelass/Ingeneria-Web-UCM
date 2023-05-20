@@ -490,20 +490,20 @@ public class UserController {
 		return "redirect:/";
 	}
 
-	@GetMapping("{id}/deleteReport")
-	@ResponseBody
+	@PostMapping("{id}/deleteReport")
+	@Transactional
 	public String deleteReport(@PathVariable long id, Model model, HttpSession session) {
 		
 		Report report = entityManager.find(Report.class, id);
 		if (report != null) {
-			// User user = entityManager.find(User.class, report.userTarget.getId());
-			// if(user!=null){
-			// 	user.setNumReports(user.getNumReports() - 1);
-			// }
-			//report.
-			// TODO Eliminar report
+			User user = entityManager.find(User.class, report.getUserTarget().getId());
+			if(user!=null){
+				user.setNumReports(user.getNumReports() - 1);
+			}
+			// entityManager.remove(report);
+			reportRepository.delete(report);
 		}
 		
-		return "redirect:/admin/allReports";
+		return "redirect:/admin/allUsers";
 	}
 }
