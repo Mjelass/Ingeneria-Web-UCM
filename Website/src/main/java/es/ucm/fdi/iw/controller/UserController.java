@@ -501,6 +501,7 @@ public class UserController {
 			// if(user!=null){
 			// 	user.setNumReports(user.getNumReports() - 1);
 			// }
+			//report.
 			// TODO Eliminar report
 		}
 		

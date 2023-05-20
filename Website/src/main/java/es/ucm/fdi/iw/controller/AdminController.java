@@ -47,7 +47,7 @@ public class AdminController {
     @GetMapping("/allUsers")
     public String allUsers(Model model,
         @RequestParam(name="page",defaultValue="0")int page,
-        @RequestParam(name="size",defaultValue="3")int size) {
+        @RequestParam(name="size",defaultValue="10")int size) {
         List<User> allUser = entityManager.createNamedQuery("User.allUsers").getResultList();
         int total = allUser.size();
         int fromIndex = (page) * size;
@@ -71,7 +71,7 @@ public class AdminController {
      @GetMapping("/allEvents")
     public String allEvents(Model model,
         @RequestParam(name="page",defaultValue="0")int page,
-        @RequestParam(name="size",defaultValue="3")int size) {
+        @RequestParam(name="size",defaultValue="10")int size) {
         Page<Event> allEvents = eventRepository.findAll(PageRequest.of(page, size));
          model.addAttribute("allEvents", allEvents.getContent());
         model.addAttribute("size", size);
@@ -85,7 +85,7 @@ public class AdminController {
      @GetMapping("/blackListUser")
     public String blackListUser(Model model, 
         @RequestParam(name="page",defaultValue="0")int page,
-        @RequestParam(name="size",defaultValue="3")int size) {
+        @RequestParam(name="size",defaultValue="10")int size) {
         List<User> blackListUser = entityManager.createNamedQuery("User.blackList").getResultList();
 
         int total = blackListUser.size();
@@ -106,7 +106,7 @@ public class AdminController {
      @GetMapping("/allReports")
     public String allReports(Model model, 
         @RequestParam(name="page",defaultValue="0")int page,
-        @RequestParam(name="size",defaultValue="3")int size) {
+        @RequestParam(name="size",defaultValue="10")int size) {
         List<Report> allReports = entityManager.createNamedQuery("Reports.allReports").getResultList();
 
         int total = allReports.size();
