@@ -140,6 +140,10 @@ public class UserController {
 		User target = entityManager.find(User.class, id);
 		User u = (User) session.getAttribute("u");
 
+		if (u.getEnabled() == false) {
+			return "redirect:/error";
+		}
+
 		ArrayList<Event> evs = eventRepository.getUserEvents(target.getId());
 
 		ArrayList<Event> evJoined = eventRepository.getEventsJoined(target.getId());

@@ -169,5 +169,9 @@ public class User implements Transferable<User.Transfer> {
 		// return toTransfer().toString();
         return "user-" + id + "-" + username;
 	}
+
+    public boolean getEnabled(){
+        return this.enabled;
+    }
 }
 
