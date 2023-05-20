@@ -177,12 +177,6 @@ Juan: No estoy seguro de lo que quieres hacer aquí pero creo que sería esto, l
         Boolean joined;
         String rol;
         int additionJoin = 0;
-        // TODO check event status
-        /*
-         * Juan: No he entendido la comprobación del estatus
-         */
-
-
 
         // Search UserEvent row with event=id and user=u.getId()
         User u = (User) session.getAttribute("u");
@@ -214,10 +208,14 @@ Juan: No estoy seguro de lo que quieres hacer aquí pero creo que sería esto, l
         if (additionJoin == 1 && e.getStatus() != Status.OPEN) {
             throw new IllegalArgumentException();
         }
-        // Update event occupied atribute.
-        e.setOccupied(e.getOccupied() + additionJoin);
-        // Change event's status to closed or open.
-        e.setStatus(e.getOccupied() == e.getCapacity() ? Status.CLOSED : Status.OPEN);
+
+        // Update event occupied attribute if the event is open
+        if (e.getStatus() == Status.OPEN) {
+            e.setOccupied(e.getOccupied() + additionJoin);
+            // Change event's status to closed or open.
+            e.setStatus(e.getOccupied() == e.getCapacity() ? Status.CLOSED : Status.OPEN);
+        }
+
         // Update UserEvent and Event tables.
         ue = new UserEvent(u, e, fav, joined, rol);
         userEventRepository.save(ue);
