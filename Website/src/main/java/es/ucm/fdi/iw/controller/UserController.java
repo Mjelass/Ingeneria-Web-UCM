@@ -405,6 +405,9 @@ public class UserController {
 		report.setUserSource(userSource);
 		report.setUserTarget(userTarget);
 		reportRepository.save(report);
+
+		userTarget.setNumReports(userTarget.getNumReports() + 1);
+
 		return "ok";
 	}
 
@@ -435,6 +438,7 @@ public class UserController {
 		InsertUser.setSent(null);
 		InsertUser.setLevel(Level.BRONZE);
 		InsertUser.setReceived(null);
+		InsertUser.setNumReports(0);
 		entityManager.persist(InsertUser);
 		entityManager.flush();
 		model.addAttribute("User", InsertUser);
@@ -482,5 +486,20 @@ public class UserController {
 		return "redirect:/";
 	}
 
-
+	@GetMapping("{id}/deleteReport")
+	@ResponseBody
+	public String deleteReport(@PathVariable long id, Model model, HttpSession session) {
+		
+		Report report = entityManager.find(Report.class, id);
+		if (report != null) {
+			// User user = entityManager.find(User.class, report.userTarget.getId());
+			// if(user!=null){
+			// 	user.setNumReports(user.getNumReports() - 1);
+			// }
+			//report.
+			// TODO Eliminar report
+		}
+		
+		return "redirect:/admin/allReports";
+	}
 }

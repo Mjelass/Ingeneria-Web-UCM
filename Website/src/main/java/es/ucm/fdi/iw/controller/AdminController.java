@@ -47,15 +47,17 @@ public class AdminController {
     @GetMapping("/allUsers")
     public String allUsers(Model model,
         @RequestParam(name="page",defaultValue="0")int page,
-        @RequestParam(name="size",defaultValue="3")int size) {
+        @RequestParam(name="size",defaultValue="10")int size) {
         List<User> allUser = entityManager.createNamedQuery("User.allUsers").getResultList();
         int total = allUser.size();
-            int fromIndex = (page) * size;
-            int toIndex = Math.min(fromIndex + size, total);
+        int fromIndex = (page) * size;
+        int toIndex = Math.min(fromIndex + size, total);
 
-            List<User> pageList = allUser.subList(fromIndex, toIndex);
-            PageRequest pageRequest = PageRequest.of(page, size);
-            Page<User>PageUsers = new PageImpl<>(pageList, pageRequest, total);
+        List<User> pageList = allUser.subList(fromIndex, toIndex);
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Page<User>PageUsers = new PageImpl<>(pageList, pageRequest, total);
+
+
         model.addAttribute("allUser", PageUsers.getContent());
         model.addAttribute("size", size);
         model.addAttribute("currentPage", page);
@@ -64,10 +66,12 @@ public class AdminController {
         model.addAttribute("nbr", "allUsers");
         return "admin";
     }
+
+
      @GetMapping("/allEvents")
     public String allEvents(Model model,
         @RequestParam(name="page",defaultValue="0")int page,
-        @RequestParam(name="size",defaultValue="3")int size) {
+        @RequestParam(name="size",defaultValue="10")int size) {
         Page<Event> allEvents = eventRepository.findAll(PageRequest.of(page, size));
          model.addAttribute("allEvents", allEvents.getContent());
         model.addAttribute("size", size);
@@ -81,7 +85,7 @@ public class AdminController {
      @GetMapping("/blackListUser")
     public String blackListUser(Model model, 
         @RequestParam(name="page",defaultValue="0")int page,
-        @RequestParam(name="size",defaultValue="3")int size) {
+        @RequestParam(name="size",defaultValue="10")int size) {
         List<User> blackListUser = entityManager.createNamedQuery("User.blackList").getResultList();
 
         int total = blackListUser.size();
@@ -102,7 +106,7 @@ public class AdminController {
      @GetMapping("/allReports")
     public String allReports(Model model, 
         @RequestParam(name="page",defaultValue="0")int page,
-        @RequestParam(name="size",defaultValue="3")int size) {
+        @RequestParam(name="size",defaultValue="10")int size) {
         List<Report> allReports = entityManager.createNamedQuery("Reports.allReports").getResultList();
 
         int total = allReports.size();
@@ -121,11 +125,11 @@ public class AdminController {
         return "admin";
     }
 
-    @GetMapping("/addUser")
-    public String addUser(Model model){
-        model.addAttribute("User", new User());
-        return "addUser";
-    }
+    // @GetMapping("/addUser")
+    // public String addUser(Model model){
+    //     model.addAttribute("User", new User());
+    //     return "addUser";
+    // }
 
     // @PostMapping("/addUser")
     // public String addUser(@ModelAttribute User user, Model model){
