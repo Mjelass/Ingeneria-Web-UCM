@@ -148,6 +148,8 @@ public class UserController {
 
 		ArrayList<Event> evJoined = eventRepository.getEventsJoined(target.getId());
 
+		ArrayList<Event> evJoinedFinish = eventRepository.getEventsJoinedByStatus(target.getId(), Event.Status.FINISH.toString());
+
 		ArrayList<Report> userReports = reportRepository.findReportsByUserId(target.getId());
 	
 		int numReports = 0;
@@ -155,11 +157,13 @@ public class UserController {
 			numReports = userReports.size();
 		}
 
-		Page<Event> pageEventsFinish = pageImplement(evs);
+		Page<Event> pageEvents = pageImplement(evs);
 		Page<Event> pageEventsOpen = pageImplement(evJoined);
+		Page<Event> pageEventsFinished = pageImplement(evJoinedFinish);
 
-		model.addAttribute("allMyEvents", pageEventsFinish.getContent());
+		model.addAttribute("allMyEvents", pageEvents.getContent());
 		model.addAttribute("allEventsJoined", pageEventsOpen.getContent());
+		model.addAttribute("allEventsJoinedClosed", pageEventsFinished.getContent());
 
 		// Page Event Finish
 		model.addAttribute("numpages", new int[pageEventsOpen.getTotalPages()]);

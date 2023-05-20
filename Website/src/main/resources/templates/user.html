@@ -29,12 +29,14 @@
             </div>
         </section>
 
-
+        <p class="lead fw-bold mb-1 text-center">
+            <strong><span th:text="${user.username}">Pepe</span></strong>
+        </p>
         <div class="row g-0 gap-3 mb-4">
             <div class="col">
                 <!-- My events -->
                 <div class="d-flex px-4 pt-3 pb-4 gap-3 flex-column" style="background-color: #f8f9fa;">
-                    <p class="lead fw-bold mb-1 text-center">My events</p>
+                    <p class="lead fw-bold mb-1 text-center">My Events</p>
                     <div class="event d-flex rounded overflow-hidden" th:each="event:${allMyEvents}">
                         <div class="d-flex bg-white w-100 justify-content-between" >
                             <div class="p-2">
@@ -81,6 +83,28 @@
                     <p class="lead fw-bold mb-1">Description</p>
                     <p class="font-italic mb-1" th:text="${user.description}">Little description of the user.</p>
                 </div>
+
+                 <!-- Events finished -->
+                 <div class="d-flex px-4 pt-3 pb-4 gap-3 flex-column" style="background-color: #f8f9fa;">
+                    <p class="lead fw-bold mb-1 text-center">Finish Events</p>
+                    <div class="event d-flex rounded overflow-hidden" th:each="event:${allEventsJoinedClosed}">
+                        <div class="d-flex bg-white w-100 justify-content-between" >
+                            <div class="p-2">
+                                <a th:text="${event.title}" th:href="@{/event/{id}(id=${event.id})}" class="card-btn btn btn-primary mb-1" style="border-radius: 10px;">Title</a>                                        <p class="small mb-1"><i class="far fa-star fa-lg"></i>
+                                <span th:text="${event.status}" class="badge me-2" style="border-radius: 10px; background-color: rgb(91, 189, 221);">Status</span>
+                                <span th:text="${event.type}" class="badge me-2" style="border-radius: 10px; background-color: rgb(91, 189, 221);">Type</span>
+                                <p class="small mb-0 mt-2"><i class="far fa-star fa-lg"></i>Trip by:
+                                    <a class="text-decoration-none text-body" th:href="@{/user/{id}(id=${event.userOwner.id})}">
+                                        <strong><span th:text="${event.userOwner.username}">Pepe</span></strong>
+                                    </a>
+                                </p>
+                                <p class="small mb-0"><i class="far fa-star fa-lg"></i><a th:text="${event.initDate}">Date</a></p>
+                            </div>
+                            <img th:src="@{/event/{id}/coverPic(id=${event.id})}" width="200" height="150" alt="image 1" style="object-fit: cover;">
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
             <div class="col">
