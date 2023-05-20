@@ -149,10 +149,6 @@ public class EventController {
         Event e = entityManager.find(Event.class, id);
         if (u != null && u.getId() == e.getUserOwner().getId()) {
             // TODO check values make sense: OPEN and don't has vacancies.
-
-/*
-Juan: No estoy seguro de lo que quieres hacer aquí pero creo que sería esto, lo comento por si acaso
-*/
             // if (e.getStatus() == Event.Status.OPEN && e.getCapacity() == 0) { 
             //     e.setStatus(status == null ? e.getStatus(): status);
             //     e.setDescription(description == null ? e.getDescription(): description);
@@ -347,13 +343,6 @@ Juan: No estoy seguro de lo que quieres hacer aquí pero creo que sería esto, l
     }
     
     // || IMAGES METHODS
-    // TODO check user
-    /*
-     * Juan: No estoy seguro de qué hay que comprobar:
-     * - Si el usuario logeado pertenezca al evento o sea el dueño del evento o cómo, si
-     * este es el caso también los usuarios no logeado y que no pertenezcan al evento
-     * podrán ver las imagenes y tal, no? (No entiendo bien)
-     */
     /**
      * Get a pic from event with name n
      * @param id
@@ -363,8 +352,6 @@ Juan: No estoy seguro de lo que quieres hacer aquí pero creo que sería esto, l
      */
 	@GetMapping("{id}/pic/{n}")
 	public StreamingResponseBody getPic(@PathVariable long id, @PathVariable String n) throws IOException {
-		// File f = localData.getFile("event", ""+id);
-        // int total = f.listFiles().length;
         File f = localData.getFile("event/" + id, "" + n + ".jpg");
 		InputStream in = new BufferedInputStream(f.exists() ? new FileInputStream(f) : EventController.defaultPic());
 		return os -> FileCopyUtils.copy(in, os);

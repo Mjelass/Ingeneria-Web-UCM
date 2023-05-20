@@ -23,7 +23,8 @@ function fn() {
         // descomentar para chromium bajo linux
         // executable: '/usr/bin/chromium-browser',
         executable: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
-        showDriverLog: true
+        showDriverLog: true,
+        addOptions: ["--remote-allow-origins=*"]
     })
 
     if (env == 'dev') {

@@ -15,7 +15,7 @@ public interface EventRepository extends JpaRepository<Event, Long> {
 
         @Query(value = "SELECT Event.* FROM Event " +
                         "INNER JOIN User_Event ON Event.id = User_Event.event_id " +
-                        "WHERE User_Event.user_id = :userId AND User_Event.Joined = TRUE AND Event.status = 'OPEN'", nativeQuery = true)
+                        "WHERE User_Event.user_id = :userId AND User_Event.Joined = TRUE", nativeQuery = true)
         ArrayList<Event> getEventsJoined(@Param("userId") long userId);
 
         // To Filter by Status

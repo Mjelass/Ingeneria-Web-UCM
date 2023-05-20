@@ -140,7 +140,7 @@ public class UserController {
 		User target = entityManager.find(User.class, id);
 		User u = (User) session.getAttribute("u");
 
-		if (u.getEnabled() == false) {
+		if (u != null && u.getEnabled() == false) {
 			return "redirect:/error";
 		}
 
@@ -458,16 +458,14 @@ public class UserController {
 		User user = entityManager.find(User.class, id);
 		User u = (User) session.getAttribute("u");	
 
-		if (user != null) {
-			if (u.hasRole(Role.ADMIN)) {
-				if (user.getStatus().equals(Status.BLACK_LISTED))
-					user.setStatus(Status.ACTIVE);
-				else
-					user.setStatus(Status.BLACK_LISTED);
+		if (user != null && u != null && u.hasRole(Role.ADMIN)) {
+			if (user.getStatus().equals(Status.BLACK_LISTED))
+				user.setStatus(Status.ACTIVE);
+			else
+				user.setStatus(Status.BLACK_LISTED);
 
-				userRepository.save(user);
-				return "redirect:/admin/blackListUser";
-			}
+			userRepository.save(user);
+			return "redirect:/admin/blackListUser";
 		}
 		return "redirect:/";
 	}
@@ -476,9 +474,9 @@ public class UserController {
 	@PostMapping("{id}/deleteUser")
 	public String deleteUser(@PathVariable long id, Model model, HttpSession session) {
 		User u = (User) session.getAttribute("u");	
+		User user = entityManager.find(User.class, id);
 
-		if (u.hasRole(Role.ADMIN)) {
-			User user = entityManager.find(User.class, id);
+		if (user != null && u != null && u.hasRole(Role.ADMIN)) {
 			if(user.getEnabled())
 				user.setEnabled(false);
 			else 
@@ -493,9 +491,9 @@ public class UserController {
 	@GetMapping("{id}/deleteReport")
 	@ResponseBody
 	public String deleteReport(@PathVariable long id, Model model, HttpSession session) {
-		
+		User u = (User) session.getAttribute("u");
 		Report report = entityManager.find(Report.class, id);
-		if (report != null) {
+		if (u.hasRole(Role.ADMIN) &&report != null) {
 			// User user = entityManager.find(User.class, report.userTarget.getId());
 			// if(user!=null){
 			// 	user.setNumReports(user.getNumReports() - 1);
